@@ -17,6 +17,7 @@ export function setup( vz, opts={} ) {
   baseobj( vz, vz.vis );
   shaders( vz );
   vis( vz );
+  vis_threejs_setup( vz );
 
   components_setup( vz );
   components_threejs_setup( vz );
