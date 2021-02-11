@@ -2,6 +2,16 @@
 
 This is a web-based system, working in Chrome and Firefox browsers. It uses Viewlang for graphics and gui.
 
+# System elements
+
+* Examples
+* New application template
+* Viewzavr core methods
+* Graphical API
+* Web player
+* Visualization components
+* Common packages library
+
 # Usage
 
 1. Install
@@ -12,16 +22,6 @@ git submodule update
 ```
 2. open player/index.html or examples/index.html
 3. create your app using [app-template](app-template) dir.
-
-# System elements
-
-* Examples
-* New application template
-* Viewzavr core methods
-* Graphical API
-* Web player
-* Visualization components
-* Common packages library
 
 # Copyright
 
