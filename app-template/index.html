@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <script src="../lib/viewlang/code/depends/jquery-2.1.4.js"></script>
+
+  <script src="../lib/viewlang/code//depends/qmlweb/src/parser.js"></script>
+  <script src="../lib/viewlang/code//depends/qmlweb/src/process.js"></script>
+  <script src="../lib/viewlang/code//depends/qmlweb/src/import.js"></script>
+  <script src="../lib/viewlang/code//depends/qmlweb/src/qtcore.js"></script>
+
+  <script src="../lib/viewlang/code//base.js"></script>
+<head>
+</head>
+<body>
+  <div id="qmlSpace">
+      target space for qml...
+  </div>
+  <style>
+  #qmlSpace {
+    width: 100vw !important;
+    bottom: 0px !important;
+    z-index: 10000;
+  }
+  .viewlang-canvas {
+    width: 100%; height: 100%;
+    margin: 0; padding: 0; display: block; left: 0px; top: 0px; position: absolute;
+  }
+  body { margin: 0; }
+  </style>
+
+  <script src="../lib/viewlang/code//threejs_driver/init.js"></script>
+
+  <script type="module">
+
+    ///////////////////////////// qmlweb and viewlang
+    
+    import * as Viewlang from "../lib/viewlang/code/embed2/init.js"
+    window.qmlEngine = new QMLEngine( document.getElementById( "qmlSpace" ) );
+    Viewlang.setup_qmlweb( qmlEngine );
+    
+    ///////////////////////////// viewzavr
+    
+    import * as Viewzavr from "../lib/viewzavr-core/init.js";
+
+    var vz = Viewzavr.create();
+    // window.vz = vz;
+    
+    //////////////////////////// player
+    
+    import * as Player from "../player/init.js";
+    var vzPlayer = Player.create( vz, qmlEngine );
+    window.vzPlayer = vzPlayer;
+    
+    //////////////////////////// graphical api
+    import * as VisAPI from "../graphical-api/init.js";
+    VisAPI.setup( vz );
+
+    //////////////////////////// library-one
+    import * as lib1 from "../lib/library-one/init.js";
+    lib1.setup( vz, vzPlayer );
+
+    //////////////////////////// load user script
+
+      // use this logic if you want to load app files defined in parameter.
+      var userurl = getParameterByName("src");
+      // if (!userurl) userurl = "./app.js";
+      // var userurl = "./app.js";
+
+      console.log("user script url=",userurl );
+
+      var q;
+      if (userurl) {
+        // тут у нас форматирование для загрузки через прокси
+        userurl = formatSrc( userurl );
+        console.log("reformatted:",userurl );
+        q = vzPlayer.loadApp( userurl );
+      }
+      else 
+      {
+        // idea: load empty scene always and then load user scripts into it as a child?
+        console.log("lllloading empty scene..");
+        q = vzPlayer.loadEmptyScene();
+      }
+      
+      q.then( function() {
+        vzPlayer.loadFromHash();
+        vzPlayer.startSavingToHash();
+      });
+
+  </script>
+
+</body>
