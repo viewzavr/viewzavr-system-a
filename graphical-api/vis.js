@@ -44,6 +44,7 @@ export default function setup( vz ) {
     p.addSlider( "ny", p.ny, 4, 10, 1, function(v) {
       p.ny = v;
     });
+    add_mesh_params( p,p.atrimesh );
     return p;
   };
 
@@ -54,9 +55,15 @@ export default function setup( vz ) {
   vz.vis.addMesh = function( parent, name ) {
     var q = vz.vis.addQml3d( "Trimesh.qml", parent, name || "mesh" );
     q.removeGui("radius");
-    
+    add_mesh_params( q,q );
+    return q;
+  };
+
+}
+
+function add_mesh_params( obj,q ) {
     // R-MESH-FLATSHADING
-    q.addSlider("flat-shading",0,0,1,1,function(v) {
+    obj.addSlider("flat-shading",0,0,1,1,function(v) {
       if (q.materials && q.materials[0])
           q.materials[0].flat = v > 0;
       // the following is from viewlang creativetrimesh
@@ -64,18 +71,14 @@ export default function setup( vz ) {
         q.make3d();
       },5);
     });
-    q.addSlider("shine",30,0,100,1,function(v) {
+    obj.addSlider("shine",30,0,100,1,function(v) {
       if (q.materials && q.materials[0])
           q.materials[0].shine = v;
     });
-    q.addSlider("wire",0,0,10,0.1,function(v) {
+    obj.addSlider("wire",0,0,10,0.1,function(v) {
       if (q.materials && q.materials[0]) {
           q.materials[0].wire = v>0;
           q.materials[0].wirewidth = v;
       }
     });
-
-    return q;
-  };
-
 }

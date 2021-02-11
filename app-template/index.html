@@ -31,7 +31,7 @@
 
   <script type="module">
 
-    ///////////////////////////// qmlweb and viewlang
+    ///////////////////////////// qmlweb and viewlang (required for viewzavr-system-a implementation)
     
     import * as Viewlang from "../lib/viewlang/code/embed2/init.js"
     window.qmlEngine = new QMLEngine( document.getElementById( "qmlSpace" ) );
@@ -61,9 +61,9 @@
     //////////////////////////// load user script
 
       // use this logic if you want to load app files defined in parameter.
-      var userurl = getParameterByName("src");
+      // var userurl = getParameterByName("src");
       // if (!userurl) userurl = "./app.js";
-      // var userurl = "./app.js";
+      var userurl = vz.getDir( import.meta.url) + "./app.js";
 
       console.log("user script url=",userurl );
 
