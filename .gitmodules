@@ -1,0 +1,12 @@
+[submodule "lib/viewzavr-core"]
+	path = lib/viewzavr-core
+	url = git@github.com:viewzavr/viewzavr-core.git
+[submodule "lib/visualization-components"]
+	path = lib/visualization-components
+	url = git@github.com:viewzavr/visualization-components.git
+[submodule "lib/library-one"]
+	path = lib/library-one
+	url = git@github.com:viewzavr/library-one.git
+[submodule "lib/viewlang"]
+	path = lib/viewlang
+	url = git@github.com:pavelvasev/viewlang.git

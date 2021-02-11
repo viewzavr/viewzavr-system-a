@@ -1,0 +1,17 @@
+// import "."
+
+Scene {
+  id: my
+
+  property var vzroot
+  property var adder_target: vzroot
+  property var special_objects
+  
+  UI {
+    vzroot: my.vzroot
+    adder_target: my.adder_target
+    special_objects: my.special_objects
+  }
+  //Modules {}
+
+}
