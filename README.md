@@ -13,6 +13,8 @@ This is a web-based Viewzavr system. It works in Chrome and Firefox browsers. It
 
 # Usage
 
+> You may skip install step and use [viewzavr-hosted web player](http://viewlang.ru/viewzavr-apps/viewzavr-system-a/player/).
+
 1. Install
 ```
 git clone git@github.com:viewzavr/viewzavr-system-a.git
@@ -21,7 +23,6 @@ git submodule update
 ```
 2. open player/index.html or examples/index.html
 3. create your app using [app-template](https://github.com/viewzavr/vr-app-template) repo.
-Note that you even may not need to install `viewzavr-system-a` in case of viewzavr-based hosting.
 
 # Copyright
 
