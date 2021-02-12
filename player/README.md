@@ -4,9 +4,9 @@ A web-based player for viewzavr programs.
 
 # Run online
 
-* Blank scene: http://viewlang.ru/viewzavr-apps/viewzavr-player/
-* Your scene: http://viewlang.ru/viewzavr-apps/viewzavr-player/?src=url-to-your-app.js
-* https version: https://viewlang.ru/viewzavr-apps/viewzavr-player/
+* Blank scene: http://viewlang.ru/viewzavr-apps/viewzavr-system-a/player/
+* Your scene: http://viewlang.ru/viewzavr-apps/viewzavr-system-a/player/?src=url-to-your-app.js
+* https version: https://viewlang.ru/viewzavr-apps/viewzavr-system-a/player/
 
 # Run on your website
 
