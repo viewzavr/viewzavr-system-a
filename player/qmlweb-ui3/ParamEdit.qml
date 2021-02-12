@@ -136,7 +136,11 @@ Column {
       g.value = rec.value;
       g.comboEnabled=false;
       g.textEnabled=true;
+      
       if (rec.obj.getParamOption( rec.name,"sliding" )) g.enableSliding=true;
+      else // if sliding set to false, we should disable it!
+      if (rec.obj.getParamOption( rec.name,"sliding" ) === false) g.enableSliding=false;
+      
       // от слайдера к параметру
       g.valueChanged.connect( function( nv ) {
         rec.setValue( nv );
