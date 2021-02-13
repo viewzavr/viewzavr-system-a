@@ -3,7 +3,8 @@
 Viewzavr is a web-based library for computer graphics. 
 * you write Viewzavr components in javascript using provided API.
 * works in Chrome and Firefox browsers. 
-* uses Viewlang for graphics and gui.
+
+Viewzavr version A uses Viewlang for graphics and gui, which in turn is based on Threejs graphics library.
 
 # System elements
 
