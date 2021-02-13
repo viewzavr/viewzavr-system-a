@@ -1,11 +1,14 @@
 # A complete Viewzavr system, version A
 
-This is a web-based Viewzavr system. It works in Chrome and Firefox browsers. It uses Viewlang for graphics and gui.
+Viewzavr is a web-based library for computer graphics. 
+* you write Viewzavr components in javascript using provided API.
+* works in Chrome and Firefox browsers. 
+* uses Viewlang for graphics and gui.
 
 # System elements
 
 * [Examples](./examples/)
-* [Viewzavr core methods](https://github.com/viewzavr/viewzavr-core)
+* [Viewzavr core API](https://github.com/viewzavr/viewzavr-core)
 * [Graphical API](./graphical-api/)
 * [Web player](./player)
 * [Visualization components](https://github.com/viewzavr/visualization-components)
