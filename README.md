@@ -1,8 +1,10 @@
 # A complete Viewzavr system, version A
 
-Viewzavr is a web-based library for 3d computer graphics. 
-* you write Viewzavr components in javascript using provided API.
-* works in Chrome and Firefox browsers. 
+Viewzavr is a library for programming interactive 3D experiences.
+
+* you write Viewzavr components in **javascript** using provided API.
+* you run these components in a web browser using provided player library.
+* it works in Chrome and Firefox browsers. 
 
 Viewzavr version A uses Viewlang for graphics and gui, which in turn is based on Threejs graphics library.
 
