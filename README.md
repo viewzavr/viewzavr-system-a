@@ -1,6 +1,6 @@
 # A complete Viewzavr system, version A
 
-Viewzavr is a web-based library for computer graphics. 
+Viewzavr is a web-based library for 3d computer graphics. 
 * you write Viewzavr components in javascript using provided API.
 * works in Chrome and Firefox browsers. 
 
