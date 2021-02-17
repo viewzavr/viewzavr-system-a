@@ -30,6 +30,10 @@ git submodule update
 2. open player/index.html or examples/index.html
 3. create your app using [app-template](https://github.com/viewzavr/vr-app-template) repo.
 
+# Credits
+
+The Viewzavr design is based on thoughts of V.L. Averbukh scientific school - Computer visualization lab of N.N. Krasovskii Institute of Russian Academy of Sciences. www.cv.imm.uran.ru
+
 # Copyright
 
 2021 (c) Pavel Vasev. MIT License.
