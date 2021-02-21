@@ -1,11 +1,17 @@
 # A complete Viewzavr system, version A
 
-This is a web-based Viewzavr system. It works in Chrome and Firefox browsers. It uses Viewlang for graphics and gui.
+Viewzavr is a library for programming interactive 3D experiences.
+
+* you write Viewzavr components in **javascript** using provided API.
+* you run these components in a web browser using provided player library.
+* it works in Chrome and Firefox browsers. 
+
+Viewzavr version A uses Viewlang for graphics and gui, which in turn is based on Threejs graphics library.
 
 # System elements
 
 * [Examples](./examples/)
-* [Viewzavr core methods](https://github.com/viewzavr/viewzavr-core)
+* [Viewzavr core API](https://github.com/viewzavr/viewzavr-core)
 * [Graphical API](./graphical-api/)
 * [Web player](./player)
 * [Visualization components](https://github.com/viewzavr/visualization-components)
@@ -23,6 +29,10 @@ git submodule update
 ```
 2. open player/index.html or examples/index.html
 3. create your app using [app-template](https://github.com/viewzavr/vr-app-template) repo.
+
+# Credits
+
+The Viewzavr design is based on thoughts of V.L. Averbukh scientific school - Computer visualization lab of N.N. Krasovskii Institute of Russian Academy of Sciences. www.cv.imm.uran.ru
 
 # Copyright
 
