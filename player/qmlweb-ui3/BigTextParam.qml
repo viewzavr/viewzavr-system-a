@@ -1,8 +1,12 @@
 Column {
   id: param
   
-  property var title: ""
+  property var text: ""
   property var hint: ""
+  
+  Text {
+    text: param.text
+  }
   
   Button {
     text: "Задать текст"
@@ -16,7 +20,7 @@ Column {
 
                     SimpleDialog {
                         id: dlg
-                        title: param.title || "&nbsp;"
+                        title: param.text || "&nbsp;"
                         width: co.width + 30
                         height: co.height + 33
                         z: 5002
