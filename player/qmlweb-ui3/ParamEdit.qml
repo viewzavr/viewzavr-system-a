@@ -6,10 +6,13 @@ Column {
   id: ed
   spacing: 2 // кнопки иначе впритык
   
-  // Text { text: "Параметры " + rep.model + " шт" }
+//  Text { text: "Параметры " + rep.model + " шт" }
 
   property var vzroot
   property var obj
+  
+//  onVzrootChanged: console.log("PAramEdit vzroot is",vzroot );
+
 
   onObjChanged: {
     updateGui();
@@ -194,7 +197,17 @@ Column {
       g.width = 200; // иначе некрасиво и короткие имена переносяццо
     });
     
-    add( "text", "TextParam", function( rec,g ) {
+    add( "string", "TextParam", function( rec,g ) {
+      g.value = rec.value;
+      g.valueChanged.connect( function( nv ) {
+        rec.setValue( nv );
+      });
+      trackParam( rec,g,function() {
+        g.value = rec.obj.getParam( rec.name );
+      });
+    });
+    
+    add( "text", "BigTextParam", function( rec,g ) {
       g.value = rec.value;
       g.valueChanged.connect( function( nv ) {
         rec.setValue( nv );
@@ -238,6 +251,7 @@ Column {
     });
     
     add( "objref", "GuiObjRef", function( rec,g ) {
+//      debugger;
       g.crit_fn = rec.crit_fn;
       g.vzroot = ed.vzroot;
       g.setValue( rec.value );

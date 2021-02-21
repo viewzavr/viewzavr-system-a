@@ -1,4 +1,4 @@
-// import "."
+import "."
 
 Scene {
   id: my
@@ -6,12 +6,25 @@ Scene {
   property var vzroot
   property var adder_target: vzroot
   property var special_objects
-  
+
+  Packages {
+    vzroot: my.vzroot
+    special_objects: my.special_objects
+  }
+
+  Export {
+    vzroot: my.vzroot
+    special_objects: my.special_objects
+  }
+
   UI {
     vzroot: my.vzroot
     adder_target: my.adder_target
     special_objects: my.special_objects
   }
   //Modules {}
+
+  Component.onCompleted: qmlEngine.rootObject.refineSelf();
+
 
 }

@@ -47,10 +47,22 @@ Column {
   }
 
   function setup() {
-    vzroot.track("appendChild",function() { rescantimer.start() } )
-    vzroot.track("forgetChild",function() { rescantimer.start() } )
+
+    vzroot.track("appendChild",rescan_timer_start )
+    vzroot.track("forgetChild",rescan_timer_start )
 
     rescan();
+  }
+  
+  Component.onDestruction: {
+    if (vzroot.untrack) {
+      vzroot.untrack("appendChild",rescan_timer_start )
+      vzroot.untrack("forgetChild",rescan_timer_start )    
+    }
+  }
+  
+  function rescan_timer_start() {
+    rescantimer.start();
   }
   
   

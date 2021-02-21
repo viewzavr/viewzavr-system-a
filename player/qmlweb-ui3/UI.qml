@@ -1,18 +1,10 @@
 Item {
   id: ui
   property var vzroot
-  property var adder_target
-  property var special_objects
-
-  Packages {
-    vzroot: ui.vzroot
-    special_objects: ui.special_objects
-  }
+  property var adder_target     // an object where to add new objects
+  property var special_objects  // a list of vzPlayer special objects required for some components
   
-  Export {
-    vzroot: ui.vzroot
-    special_objects: ui.special_objects
-  }
+//  onVzrootChanged: console.log("UI vzroot is",vzroot );
 
   Column {
     spacing: 5

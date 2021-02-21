@@ -6,7 +6,7 @@ Column {
   id: sw
   
   property var vzroot
-  
+
   property var currentObj: cb.objects[ cb.currentIndex ];
 
   ComboBox {
@@ -27,7 +27,7 @@ Column {
   function setup() {
     console.log("shower chaining");
     
-    // новая идея - trackOnce. Но этот once кстати нам заблокирует другие шоверы, формально..
+    // новая идея - trackOnce + имя фичи. Но этот once кстати нам заблокирует другие шоверы, формально..
 
     vzroot.track("appendChild",function() { rescantimer.start() } );
     vzroot.track("forgetChild",function() { rescantimer.start() } );
@@ -35,7 +35,10 @@ Column {
     rescan();
   }
   
-  onVzrootChanged: setup();
+  onVzrootChanged: {
+//    console.log("Shower vzroot is",vzroot );
+    setup();
+  }
 
   function rescan() {
     // todo: track obj...

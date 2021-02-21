@@ -20,11 +20,18 @@ export default function setup( m, vis ) {
 
   vis.addQml3d = function( qmlfile, parent, name ) {
     if (!parent) {
-      parent = m.root;
+      parent = qmlEngine.rootObject;
     }
     var p = m.create_qml( qmlfile );
     parent.create_obj( p, {name: name} );
     vis.addBaseGui( p,p );
+    return p;
+  }
+  
+  m.addQml = function( qmlfile, opts ) {
+    var isparentqml = opts.parent.$tidyupList ? true : false;
+    var p = m.create_qml( qmlfile, isparentqml ? opts.parent : qmlEngine.rootObject );
+    opts.parent.create_obj( p, opts );
     return p;
   }
   
