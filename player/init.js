@@ -8,6 +8,8 @@ import add_importexport_component from "./vz-comps/save-scene.js";
 import * as load_packages_checkbox from "./vz-comps/packages-checkbox/init.js";
 import * as load_packages_by_url from "./vz-comps/load-packages.js";
 
+import * as js_fast_component from "./vz-comps/js-fast-component/app.js";
+
 // viewzavr app/module
 
 // vz - переменная вьюзавра
@@ -95,6 +97,7 @@ export function create( vz, qmlEngine ) {
   add_importexport_component( vz,p );
   load_packages_checkbox.setup( vz,p );
   load_packages_by_url.setup( vz,p );
+  js_fast_component.setup( vz,p );
 
   packages_table.setup( p );
 

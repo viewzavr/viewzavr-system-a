@@ -209,6 +209,10 @@ Column {
     
     add( "text", "BigTextParam", function( rec,g ) {
       g.value = rec.value;
+      g.hint = rec.obj.getParamOption( rec.name,"hint" );
+//      g.desired_width = 500; //rec.obj.getParamOption( rec.name,"w" ) || g.desired_width;
+//      g.desired_height = rec.obj.getParamOption( rec.name,"h" ) || g.desired_height;
+      
       g.valueChanged.connect( function( nv ) {
         rec.setValue( nv );
       });

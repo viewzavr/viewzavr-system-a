@@ -86,8 +86,16 @@ function download(data, filename, type) {
 
 function make(opts) {
   var obj = mv.create_obj( {}, opts );
+  
+  obj.addCmd("Export to TinyURL",function(value) {  
+     console.log("forcing url to our state");
+     vzPlayer.saveToHash( vzPlayer );
+     console.log("opening tiny url");
+     var href = "http://tinyurl.com/create.php?url="+encodeURIComponent(location.href);
+     window.open( href );
+  } );
 
-  obj.addCmd("Export player state JSON",function(value) {
+  obj.addCmd("Export JSON",function(value) { // player state including scene
     var root = vzPlayer;
 //    var root = vzPlayer.getRoot();
     var s = root.dump();
@@ -97,7 +105,7 @@ function make(opts) {
     var t  = JSON.stringify(s, null, '\t');
     download( t,"viewzavr-player.json","text/plain" );
   });
-  
+/*  
   obj.addCmd("Export scene JSON",function(value) {
 //    var root = mv.find_root( obj );  
     var root = vzPlayer.getRoot();
@@ -106,6 +114,7 @@ function make(opts) {
     var t  =JSON.stringify(s, null, '\t');
     download( t,"viewzavr-scene.json","text/plain" );
   });  
+*/  
   
   // R-EXPORT-JS
 /* seems no need

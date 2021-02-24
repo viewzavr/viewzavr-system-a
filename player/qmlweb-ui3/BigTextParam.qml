@@ -1,15 +1,18 @@
 Column {
   id: param
-  
+
   property var text: ""
   property var hint: ""
-  
+
+  property var desired_width: 500
+  property var desired_height: 200
+
   Text {
     text: param.text
   }
-  
+
   Button {
-    text: "Задать текст"
+    text: "Редактировать"
     width: 160
     onClicked: {
 //      theText
@@ -27,7 +30,7 @@ Column {
 
                         Column {
                             id: co
-                            width: 500
+                            width: 700; //param.desired_width
                             spacing: 8
                             y: 8
                             x: 10
@@ -37,7 +40,7 @@ Column {
                             }
 
                             TextEdit {
-                                height: 200
+                                height: 400; // param.desired_height
                                 width: parent.width
                                 id: theText
                             }

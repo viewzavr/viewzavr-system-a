@@ -11,7 +11,7 @@ var soundListener;
 var soundGroup;
 var bufferCache = {};
 
-export function playSound3d( coords, fileurl, callback,finished_callback ) {
+export function playSound3d( coords, fileurl, callback, finished_callback ) {
 
     if (!fileurl || fileurl.length == 0) return;
 

@@ -36,11 +36,20 @@ Item {
         enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())
       }
   
+  /*
       Button {
         text: "Выше"
       }
       Button {
         text: "Ниже"
+      }
+  */
+      Button {
+        text: "Клон"
+        onClicked: {
+          if (enabled) shower.currentObj.clone();
+        }
+        enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())        
       }
   
     }

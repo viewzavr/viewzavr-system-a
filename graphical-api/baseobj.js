@@ -19,19 +19,22 @@ export function addBaseGui( gui, p ) {
 export default function setup( m, vis ) {
 
   vis.addQml3d = function( qmlfile, parent, name ) {
+    var p = m.addQml( qmlfile, {parent:parent, name: name} );
+/*    
     if (!parent) {
       parent = qmlEngine.rootObject;
     }
     var p = m.create_qml( qmlfile );
-    parent.create_obj( p, {name: name} );
+    m.create_obj( p, {name: name,parent:parent} );
+*/    
     vis.addBaseGui( p,p );
     return p;
   }
   
   m.addQml = function( qmlfile, opts ) {
-    var isparentqml = opts.parent.$tidyupList ? true : false;
+    var isparentqml = opts && opts.parent && opts.parent.$tidyupList ? true : false;
     var p = m.create_qml( qmlfile, isparentqml ? opts.parent : qmlEngine.rootObject );
-    opts.parent.create_obj( p, opts );
+    m.create_obj( p, opts );
     return p;
   }
   
