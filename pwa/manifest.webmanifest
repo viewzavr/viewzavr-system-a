@@ -1,0 +1,24 @@
+{
+  "description": "Viewzavr player on a phone.",
+
+  "icons": [
+    {
+      "src": "/pwa/vz-1-t512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/pwa/vz-1-t512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose":"maskable"
+    }
+  ],
+
+  "name": "Viewzavr player",
+  "short_name": "Viewzavr",
+  "start_url": "/",
+  "display":"standalone",
+  "background_color":"#ffffff",
+  "theme_color":"#ffffff"
+}
