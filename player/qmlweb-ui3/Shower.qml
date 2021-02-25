@@ -10,9 +10,9 @@ Column {
   property var currentObj: cb.objects[ cb.currentIndex ];
 
   ComboBox {
-    size: 10
+    size: isMobile ? 1 : 10
     width: 220
-    height: 250
+    height: isMobile ? 25 : 250
     id: cb
     property var objects: []
   }
