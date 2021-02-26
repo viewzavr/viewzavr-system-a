@@ -25,7 +25,7 @@ Column {
                         id: dlg
                         title: param.text || "&nbsp;"
                         width: co.width + 30
-                        height: co.height + 33
+                        height: co.height + 33+10
                         z: 5002
 
                         Column {

@@ -169,6 +169,25 @@ Column {
       });
     });
     
+    // вариант как combo но храним строчку в параметре
+    add( "combostring", "Param", function( rec,g ) {
+      g.values = rec.values;
+      g.value = rec.value;
+      g.aslider.visible = false;
+      g.acombo.width = 173;
+      g.acombo.parent.height = 32; // ugly hack. setting height of combo row
+      
+      g.valueChanged.connect( function( nv ) {
+        var s = rec.values[ nv ];
+        rec.setValue( s );
+      });
+      trackParam( rec,g,function() {
+        var s = rec.obj.getParam( rec.name );
+        var i = rec.values.indexOf( s );
+        g.value = i; // что делать если не нашли? как?
+      });
+    });
+    
     add( "checkbox", "CheckBoxParam", function( rec,g ) {
       g.value = rec.value ? 1 : 0;
       g.valueChanged.connect( function( nv ) {

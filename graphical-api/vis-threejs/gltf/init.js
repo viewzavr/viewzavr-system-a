@@ -152,6 +152,7 @@ export default function setup( vz ) {
 
     /////////////////////////////
     obj.trackParam("src",function() {
+    console.log("src changed", obj.getParam("src") );
 
     // todo: move imports to doload?
     // btw think something about caching on local File's
@@ -167,15 +168,19 @@ export default function setup( vz ) {
       loader.setDRACOLoader( dracoLoader );
 
       var src = obj.getParam("src");
-      //console.log("going to load",src );
+      console.log("going to load",src );
       
       if (src instanceof File) {
             src = URL.createObjectURL( src );
             // todo revoke
       }
+      else if (!src.length) {
+        console.error("gltf: src has no length and not a file! src=",src);
+        return;
+      }
 
       obj.doload( loader, src ).then( function( gltf ) {
-          //console.log( "loaded gltf",gltf );
+          console.log( "loaded gltf",gltf );
           clear();
           
           
