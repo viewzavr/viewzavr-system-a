@@ -172,20 +172,22 @@ Column {
     
     // вариант как combo но храним строчку в параметре
     add( "combostring", "Param", function( rec,g ) {
+    
+      var values = rec.getValues ? rec.getValues() : rec.values;
 
-      g.values = rec.values;
-      g.value = rec.values.indexOf( rec.value );
+      g.values = values;
+      g.value = values.indexOf( rec.value );
       g.aslider.visible = false;
       g.acombo.width = 173;
       g.acombo.parent.height = 32; // ugly hack. setting height of combo row
       
       g.valueChanged.connect( function( nv ) {
-        var s = rec.values[ nv ];
+        var s = values[ nv ];
         rec.setValue( s );
       });
       trackParam( rec,g,function() {
         var s = rec.obj.getParam( rec.name );
-        var i = rec.values.indexOf( s );
+        var i = values.indexOf( s );
         g.value = i; // что делать если не нашли? как?
       });
     });
