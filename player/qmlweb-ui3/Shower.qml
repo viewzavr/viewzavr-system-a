@@ -45,6 +45,15 @@ Column {
     var objnames = [];
     var objlist = [];
     traverse( vzroot, vzroot.ns.name || "scene", -1, function( obj, name, depth ) {
+    
+      if (obj.historicalType == "link" && obj.getParam("tied_to_parent")) {
+        name = "formula_";
+        var s = obj.getParam("to");
+        var arr = s.split ? s.split("->") : [];
+        if (arr && arr[1]) name = name + arr[1];
+        obj.track("linksChanged",rescan );
+      }
+    
       objnames.push( "--".repeat( Math.max( 0,depth )) + name );
       objlist.push( obj );
     });
