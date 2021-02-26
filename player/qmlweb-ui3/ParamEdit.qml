@@ -171,8 +171,9 @@ Column {
     
     // вариант как combo но храним строчку в параметре
     add( "combostring", "Param", function( rec,g ) {
+
       g.values = rec.values;
-      g.value = rec.value;
+      g.value = rec.values.indexOf( rec.value );
       g.aslider.visible = false;
       g.acombo.width = 173;
       g.acombo.parent.height = 32; // ugly hack. setting height of combo row
