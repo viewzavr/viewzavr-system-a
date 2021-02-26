@@ -22,7 +22,7 @@ Column {
   }
     
   function rescan() {
-    cbtypes.types = vzroot.vz.getTypeRecords();
+    cbtypes.types = vzroot.vz.getTypeRecords().filter( function(rec) { return !vzroot.vz.getTypeOptions(rec[0]).hidegui } );
     cbtypes.currentIndex = 0;
   }
 

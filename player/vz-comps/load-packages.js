@@ -27,5 +27,5 @@ export function create( vz, opts ) {
 export function setup( vz ) {
   vz.addItemType( "load-packages-by-url","Load packages by URL", function(opts) {
    return create( vz, opts );
-  }, {label: "visual", guionce: true, title_ru: "Цвет фона"} );
+  }, {label: "visual", guionce: true, title_ru: "Цвет фона", hidegui: true} );
 }

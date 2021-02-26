@@ -6,7 +6,7 @@
 
 export default function setup( mv, player ) {
 
-mv.addItemType( "import-export","Save and Load",make, {label:"special", guionce:true, name:"save-load"} );
+mv.addItemType( "import-export","Save and Load",make, {label:"special", guionce:true, name:"save-load", hidegui: true} );
 
 // сохраняет сцену в файл json, загружает из файла
 

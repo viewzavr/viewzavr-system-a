@@ -26,7 +26,7 @@ export function setup( vz ) {
 
   vz.addItemType( "load-packages-checkbox","Load packages", function( opts ) {
     return create( vz, opts );
-  } );
+  }, { hidegui:true} );
 
 }
 
