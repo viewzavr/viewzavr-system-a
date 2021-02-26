@@ -11,7 +11,7 @@ var example = `// source code for create. parameters:
 `;
 
 export function setup( vz ) {
-  vz.addItemType( "javascript-fast-component","Javascript fast component", function( opts ) {
+  vz.addItemType( "js-code","Javascript code", function( opts ) {
     return create( vz, opts );
   } );
 }

@@ -81,6 +81,7 @@ Column {
         var g = obj;
         gui2init( gui, g );
       }
+
     }
   }
 

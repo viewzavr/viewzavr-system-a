@@ -51,6 +51,15 @@ Item {
         }
         enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())        
       }
+      
+      Button {
+        text: "Формула"
+        onClicked: {
+          //if (enabled) shower.currentObj.clone();
+          shower.currentObj.createLinkTo( {param: Object.keys(shower.currentObj.params)[0], from:"", manual: true });
+        }
+        enabled: (shower.currentObj && Object.keys(shower.currentObj.params).length > 0)
+      }      
   
     }
     
