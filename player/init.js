@@ -10,6 +10,8 @@ import * as load_packages_by_url from "./vz-comps/load-packages.js";
 
 import * as js_fast_component from "./vz-comps/js-fast-component/app.js";
 
+import formatSrc from "./format-src.js";
+
 // viewzavr app/module
 
 // vz - переменная вьюзавра
@@ -48,9 +50,28 @@ export function create( vz, qmlEngine ) {
       }
       return Promise.allSettled( promises );
     }
+    
+    if (url.indexOf(".txt") >= 0) {
+      return new Promise( function( resolv, rej ) {
+    
+      fetch(url).then((response) => {
+        return response.text();
+        })
+      .then((data) => {
+        console.log(data);
+        var dir = url.substr( 0, url.lastIndexOf("/") ) + "/";
+        p.loadPackage( data.split("\n").filter( l => l.length > 0 ).map( function(line) {
+          return dir + "./" + line;
+        }) ).then( function() { resolv() } );
+      });
+        // todo errors!
+      });
+      
+    }
 
     return new Promise( function( resolv, rej ) {
-      import( url ).then( function(mod) {
+      var url2 = formatSrc( url ); // TODO this is hack based on viewlang function formatSrc
+      import( url2 ).then( function(mod) {
         if (mod.setup) {
           var s = mod.setup( p.vz );
           if (s instanceof Promise)

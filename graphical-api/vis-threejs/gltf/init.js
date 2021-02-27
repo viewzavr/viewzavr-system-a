@@ -19,6 +19,10 @@ export default function setup( vz ) {
     obj.addSlider( "opacity", 100,0,100,1,function(v) {
       obj.opacity = v / 100.0;
     });
+    
+    obj.addSlider( "scale", 1, 0.1, 10, 0.1,function(v) {
+      obj.scale = v;
+    });
 
 
     obj.addFile("src","",function() {
@@ -32,7 +36,7 @@ export default function setup( vz ) {
       get: function() { return scale },
       set: function(v) { 
         scale=v; 
-        // debugger;
+
         if (obj.gltf) 
           obj.gltf.scene.scale.set( scale,scale,scale ); 
         }

@@ -23,7 +23,10 @@ export function create( vz, opts ) {
   eobj.addText( "code",example,f );
   
   eobj.addLabel( "export_app_spacing","export app.js:");
+  eobj.setParamOption( "export_app_spacing","internal",true );
   eobj.addCmd( "export app.js", exportjs );
+  
+  eobj.addCmd( "export EDITABLE app.js", exportjs_e );
 //  eobj.addCmd( "clone", clonethis );
   // eobj.addText( "export_app" );
   
@@ -35,6 +38,8 @@ export function create( vz, opts ) {
     
     if (obj) { qq = obj.dump(); obj.remove(); }
     obj = vz.createObj( {parent: eobj, name: "obj"} );
+//    obj.setParamOption("input","internal",true );
+//    obj.setParamOption("output","internal",true );
     var t = eobj.getParam("code");
 
     try {
@@ -79,6 +84,41 @@ export function create( vz,opts ) {
     download( code, "app.js","text/javascript" );
     //eobj.setParam("export_app",code );
   }
+  
+  
+  function exportjs_e() {
+    var t = "\n  // ******************** code\n" + json2js_v3( "obj","obj","obj.parent",eobj.dump(),"  ", true );
+    
+//    eobj.getParam("code");
+//    var id = obj.getParam("component_id");
+//    var name = obj.getParam("component_name");  
+    var id = "js-" +Math.ceil(Math.random()*1000);
+    var name = "My "+id;
+    var name2 = name.replace(/[ \/,|()]+/,"_");
+    
+//    var t2 = "\n  // ******************* parameters\n" + json2js_v3( "obj","obj","obj.parent",obj.dump(),"  ", true );
+    
+    
+//    opts.name ||= "${name2}";    
+    var code = `
+// this is Viewzavr component/app, generated at ${new Date()}
+
+export function setup( vz ) {
+  vz.addItemType( "${id}","${name}", function( opts ) {
+    return create( vz, opts );
+  } );
+}
+  
+export function create( vz,opts ) {
+  var obj = vz.createObjByType( Object.assign( {},opts,{type: "js-code"}) );
+  ${t}
+  return obj;
+}
+`;
+   
+    download( code, "app.js","text/javascript" );
+    //eobj.setParam("export_app",code );
+  }  
 
 /*  
   function clonethis() {
@@ -116,15 +156,23 @@ export function json2js_v3( objname, objvarname, parentvarname, dump, padding, i
     objvarname = objvarname.replace(/[^\d\w]/,"_").replace("-","_");
 
     {
-      if (!isroot)
+      if (!isroot) {
+        if (dump.manual)
+          result += `var ${objvarname} = vz.create_obj_by_type( { type: '${dump.type}', parent: ${parentvarname}, name: '${objname}' } );\n`;
+        else
           result += `var ${objvarname} = ${parentvarname}.ns.getChildByName('${objname}');\n`;
+      }
     }
 
     var h = dump.params || {};
     var keys = Object.keys(h);
       
     keys.forEach( function(name) {
+      var val = h[name];
       var v = JSON.stringify( h[name] );
+      if (typeof val === 'string' || val instanceof String)
+        if (val.indexOf("\n") >=0 && val.indexOf("`") < 0 && val.indexOf("$") < 0) 
+          v = "`"+val+"`";
       result += `${objvarname}.setParam( '${name}', ${v} );\n`;
     });
 
