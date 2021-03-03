@@ -152,6 +152,14 @@ export default function setup( vz ) {
         updatecolors();
       }
     });
+    
+    Object.defineProperty(obj, 'scales', {
+      get: function() { return scales },
+      set: function(v) {
+        scales=v || [];
+        updatematrices()
+      }
+    });    
 
 /*
     Object.defineProperty(obj, 'count', {

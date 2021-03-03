@@ -23,6 +23,11 @@ export default function setup( vz ) {
     obj.addSlider( "scale", 1, 0.1, 10, 0.1,function(v) {
       obj.scale = v;
     });
+    
+    obj.addColor("color",[],function(c) {
+      obj.colors = c;
+    });
+
 
 
     obj.addFile("src","",function() {
@@ -72,9 +77,16 @@ export default function setup( vz ) {
           //debugger;
           //utils.setMaterialColorEmissive( obj.gltf.scene, new THREE.Color( colors[0], colors[1], colors[2] )  );
           var w = 0.5;
+          // var w = 1.0;
           var c = new THREE.Color( colors[0]*w, colors[1]*w, colors[2]*w )
           utils.traverseMaterials( obj.gltf.scene, function(m) {
             m.emissive = c;
+            /* Majid idea is great!
+            m.wireframe = true;
+            m.wireframeLinewidth = 2;
+            m.metalness = 1.0;
+            */
+            
             //m.color = c;
           });
         }

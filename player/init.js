@@ -3,6 +3,7 @@ import * as packages_table from "./features/packages-table.js";
 
 // import create_player_state from "./features/player-state.js";
 import create_player_state from "./features/player-state-special-form.js";
+import player_camera from "./features/player-camera.js";
 
 import add_importexport_component from "./vz-comps/save-scene.js";
 import * as load_packages_checkbox from "./vz-comps/packages-checkbox/init.js";
@@ -114,6 +115,19 @@ export function create( vz, qmlEngine ) {
       return new Promise( function(resolv) { resolv(); } );
   }
   
+  p.loadJson = function( url ) {
+     return new Promise( function( resolv, rej ) {  
+      fetch(url).then((response) => {
+        return response.json();
+        })
+      .then((data) => {
+        console.log(data);
+        vz.createSyncFromDump( data,vzPlayer );
+        resolv();
+      });
+     });
+  }
+  
   url_hash_persistence( vz,p );
   add_importexport_component( vz,p );
   load_packages_checkbox.setup( vz,p );
@@ -123,6 +137,8 @@ export function create( vz, qmlEngine ) {
   packages_table.setup( p );
 
   create_player_state(p);
+  // надо пробовать оно нам может камеры сможет устанавливать при смене
+  // надо отлаживать player_camera(p);
 
   return p;
 }
