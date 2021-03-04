@@ -6,10 +6,11 @@ export function create( vz, opts ) {
   var p = new Promise( function(resolv, rej) { resolv() } );
 
   obj.addFile("packages-urls","",function(v) {
-    // console.log("--->",v);
+    console.log("packages-url triggered --->",v);
     p = vzPlayer.loadPackage(v);
   });
-  
+
+/*
   obj.getPromise = function() {
     return p;
   }
@@ -19,6 +20,7 @@ export function create( vz, opts ) {
     d.priority = 10;
     return d;
   });
+*/
 
   return obj;
 }

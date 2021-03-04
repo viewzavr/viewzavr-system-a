@@ -10,11 +10,9 @@ A good idea is also to save player/scene state in a window url
 We should be able to employ additional functionality to scene.
 A player should provide some model for this.
 
-For example packages model, where package is a set of component 
-types and maybe something else. If user attaches package to a scene,
-a components provided by it become available for user to add to scene.
-User might select packages from library by checkboxes, or add by 
-package url.
+For example packages model, where package is a set of component types and maybe something else. 
+If user attaches package to a scene, a components provided by it become available for user to add to scene.
+User might select packages from library by checkboxes, or add by package url.
 
 ## R-EXTRAS-STATE
 
@@ -31,4 +29,4 @@ Denis names those extras as `packages` - probably this is a good idea.
 
 Provide a table of extras so user may simply select which extras he wants to be loaded into project.
 It implies an organization of such table and methods to load js modules using it. It will be simplified
-when js will introduce relative modules (https://github.com/WICG/import-maps)
+when js will introduce relative modules (https://github.com/WICG/import-maps).

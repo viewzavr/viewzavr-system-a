@@ -1,4 +1,5 @@
-// packages table: code -> record
+// packets table abstraction
+// this table holds a mapping: package-code -> package-record
 
 export function setup( x ) {
 
