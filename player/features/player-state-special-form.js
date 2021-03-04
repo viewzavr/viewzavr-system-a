@@ -32,8 +32,10 @@ export default function setup( player ) {
     player.special_objects = {
       packages: packages_by_cb,
       packages_by_url: packages_by_url,
-      import_export: savescene
+      import_export: savescene,
+      state: b
     }
+    // player.state = b;
     // собственно говоря, это уже идет зачаток состояния плеера. сюда надо еще камеру токмо.
 
     qmlEngine.rootObject.special_objects = player.special_objects;

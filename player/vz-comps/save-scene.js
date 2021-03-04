@@ -39,9 +39,11 @@ input.onchange = e => {
       
       if (plus) {
         if (isplayerstate) {
-          var scene_dump = d.children.scene;
-          var q = mv.createSyncFromDump( scene_dump,undefined,vzPlayer.getRoot() );
+          //var scene_dump = d.children.scene; // так мы потеряем пакеты..
+          // var q = mv.createSyncFromDump( scene_dump,undefined,vzPlayer.getRoot() );
+          var q = mv.createSyncFromDump( d,undefined,vzPlayer.getRoot() );          
           q.manuallyInserted = true;
+          
         }
         else
         {

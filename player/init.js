@@ -138,7 +138,10 @@ export function create( vz, qmlEngine ) {
 
   create_player_state(p);
   // надо пробовать оно нам может камеры сможет устанавливать при смене
-  // надо отлаживать player_camera(p);
+  player_camera(p);
+  
+  // вот такая вот временная жесть
+  window.qmlwebParamsHashProhibitied = true;
 
   return p;
 }

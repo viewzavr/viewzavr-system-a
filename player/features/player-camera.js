@@ -1,6 +1,43 @@
 // как ее сохранять - как обычные параметры (плеера) или как-то по-другому?
 // как бы организовать доступ для управления через формулы? создать отдельный объект?
 
+
+export function create_camera( vz, opts )
+{
+  var obj = vz.createObj( { name: "camera", parent: opts.parent } );
+  
+  // todo: active camera.. (of player root)
+  // todo: addArray (редактирование флоатов тройки..)
+  
+  obj.setParam( "cameraPos",[] );
+  
+  obj.trackParam( "cameraPos", function() {
+    var cp = obj.getParam("cameraPos");
+//    console.log( "cameraPos param changed to",cp );
+    if (cp && cp.length && cp.length == 3)
+      qmlEngine.rootObject.cameraPos = cp;
+  });
+  obj.setParam( "cameraCenter",[] );
+  obj.trackParam( "cameraCenter", function() {
+    var cp = obj.getParam("cameraCenter");
+//    console.log( "cameraCenter param changed to",cp );
+    if (cp && cp.length && cp.length == 3)
+      qmlEngine.rootObject.cameraCenter = cp;
+  })
+  ;
+
+  qmlEngine.rootObject.cameraCenterChanged.connect( obj, function(v) {
+    obj.setParam( "cameraCenter",v );
+  });
+
+  qmlEngine.rootObject.cameraPosRealChanged.connect( obj, function(v) {
+    obj.setParam( "cameraPos",v );
+  });
+  
+  return obj;
+}
+
+
 export default function setup( player ) {
   
   /*
@@ -23,24 +60,5 @@ export default function setup( player ) {
   });
   */
   
-  player.setParam( "cameraPos",[] );
-  player.trackParam( "cameraPos", function() {
-    var cp = player.getParam("cameraPos");
-    qmlEngine.rootObject.cameraPosReal = cp;
-  });
-  player.setParam( "cameraCenter",[] );
-  player.trackParam( "cameraCenter", function() {
-    var cp = player.getParam("cameraCenter");
-    qmlEngine.rootObject.cameraCenter = cp;
-  })
-  ;
-
-  qmlEngine.rootObject.cameraCenterChanged.connect( player, function(v) {
-    player.setParam( "cameraCenter",v );
-  });
-  qmlEngine.rootObject.cameraPosRealChanged.connect( player, function(v) {
-    player.setParam( "cameraPos",v );
-  });  
-
-  //  qmlEngine.rootObject.special_objects = player.special_objects;
+  var camobj = create_camera( player.vz, {parent: player.special_objects.state } )
 }
