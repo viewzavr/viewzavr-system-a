@@ -53,12 +53,12 @@ Item {
       }
       
       Button {
-        text: "Формула"
+        text: "Ссылка"
         onClicked: {
           //if (enabled) shower.currentObj.clone();
           shower.currentObj.createLinkTo( {param: Object.keys(shower.currentObj.params)[0], from:"", manual: true });
         }
-        enabled: (shower.currentObj && Object.keys(shower.currentObj.params).length > 0)
+        enabled: (shower.currentObj && (Object.keys(shower.currentObj.params).length > 0 || Object.keys(shower.currentObj.guis).length > 0))
       }      
   
     }

@@ -64,11 +64,11 @@
     //////////////////////////// load user script
 
       // use this logic if you want to load app files defined in parameter.
-      var userurl = getParameterByName("src");
+      var userurl = getParameterByName("app");
       // if (!userurl) userurl = vz.getDir( import.meta.url ) + "./app.js";
       // var userurl = vz.getDir( import.meta.url ) + "./app.js";
 
-      console.log("user script url=",userurl );
+      console.log("user script app url=",userurl );
 
       var q;
       if (userurl) {
@@ -84,10 +84,24 @@
         q = vzPlayer.loadEmptyScene();
       }
       
+    ///////////////////////////// load user scene
+      
+    var jsonurl = getParameterByName("scene");
+    
+    console.log("user scene url=",userurl );
+      
+    if (jsonurl) {
+      vzPlayer.loadJson( jsonurl ).then( function() {
+        vzPlayer.loadFromHash();
+        vzPlayer.startSavingToHash();
+      } );
+    }
+    else {
       q.then( function() {
         vzPlayer.loadFromHash();
         vzPlayer.startSavingToHash();
       });
+    }
 
   </script>
 

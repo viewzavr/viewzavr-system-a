@@ -71,7 +71,7 @@ Column {
     // todo: track obj...
     var objnames = [""];
     var objlist = [""];
-    var crit_fn = sw.crit_fn;
+    var crit_fn = sw.crit_fn || function(v) { return true; };
     traverse( vzroot, "", -1, function( obj, name, depth ) {
       if (!crit_fn( obj )) return;
       objnames.push( name );

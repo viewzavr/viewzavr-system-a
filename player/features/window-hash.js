@@ -130,6 +130,10 @@ vz.chain("create_obj", function( obj, opts ) {
      var strpos = JSON.stringify( obj );
      //strpos = encodeURIComponent( strpos );
      strpos = strpos.replace(/ /g, "%20");
+     if (strpos.length > 1024*1024) {
+       console.error("Viewzavr: warning: program state is too long!",strpos.length );
+       console.error( strpos );
+     }
      // это добавляет историю в браузер а нам не надо ибо много во время особенно анимации вращения
      //location.hash = strpos;
      // а этот вариант историю не добавляет - норм

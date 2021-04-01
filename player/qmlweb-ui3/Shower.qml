@@ -47,7 +47,8 @@ Column {
     traverse( vzroot, vzroot.ns.name || "scene", -1, function( obj, name, depth ) {
     
       if (obj.historicalType == "link" && obj.getParam("tied_to_parent")) {
-        name = "formula_";
+        //name = "formula_";
+        name = "link@";
         var s = obj.getParam("to");
         var arr = s.split ? s.split("->") : [];
         if (arr && arr[1]) name = name + arr[1];

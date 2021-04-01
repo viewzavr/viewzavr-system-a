@@ -23,6 +23,15 @@ export default function setup( vz ) {
     obj.addSlider( "depth-test",1,0,1,1,function(v) {
       obj.depthTest = v > 0;
     });
+    
+    obj.addArray("colors",[],3);
+    obj.trackParam("colors",function() {
+      var c = obj.getParam("colors");
+      // feature: reset original color when colors are assigned
+      // because color plays as a mask
+      if (c && c.length > 0) obj.color = [1,1,1];
+      obj.colors = c;
+    });
     /* todo
     obj.addSlider( "alpha-test",100,0,100,1,function(v) {
       console.log("sertting at",v / 100.0 );
