@@ -37,6 +37,13 @@ export function create( vz, qmlEngine ) {
       return p.root;
   }
 
+  // loads viewzavr package
+  // this means load file and call it's exported `setup` function
+  // url may be:
+  // * path to js file
+  // * an array of pathes
+  // * txt file, where each line is a path to js or txt file
+  // returns promise that is resolved when all url data is processes (wherever successfully or not)
   p.loadPackage = function( url ) {
     if (Array.isArray(url)) 
     {
@@ -86,6 +93,7 @@ export function create( vz, qmlEngine ) {
     });
   }
 
+  // same as loadPackage, but additionally call create on loaded package and assign it as root object to player
   p.loadApp = function( url ) {
      return new Promise( function( resolv, rej ) {
        p.loadPackage( url ).then( function(module) {
@@ -115,15 +123,20 @@ export function create( vz, qmlEngine ) {
       return new Promise( function(resolv) { resolv(); } );
   }
   
+  // loads scene in json format and calls createSynsFromDump, e.g. reconstructing scene
   p.loadJson = function( url ) {
      return new Promise( function( resolv, rej ) {  
       fetch(url).then((response) => {
         return response.json();
         })
       .then((data) => {
-        console.log(data);
-        vz.createSyncFromDump( data,vzPlayer );
-        resolv();
+        //console.log(data);
+        console.log("loadJson: loaded, syncing");
+        var r = vz.createSyncFromDump( data,vzPlayer );
+        r.then( (obj) => {
+          console.log("loadJson: synced");
+          resolv(obj);
+        });
       });
      });
   }

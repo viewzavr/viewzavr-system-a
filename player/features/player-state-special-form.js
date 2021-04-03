@@ -52,11 +52,15 @@ export default function setup( player ) {
     obj.historyPackages = dump.packages;
 
     var orig = this.orig;
+    
+    var promise1 = new Promise((resolve, reject) => {
 
     // первым делом, первым делом самолеты, ну а девушки - а девушки потом
     player.loadPackageByCode( p1 ).then( function() {
       player.loadPackage( p2 ).then( function() {
-        orig( dump, obj );
+        orig( dump, obj ).then( obj => {
+          resolve( obj );
+        });
       });
     });
 
@@ -69,6 +73,10 @@ export default function setup( player ) {
        player.special_objects.packages_by_url.setParam( "packages-urls",p2 );
 //       player.special_objects.packages_by_url.signalTracked( "packages-urls" );
      }
+     
+     }); // promise
+     
+     return promise1;
 
   });
   

@@ -41,15 +41,16 @@ input.onchange = e => {
         if (isplayerstate) {
           //var scene_dump = d.children.scene; // так мы потеряем пакеты..
           // var q = mv.createSyncFromDump( scene_dump,undefined,vzPlayer.getRoot() );
-          var q = mv.createSyncFromDump( d,undefined,vzPlayer.getRoot() );          
-          q.manuallyInserted = true;
+          mv.createSyncFromDump( d,undefined,vzPlayer.getRoot() ).then( (q) => {
+            q.manuallyInserted = true;
+          });
           
         }
         else
         {
-          var q = mv.createSyncFromDump( d,undefined,vzPlayer.getRoot() );
-          q.manuallyInserted = true;
-          ///q.manual = true;
+          mv.createSyncFromDump( d,undefined,vzPlayer.getRoot() ).then( (q) => {
+            q.manuallyInserted = true;
+          });
         }
       }
       else {
@@ -59,8 +60,10 @@ input.onchange = e => {
         else
         {
           var q = vzPlayer.getRoot();
-          vzPlayer.setRoot( mv.createSyncFromDump( d, vzPlayer.getRoot() ) );
-          q.remove();
+          mv.createSyncFromDump( d, vzPlayer.getRoot() ).then( (obj) => {
+            vzPlayer.setRoot(obj);
+            q.remove();
+          });
         }
       }
    }
@@ -178,7 +181,7 @@ export function create( vz, opts ) {
   
   
   obj.addCmd("Reset",function(value) {
-    vzPlayer.setRoot( mv.createSyncFromDump( {}, vzPlayer.getRoot() ) );
+    mv.createSyncFromDump( {}, vzPlayer.getRoot() ).then( obj => vzPlayer.setRoot(obj)  );
     /*
     var new_root = mv.createObj();
     var old_root = vzPlayer.getRoot();
