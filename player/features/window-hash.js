@@ -98,7 +98,9 @@ player.loadFromHash = function( aname, targetobj ) {
       }
       return vz.createSyncFromDump( q[name], targetobj );
     }
-    return targetobj;
+    return new Promise( (resolv, reject) => {
+      resolv( targetobj );
+    });
 }
 
 player.startSavingToHash = function( name="mvis",targetobj ) {
