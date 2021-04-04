@@ -245,6 +245,23 @@ Column {
       });
     });
     
+    add( "array", "ArrayParam", function( rec,g ) {
+//      function text2
+    
+      g.value = rec.value;
+      g.hint = rec.obj.getParamOption( rec.name,"hint" );
+      g.text_columns_count = rec.columns_count || 1;
+//      g.desired_width = 500; //rec.obj.getParamOption( rec.name,"w" ) || g.desired_width;
+//      g.desired_height = rec.obj.getParamOption( rec.name,"h" ) || g.desired_height;
+      
+      g.valueChanged.connect( function( nv ) {
+        rec.setValue( nv );
+      });
+      trackParam( rec,g,function() {
+        g.value = rec.obj.getParam( rec.name );
+      });
+    });    
+    
     add( "label", "Text", function( rec,g ) {
       var v = rec.obj.getParam( rec.name );
       g.text = v;
