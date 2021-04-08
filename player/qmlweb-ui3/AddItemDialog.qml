@@ -47,9 +47,15 @@ SimpleDialog {
         height: isMobile ? 25 : 250
         id: cb2
         model: vz ? vz.getTypesByCat( cb.currentText ) : []
+
+        // feature: add object when it's name is clicked in a list
+        Component.onCompleted: {
+          cb2.dom.ondblclick = function(){ addbtn.clicked();};
+        }
       }
       
       Button {
+        id: addbtn
         text: "Добавить!"
         onClicked: {
           var res = vz.createObjByType( {type: cb2.currentText, manual: true, parent: target } );

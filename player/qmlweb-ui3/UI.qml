@@ -73,8 +73,11 @@ Item {
       Button {
         text: "Добавить элемент"
         width: 160
-        //visible: shower.currentObj && shower.currentObj.mayHaveChildren
-        onClicked: add_elem_dlg.open();
+        visible: shower.currentObj && shower.currentObj.guiAddItems
+        onClicked: {
+          add_elem_dlg.crit_str = shower.currentObj.guiAddItemsCrit || ""
+          add_elem_dlg.open();
+        }
       }
       AddItemDialog {
         id: add_elem_dlg

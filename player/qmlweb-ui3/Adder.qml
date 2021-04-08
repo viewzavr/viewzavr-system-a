@@ -10,7 +10,8 @@ Column {
   
   Button {
     text: "Добавить"
-    width: 160
+    width: 220
+    height: 35
     //visible: shower.currentObj && shower.currentObj.mayHaveChildren
     onClicked: add_elem_dlg.open();
   }
