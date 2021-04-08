@@ -6,6 +6,8 @@ Column {
   id: ed
   spacing: 2 // кнопки иначе впритык
   
+  property var count: rep.guis.length
+  
 //  Text { text: "Параметры " + rep.model + " шт" }
 
   property var vzroot

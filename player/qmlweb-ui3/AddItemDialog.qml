@@ -32,6 +32,8 @@ SimpleDialog {
         width: 220
         height: isMobile ? 25 : 250
         id: cb
+        property var cats: []
+        property var currentCat: cats[ currentIndex ]
       }
       
     }
@@ -46,7 +48,15 @@ SimpleDialog {
         width: 220
         height: isMobile ? 25 : 250
         id: cb2
-        model: vz ? vz.getTypesByCat( cb.currentText ) : []
+        model: gettypes( vz,cb.currentCat )
+        //vz ? vz.getTypesByCat( cb.currentText ) : []
+        
+        function gettypes( vz, cat ) {
+          if (!vz) return [];
+          var t = vz.getTypesByCat( cat );
+          t = t.filter( function(code) { return !vz.getTypeOptions( code ).hidegui } );
+          return t;
+        }
 
         // feature: add object when it's name is clicked in a list
         Component.onCompleted: {
@@ -70,7 +80,11 @@ SimpleDialog {
    onAfterOpen: {
      var cats = cats_str.split(/\s+/);
      if (cats.length == 0 || cats[0] == "") cats = vz.getCats();
-     cb.model = cats;
+     function capitalize(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
+     }
+     cb.cats = cats;
+     cb.model = cats.map( function(s) { return capitalize(s) } );
    }
 
 }

@@ -95,7 +95,8 @@ Item {
     } // column
     
     Text {
-      text: "Параметры:"
+      text: "Параметры: " + pe.count
+      //visible: pe.count >0
     }
   
     ParamEdit {
