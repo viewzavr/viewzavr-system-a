@@ -64,7 +64,7 @@ Item {
           shower.currentObj.createLinkTo( {param: Object.keys(shower.currentObj.params)[0], from:"", manual: true });
         }
         enabled: (shower.currentObj && (Object.keys(shower.currentObj.params).length > 0 || Object.keys(shower.currentObj.guis).length > 0))
-      }      
+      }
   
     }
     
@@ -73,11 +73,17 @@ Item {
       Button {
         text: "Добавить элемент"
         width: 160
-        visible: shower.currentObj && shower.currentObj.guiAddItems
+        visible: shower.currentObj && getto( shower.currentObj ).guiAddItems
         onClicked: {
-          add_elem_dlg.crit_str = shower.currentObj.guiAddItemsCrit || ""
+          add_elem_dlg.cats_str = getto( shower.currentObj ).guiAddItemsCrit || ""
           add_elem_dlg.open();
         }
+        function getto( obj ) {
+          var t = vzroot.vz.getObjType( obj );
+          var o = vzroot.vz.getTypeOptions( t );
+          return o;
+        }
+
       }
       AddItemDialog {
         id: add_elem_dlg
