@@ -124,11 +124,18 @@ export function create( vz, qmlEngine ) {
   }
   
   // loads scene in json format and calls createSynsFromDump, e.g. reconstructing scene
+  // maybe loadJson is not a better variant, maybe it is better to load it then allow user to call vz.createSyncFromDump
   p.loadJson = function( url ) {
      return new Promise( function( resolv, rej ) {  
       fetch(url).then((response) => {
         return response.json();
-        })
+        },
+        (reason) => {
+          console.log("viewzavr loadJson error: ",reason); // Ошибка!
+          //resolv( {} );
+          return {};
+        }
+      )
       .then((data) => {
         //console.log(data);
         console.log("loadJson: loaded, syncing");

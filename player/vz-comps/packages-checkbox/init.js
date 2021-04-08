@@ -44,6 +44,16 @@ export function create( vz, opts ) {
     orig( opts );
     reflect_variants();
   }
+  // todo: change to events / or maybe "append"
+  var orig1 = player.loadPackageByCode;
+  player.loadPackageByCode = function(code) {
+    var q = orig1(code);
+    q.then( () => {
+      reflect_variants();
+    });
+    return q;
+  }
+  
 
   function reflect_variants() {
     
@@ -51,14 +61,21 @@ export function create( vz, opts ) {
 
     var items = Object.keys( variants );
     items.forEach( function(item) {
-      obj.addCheckbox( item,false,function(v) {
+      var curval = player.isPackageLoaded( item );
+      obj.addCheckbox( item,curval,function(v) {
         // console.log("they want load..",item,v);
         if (v) {
-          var p = vzPlayer.loadPackage( variants[item].url );
+          //var p = vzPlayer.loadPackage( variants[item].url );
+          var p = vzPlayer.loadPackage( variants[item].code );
           promises[item] = p;
         }
       });
     });
+/*
+    player.on("package-loaded",function(code) {
+      obj.setParam(code,true);
+    });
+*/    
   }
   
   obj.getPromise = function() {

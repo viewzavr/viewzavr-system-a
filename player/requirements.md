@@ -35,3 +35,6 @@ when js will introduce relative modules (https://github.com/WICG/import-maps).
 
 When adding new object, see it's params without additional user clicks.
 This is from expereince.
+
+## R-NEED-EVENTS-IN-PLAYER
+We need to track events in player, for example when package is loaded.

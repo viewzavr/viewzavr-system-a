@@ -41,7 +41,7 @@ export function setup( x ) {
       }
       return Promise.allSettled( promises );
     }
-  
+
     var m = x.getPackageByCode(code);
     if (!m) {
       console.error("loadPackageByCode: Package not found for code=",code);
@@ -49,6 +49,30 @@ export function setup( x ) {
     }
     var url = m.url;
     return x.loadPackage( url );
-  }  
+  }
+  
+  // feature: single API for all
+  // btw we don't need array iteration then!
+  var orig = x.loadPackage;
+  x.loadPackage = function(url) {
+    if (x.getPackageByCode(url))
+      return x.loadPackageByCode(url);
+    return orig( url );
+  }
+  
+  // feature: track loaded packages
+  
+  var loadedPackagesTable = {};
+  x.isPackageLoaded = function(code) {
+    return !!loadedPackagesTable[code];
+  }
+  var orig1 = x.loadPackageByCode;
+  x.loadPackageByCode = function(code) {
+    var q = orig1(code);
+    q.then( () => {
+      loadedPackagesTable[code] = true;
+    });
+    return q;
+  }
 
 }

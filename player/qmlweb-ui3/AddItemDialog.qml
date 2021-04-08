@@ -48,7 +48,9 @@ SimpleDialog {
         width: 220
         height: isMobile ? 25 : 250
         id: cb2
-        model: gettypes( vz,cb.currentCat )
+        model: gettitles( vz, types );
+        property var types: gettypes( vz,cb.currentCat )
+        property var currentType: types[ currentIndex ]
         //vz ? vz.getTypesByCat( cb.currentText ) : []
         
         function gettypes( vz, cat ) {
@@ -56,6 +58,13 @@ SimpleDialog {
           var t = vz.getTypesByCat( cat );
           t = t.filter( function(code) { return !vz.getTypeOptions( code ).hidegui } );
           return t;
+        }
+
+        function gettitles( vz, types ) {
+          return types.map( function(code) {
+            var opts = vz.getTypeOptions( code );
+            return opts.title;
+          });
         }
 
         // feature: add object when it's name is clicked in a list
@@ -68,7 +77,7 @@ SimpleDialog {
         id: addbtn
         text: "Добавить!"
         onClicked: {
-          var res = vz.createObjByType( {type: cb2.currentText, manual: true, parent: target } );
+          var res = vz.createObjByType( {type: cb2.currentType, manual: true, parent: target } );
           dlg.added( res );
         }
       }
