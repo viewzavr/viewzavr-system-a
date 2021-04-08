@@ -38,3 +38,9 @@ This is from expereince.
 
 ## R-NEED-EVENTS-IN-PLAYER
 We need to track events in player, for example when package is loaded.
+
+## R-TRACK-LOADED-PACKAGES
+do not call their setup twice
+
+## R-FILE-GUI-NEED-RELOAD
+Gui element for file-type parameter should have a "reload" command which may be triggered by user.

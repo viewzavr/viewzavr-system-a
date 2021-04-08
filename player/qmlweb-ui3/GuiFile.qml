@@ -199,6 +199,17 @@ Rectangle {
             }
 
         } //tabview
+        
+        Row {
+        
+        spacing: 2
+
+        // R-FILE-GUI-NEED-RELOAD
+        TextButton {
+          y:0
+          text: "Reload"
+          onClicked: param.valueChanged();
+        }
 
         Text {
             visible: param.showChosenFile
@@ -219,6 +230,10 @@ Rectangle {
                 return "Data entered";
             }
             //"Файл <a target='_blank' href='"+Qt.resolvedUrl(datafile)+"'>"+datafile+"</a>\n\n"
+        }
+        
+
+        
         }
 
     }
