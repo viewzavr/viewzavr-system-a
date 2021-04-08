@@ -14,6 +14,8 @@ Item {
       vzroot: ui.vzroot
       target: adder_target
       id: adder
+      // R-SEE-OBJECT-PARAMS-WHEN-ADDING
+      onAdded: shower.activateObj( obj );
     }
 
     Shower {
@@ -23,6 +25,9 @@ Item {
         pe.obj = currentObj;
       }
     }
+    
+    Column {
+      spacing: 5
   
     Row {
     spacing: 2
@@ -63,6 +68,23 @@ Item {
   
     }
     
+    // feature: R-GUI-TREE
+    Row {
+      Button {
+        text: "Добавить элемент"
+        width: 160
+        //visible: shower.currentObj && shower.currentObj.mayHaveChildren
+        onClicked: add_elem_dlg.open();
+      }
+      AddItemDialog {
+        id: add_elem_dlg
+        target: shower.currentObj
+      }
+
+    }
+        
+    } // column
+    
     Text {
       text: "Параметры:"
     }
@@ -73,5 +95,7 @@ Item {
     }
   }
   Component.onCompleted: qmlEngine.rootObject.refineSelf();
+  
+
 
 }

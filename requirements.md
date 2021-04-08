@@ -13,3 +13,10 @@ A point of start is a player. [Don't know is it a requirement or a response to i
 
 Probably a player should not duplicate parameter values in a window hash which were not changed by user.
 (e.g. load scene json -> no dup in hash).
+
+# R-GUI-TREE
+It seems necessary to may create child items for arbitrary elements in gui.
+Example: add items to dialog, to sidebar, to row.
+In that case, adding items to root element is same logic.
+And in that latter case, a "add item" primary button is a special button
+in addition to normal adding items gui to root element.

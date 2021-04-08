@@ -30,3 +30,8 @@ Denis names those extras as `packages` - probably this is a good idea.
 Provide a table of extras so user may simply select which extras he wants to be loaded into project.
 It implies an organization of such table and methods to load js modules using it. It will be simplified
 when js will introduce relative modules (https://github.com/WICG/import-maps).
+
+## R-SEE-OBJECT-PARAMS-WHEN-ADDING
+
+When adding new object, see it's params without additional user clicks.
+This is from expereince.

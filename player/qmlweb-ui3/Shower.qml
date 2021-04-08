@@ -60,6 +60,8 @@ Column {
     });
     cb.model = objnames;
     cb.objects = objlist;
+    
+    if (sw.afterRescan) sw.afterRescan();
   }
 
   function traverse(startobj,name,depth, fn) {
@@ -71,5 +73,25 @@ Column {
       traverse( obj, name, depth+1, fn );
     }
   }
+  
+  // R-SEE-OBJECT-PARAMS-WHEN-ADDING
+  function activateObj( obj ) {
+    var newi = cb.objects.indexOf( obj );
+
+    if (newi >= 0)
+      cb.currentIndex = newi;
+    else {
+      // TODO: вот эта строчка зместо всей халабуды (ну т.е. паттерн использования такой мы видим..)
+      // vz.tools.appendOnce( sw,"rescan","aob2",() => { sw.activateObj(obj) } );
+      
+      var f = function() {
+        sw.activateObj( obj );
+        
+      }
+      sw.afterRescan = function() { sw.activateObj( obj ); sw.afterRescan = null; }
+    }
+  }
+  property var afterRescan
+  // очень интре
 
 }
