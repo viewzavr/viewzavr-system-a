@@ -54,14 +54,14 @@ export function setup( x ) {
   // feature: single API for all
   // btw we don't need array iteration then!
   var orig = x.loadPackage;
-  x.loadPackage = function(url) {
-    if (x.getPackageByCode(url))
-      return x.loadPackageByCode(url);
-    return orig( url );
+  x.loadPackage = function(url_or_code) {
+    if (x.getPackageByCode(url_or_code))
+      return x.loadPackageByCode(url_or_code);
+    return orig( url_or_code );
   }
   
-  // feature: track loaded packages
   
+  // feature: track loaded packages
   var loadedPackagesTable = {};
   x.isPackageLoaded = function(code) {
     return !!loadedPackagesTable[code];
@@ -74,5 +74,26 @@ export function setup( x ) {
     });
     return q;
   }
-
+  
+  
+  /* а зачем нам это? тем более тогда надо с массивами разбираться
+     пусть пока в аргументах будет. см выше.
+     
+  // feature: track loaded packages by code or by url
+  // actually it was developed for packages with codes
+  // but as it now considers urls too, probably it is
+  // better move to dedicated feature file
+  var loadedPackagesTable = {};
+  x.isPackageLoaded = function(path) {
+    return !!loadedPackagesTable[path];
+  }
+  var orig1 = x.loadPackage;
+  x.loadPackage = function(path) {
+    var q = orig1(path);
+    q.then( () => {
+      loadedPackagesTable[path] = true;
+    });
+    return q;
+  }
+  */
 }

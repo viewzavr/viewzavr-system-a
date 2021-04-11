@@ -207,8 +207,18 @@ Rectangle {
         // R-FILE-GUI-NEED-RELOAD
         TextButton {
           y:0
-          text: "Reload"
-          onClicked: param.valueChanged();
+          text: "[Reload]"
+          onClicked: {
+          
+            var o = param.files;
+            param.files = [];
+            setTimeout( function() {
+              param.files = o;
+            }, 10 );
+            
+            // так они теряются.. файлы..
+            //param.valueChanged();
+          }
         }
 
         Text {

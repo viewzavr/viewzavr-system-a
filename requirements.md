@@ -20,3 +20,7 @@ Example: add items to dialog, to sidebar, to row.
 In that case, adding items to root element is same logic.
 And in that latter case, a "add item" primary button is a special button
 in addition to normal adding items gui to root element.
+
+# R-LOAD-PACKAGE-ONCE
+If package is already loaded by loadPackage, ongoing calls to same url should just return.
+(no import, nor setup should be called).

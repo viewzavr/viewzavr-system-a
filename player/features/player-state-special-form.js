@@ -55,6 +55,19 @@ export default function setup( player ) {
     
     var promise1 = new Promise((resolve, reject) => {
 
+    var p3 = p1.concat(p2);
+    if (p3.length > 0)
+      player.loadPackage( p3 ).then( () => {
+        orig( dump, obj ).then( obj => {
+          resolve( obj );
+        });
+      });
+    else {
+      orig( dump, obj ).then( obj => {
+        resolve( obj );
+      });
+    }
+    /*
     // первым делом, первым делом самолеты, ну а девушки - а девушки потом
     player.loadPackageByCode( p1 ).then( function() {
       player.loadPackage( p2 ).then( function() {
@@ -62,9 +75,11 @@ export default function setup( player ) {
           resolve( obj );
         });
       });
-    });
+    });*/
 
     // выставим себе гуи
+    // но кстати а почему себе?.. и зачем это делать?..
+    // возможно это и не надо делать - возможно там параметры ответственные за это управятся
     if (obj == player) {
        p1.forEach( function(code) {
          player.special_objects.packages.setParam( code, true );

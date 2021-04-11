@@ -1,5 +1,6 @@
 import url_hash_persistence from "./features/window-hash.js";
 import * as packages_table from "./features/packages-table.js";
+import * as feature_packages_load_once from "./features/packages-load-once.js";
 
 // import create_player_state from "./features/player-state.js";
 import create_player_state from "./features/player-state-special-form.js";
@@ -126,7 +127,7 @@ export function create( vz, qmlEngine ) {
   // loads scene in json format and calls createSynsFromDump, e.g. reconstructing scene
   // maybe loadJson is not a better variant, maybe it is better to load it then allow user to call vz.createSyncFromDump
   p.loadJson = function( url ) {
-     return new Promise( function( resolv, rej ) {  
+     return new Promise( function( resolv, rej ) {
       fetch(url).then((response) => {
         return response.json();
         },
@@ -155,6 +156,7 @@ export function create( vz, qmlEngine ) {
   js_fast_component.setup( vz,p );
 
   packages_table.setup( p );
+  feature_packages_load_once.setup( p );
 
   create_player_state(p);
   // надо пробовать оно нам может камеры сможет устанавливать при смене

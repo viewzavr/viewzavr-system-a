@@ -48,12 +48,18 @@ export function create( vz, opts ) {
   var orig1 = player.loadPackageByCode;
   player.loadPackageByCode = function(code) {
     var q = orig1(code);
-    q.then( () => {
-      reflect_variants();
-    });
+    // sometimes code is just blank
+    if (code.length && code.length > 0) {
+      // todo: timer?
+      var curval = player.isPackageLoaded( code );
+      if (!curval) // reflect only if it loads. we do not have an unload
+        q.then( () => {
+          reflect_variants();
+        });
+    }
     return q;
   }
-  
+
 
   function reflect_variants() {
     
