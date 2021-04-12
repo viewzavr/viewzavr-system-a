@@ -62,6 +62,7 @@ export function create_qml_obj( source, parent, init_func ) {
     //it.$delete();
     //debugger;
     delete_qml_obj( it );
+    it = undefined; // to remove link in js gc?..
   }
   
   return it;

@@ -35,6 +35,8 @@ export default function setup( m, vis ) {
     var isparentqml = opts && opts.parent && opts.parent.$tidyupList ? true : false;
     var p = m.create_qml( qmlfile, isparentqml ? opts.parent : qmlEngine.rootObject );
     m.create_obj( p, opts );
+//    m.chain("remove",function() {
+//    });
     return p;
   }
   

@@ -79,7 +79,7 @@ Column {
       property var gui: rep.guis[ index ]
       source: gui2type( gui )
       id: ldr
-      visible: item.visible
+      visible: item ? item.visible : false
       onInit: {
         var g = obj;
         gui2init( gui, g );
@@ -143,18 +143,29 @@ Column {
       g.value = rec.value;
       g.comboEnabled=false;
       g.textEnabled=true;
+      console.log("assigned slider to value",rec.value);
       
       if (rec.obj.getParamOption( rec.name,"sliding" )) g.enableSliding=true;
       else // if sliding set to false, we should disable it!
       if (rec.obj.getParamOption( rec.name,"sliding" ) === false) g.enableSliding=false;
       
       // от слайдера к параметру
+      var me = false;
       g.valueChanged.connect( function( nv ) {
+//        console.log("slider value changed",nv );
+        if (me) return;
+        me = true;
         rec.setValue( nv );
+        me = false; // todo same on other param types?
       });
       // от параметра к слайдеру
       trackParam( rec,g,function() {
-        g.value = rec.obj.getParam( rec.name );
+        if (me) return;
+        me = true;
+        var qq = rec.obj.getParam( rec.name );
+//        console.log("param sets slider",qq );
+        g.value = qq;
+        me = false;
       });
       //g.aslider.width=140;
     });
