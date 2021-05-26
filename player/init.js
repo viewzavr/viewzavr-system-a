@@ -63,15 +63,19 @@ export function create( vz, qmlEngine ) {
     if (url.indexOf(".txt") >= 0) {
       return new Promise( function( resolv, rej ) {
     
+      //fetch(url,{credentials: 'include'}).then((response) => {
+      //seems credentials are useless now - until we will consider credentials of import..
       fetch(url).then((response) => {
         return response.text();
         })
       .then((data) => {
-        console.log(data);
+        console.log("loaded txt:",data);
         var dir = url.substr( 0, url.lastIndexOf("/") ) + "/";
         p.loadPackage( data.split("\n").filter( l => l.length > 0 ).map( function(line) {
           return dir + "./" + line;
-        }) ).then( function() { resolv() } );
+        }) ).then( function() { 
+           resolv( {} ); // we provide empty {} object to resolv - so module arg will not be null (see below)
+        } );
       });
         // todo errors!
       });
