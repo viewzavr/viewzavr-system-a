@@ -6,8 +6,11 @@ export function create_camera( vz, opts )
 {
   var obj = vz.createObj( { name: "camera", parent: opts.parent } );
   
-  // todo: active camera.. (of player root)
-  // todo: addArray (редактирование флоатов тройки..)
+  // гуи
+  obj.addArray( "cameraPos", [], 3 );
+  obj.addArray( "cameraCenter", [], 3 );  
+  
+  // todo: active camera.. (of player root?)
   
   obj.setParam( "cameraPos",[] );
   
@@ -33,6 +36,8 @@ export function create_camera( vz, opts )
   qmlEngine.rootObject.cameraPosRealChanged.connect( obj, function(v) {
     obj.setParam( "cameraPos",v );
   });
+  
+
   
   return obj;
 }
@@ -61,4 +66,9 @@ export default function setup( player ) {
   */
   
   var camobj = create_camera( player.vz, {parent: player.special_objects.state } )
+  
+  player.vz.addItemType( "camera","Camera", function( opts ) {
+    return create_camera( player.vz, opts );
+  } );
+
 }
