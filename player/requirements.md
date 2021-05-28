@@ -44,3 +44,9 @@ do not call their setup twice
 
 ## R-FILE-GUI-NEED-RELOAD
 Gui element for file-type parameter should have a "reload" command which may be triggered by user.
+
+# R-LINKS-NO-DEFAULT-VALUE
+When adding a link (in gui), it should not have a default target parameter value (it should be blank).
+There were cases when adding a link - it have blank source param and some selected target param.
+An obj started behaving with default value, which were not the case (program hanged).
+

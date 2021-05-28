@@ -50,8 +50,10 @@ Column {
         //name = "formula_";
         name = "link@";
         var s = obj.getParam("to");
-        var arr = s.split ? s.split("->") : [];
-        if (arr && arr[1]) name = name + arr[1];
+        if (s) {
+          var arr = s.split ? s.split("->") : [];
+          if (arr && arr[1]) name = name + arr[1];
+        }
         obj.track("linksChanged",rescan );
       }
     

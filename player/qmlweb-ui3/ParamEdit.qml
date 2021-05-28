@@ -191,6 +191,7 @@ Column {
 
       g.values = values;
       g.value = values.indexOf( rec.value );
+      // console.log("ASSIGNED COMBOSTRING value to indexOf: ",g.value," rec.value was",rec.value, "rec.name was",rec.name );
       g.aslider.visible = false;
       g.acombo.width = 173;
       g.acombo.parent.height = 32; // ugly hack. setting height of combo row
