@@ -225,8 +225,6 @@ export default function setup( vz ) {
       }
       obj.sceneObject = undefined;
     }
-
-
     
     
     obj.chain("remove",function() {

@@ -17,7 +17,7 @@ export function create( mv, opts ) {
   
   obj.addArray("position",[100,100,100],3,function(v) {
     light.position.set( v[0],v[1],v[2] );
-  });  
+  });
 
   obj.addColor("color",[1,1,1],function(v) {
     // console.log("setting new bg color",v);  
