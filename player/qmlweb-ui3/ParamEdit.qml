@@ -318,6 +318,9 @@ Column {
         rec.setValue( nv );
       });
       trackParam( rec,g,function() {
+        //var tobj = rec.obj.getParam( rec.name );
+        //debugger;
+        //g.setValue( tobj ? tobj.getPath() : "" );
         g.setValue( rec.obj.getParam( rec.name ) );
       });
     });

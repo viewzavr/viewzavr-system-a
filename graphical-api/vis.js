@@ -58,8 +58,20 @@ export default function setup( vz ) {
   };
 
   vz.vis.addTubes = function( parent, name ) {
-    return vz.vis.addQml3d( "Cylinders.qml", parent, name || "tubes" );
+    var q = vz.vis.addQml3d( "Cylinders.qml", parent, name || "tubes" );
+    add_mesh_params( q,q.trimesh );
+    return q;
   };
+  
+  vz.vis.addCones = function( parent, name ) {
+    var q = vz.vis.addQml3d( "Cones.qml", parent, name || "cones" );
+    add_mesh_params( q,q.trimesh );
+    return q;
+  };
+  
+  vz.vis.addViewlang = function(viewlang_name, opts={}) {
+    return vz.vis.addQml3d( viewlang_name+".qml", opts.parent, opts.name || "viewlang-item" );
+  }
   
   vz.vis.addMesh = function( parent, name ) {
     var q = vz.vis.addQml3d( "Trimesh.qml", parent, name || "mesh" );

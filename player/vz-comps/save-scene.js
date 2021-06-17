@@ -4,6 +4,8 @@
 // * import scene from json as a new object in current scene
 // * reset scene
 
+import setup_plantuml from "./export-plantuml.js";
+
 export default function setup( mv, player ) {
 
 mv.addItemType( "import-export","Save and Load",make, {label:"special", guionce:true, name:"save-load", hidegui: true} );
@@ -189,6 +191,8 @@ export function create( vz, opts ) {
     old_root.remove();
     */
   });  
+  
+  setup_plantuml( obj );
 
   return obj; // ну то есть я пока не понял, хочу я вообще что-то возвращать или нет
 }

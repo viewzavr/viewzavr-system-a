@@ -14,6 +14,7 @@ Column {
   
   function setValue( nv ) {
     var arr = cb.objects_paths;
+    if (nv.getPath) nv = nv.getPath(); // R-SETREF-OBJ
     for (var i=0; i<arr.length; i++) {
       if (arr[i] == nv) {
         cb.currentIndex = i;
