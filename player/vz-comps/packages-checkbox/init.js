@@ -68,8 +68,9 @@ export function create( vz, opts ) {
     var items = Object.keys( variants );
     items.forEach( function(item) {
       var curval = player.isPackageLoaded( item );
+
       obj.addCheckbox( item,curval,function(v) {
-        // console.log("they want load..",item,v);
+        //console.log("they want load..",item,v);
         if (v) {
           //var p = vzPlayer.loadPackage( variants[item].url );
           var p = vzPlayer.loadPackage( variants[item].code );

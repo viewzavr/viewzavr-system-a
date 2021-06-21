@@ -205,6 +205,9 @@ Column {
         var i = values.indexOf( s );
         g.value = i; // что делать если не нашли? как?
       });
+      // вот тут бы трэкать изменение списка опций..
+      // rec.setValues
+      
     });
     
     add( "checkbox", "CheckBoxParam", function( rec,g ) {

@@ -6,8 +6,10 @@ export function create( vz, opts ) {
   var p = new Promise( function(resolv, rej) { resolv() } );
 
   obj.addFile("packages-urls","",function(v) {
-    console.log("packages-url triggered --->",v);
-    p = vzPlayer.loadPackage(v);
+    if (v) {
+      console.log("packages-url triggered --->",v);
+      p = vzPlayer.loadPackage(v);
+    }
   });
 
 /*

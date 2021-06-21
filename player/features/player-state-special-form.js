@@ -104,7 +104,9 @@ export default function setup( player ) {
 
     // save packages (configured in gui) to dump
     if (obj == player) {
-      var codes = Object.keys( player.special_objects.packages.getParams() );
+      var codes = Object.keys( player.special_objects.packages.getParams() ); // идея - cb-фильтр(name,value) в getParams
+      // сотавим только активные
+      codes = codes.filter( code => player.special_objects.packages.getParam(code) );
       var urls = player.special_objects.packages_by_url.getParam( "packages-urls" ) || [];
       if (!Array.isArray(urls)) {
         if (urls.length > 0) urls = [urls];
