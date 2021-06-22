@@ -49,7 +49,7 @@ function gen( obj ) {
   // ссылки объектов
   for (var refname of Object.keys( obj.references || {})) {
       var path = obj.getParam( refname );
-      var ref = path;
+      var ref = path && path.getPath ? path.getPath() : path; // R-SETREF-OBJ
       if (ref) {
          if (obj.getParamOption( refname,"backref" ))
          t += `(${id}) <== (${ref}) : "obj ref TPU"\n`;
