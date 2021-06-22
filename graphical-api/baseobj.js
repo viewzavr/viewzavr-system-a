@@ -18,8 +18,8 @@ export function addBaseGui( gui, p ) {
 
 export default function setup( m, vis ) {
 
-  vis.addQml3d = function( qmlfile, parent, name ) {
-    var p = m.addQml( qmlfile, {parent:parent, name: name} );
+  vis.addQml3d = function( qmlfile, parent, name, opts ) {
+    var p = m.addQml( qmlfile, Object.assign( {parent:parent, name: name}, opts || {} ) );
 /*    
     if (!parent) {
       parent = qmlEngine.rootObject;

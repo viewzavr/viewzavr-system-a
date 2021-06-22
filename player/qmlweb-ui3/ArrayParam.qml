@@ -62,13 +62,18 @@ Column {
                             x: 10
     
                             Text {
-                                text: param.hint || "Please insert text here"
+                                text: param.hint || "Please insert array values here"
                             }
 
                             TextEdit {
                                 height: 400; // param.desired_height
                                 width: parent.width
                                 id: theText
+
+                                //css.whiteSpace: "nowrap";
+                                Component.onCompleted: {
+                                  theText.dom.firstChild.style.whiteSpace = "nowrap"; // чтобы не было переносов строк
+                                }
                             }
 
                             Button {

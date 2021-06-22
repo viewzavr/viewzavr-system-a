@@ -4,7 +4,7 @@
 
 export function create_camera( vz, opts )
 {
-  var obj = vz.createObj( { name: "camera", parent: opts.parent } );
+  var obj = vz.createObj( Object.assign( {}, opts, { name: "camera" } )); //, parent: opts.parent } );
   
   // гуи
   obj.addArray( "cameraPos", [], 3 );

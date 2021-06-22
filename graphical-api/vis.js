@@ -6,8 +6,8 @@ export default function setup( vz ) {
 
   // тут мы подряд фич напихаем, но это необязательно
 
-  vz.vis.addPoints = function( parent, name ) {
-    var obj = vz.vis.addQml3d( "Points.qml", parent, name || "points" );
+  vz.vis.addPoints = function( parent, name, opts ) {
+    var obj = vz.vis.addQml3d( "Points.qml", parent, name || "points", opts );
     var shapes = ["","spark1.png","ball.png","circle.png","disc.png","particle.png","particleA.png","snowflake1.png","snowflake3.png"]
 
     //console.log( "my meta is ",import.meta.url);
@@ -41,12 +41,16 @@ export default function setup( vz ) {
     return obj;
   };
 
-  vz.vis.addLines = function( parent, name ) {
-    return vz.vis.addQml3d( "Lines.qml", parent, name || "lines" );
+  vz.vis.addLines = function( parent, name, opts ) {
+    return vz.vis.addQml3d( "Lines.qml", parent, name || "lines", opts );
   };
+  
+  vz.vis.addLinestrip = function( parent, name, opts ) {
+    return vz.vis.addQml3d( "Linestrip.qml", parent, name || "linesstrip", opts );
+  };  
 
-  vz.vis.addSpheres = function( parent, name ) {
-    var p = vz.vis.addQml3d( "Spheres.qml", parent, name || "spheres" );
+  vz.vis.addSpheres = function( parent, name, opts ) {
+    var p = vz.vis.addQml3d( "Spheres.qml", parent, name || "spheres", opts );
     p.addSlider( "nx", p.nx, 4, 10, 1, function(v) {
       p.nx = v;
     });
@@ -57,24 +61,24 @@ export default function setup( vz ) {
     return p;
   };
 
-  vz.vis.addTubes = function( parent, name ) {
-    var q = vz.vis.addQml3d( "Cylinders.qml", parent, name || "tubes" );
+  vz.vis.addTubes = function( parent, name, opts ) {
+    var q = vz.vis.addQml3d( "Cylinders.qml", parent, name || "tubes", opts );
     add_mesh_params( q,q.trimesh );
     return q;
   };
   
-  vz.vis.addCones = function( parent, name ) {
-    var q = vz.vis.addQml3d( "Cones.qml", parent, name || "cones" );
+  vz.vis.addCones = function( parent, name, opts ) {
+    var q = vz.vis.addQml3d( "Cones.qml", parent, name || "cones", opts );
     add_mesh_params( q,q.trimesh );
     return q;
   };
   
   vz.vis.addViewlang = function(viewlang_name, opts={}) {
-    return vz.vis.addQml3d( viewlang_name+".qml", opts.parent, opts.name || "viewlang-item" );
+    return vz.vis.addQml3d( viewlang_name+".qml", opts.parent, opts.name || "viewlang-item", opts );
   }
   
-  vz.vis.addMesh = function( parent, name ) {
-    var q = vz.vis.addQml3d( "Trimesh.qml", parent, name || "mesh" );
+  vz.vis.addMesh = function( parent, name, opts ) {
+    var q = vz.vis.addQml3d( "Trimesh.qml", parent, name || "mesh", opts );
     q.removeGui("radius");
     add_mesh_params( q,q );
     return q;
