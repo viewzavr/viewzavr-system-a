@@ -42,11 +42,19 @@ export default function setup( vz ) {
   };
 
   vz.vis.addLines = function( parent, name, opts ) {
-    return vz.vis.addQml3d( "Lines.qml", parent, name || "lines", opts );
+    var obj = vz.vis.addQml3d( "Lines.qml", parent, name || "lines", opts );
+    obj.addSlider( "additive",0,0,1,1,function(v) {
+      obj.additive = v > 0;
+    });    
+    return obj;
   };
   
   vz.vis.addLinestrip = function( parent, name, opts ) {
-    return vz.vis.addQml3d( "Linestrip.qml", parent, name || "linesstrip", opts );
+    var obj = vz.vis.addQml3d( "Linestrip.qml", parent, name || "linesstrip", opts );
+    obj.addSlider( "additive",0,0,1,1,function(v) {
+      obj.additive = v > 0;
+    });
+    return obj;
   };  
 
   vz.vis.addSpheres = function( parent, name, opts ) {

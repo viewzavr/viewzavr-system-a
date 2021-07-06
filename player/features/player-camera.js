@@ -31,13 +31,16 @@ export function create_camera( vz, opts )
 
   qmlEngine.rootObject.cameraCenterChanged.connect( obj, function(v) {
     obj.setParam( "cameraCenter",v );
+    obj.setParam( "cameraInfo",  qmlEngine.rootObject.cameraPos.concat( qmlEngine.rootObject.cameraCenter ) );
   });
 
   qmlEngine.rootObject.cameraPosRealChanged.connect( obj, function(v) {
     obj.setParam( "cameraPos",v );
+    obj.setParam( "cameraInfo",  qmlEngine.rootObject.cameraPos.concat( qmlEngine.rootObject.cameraCenter ) );
   });
   
-
+  obj.setParam( "cameraInfo",[0,0,0,0,0,0] );
+  obj.setParamOption( "cameraInfo","internal",true );
   
   return obj;
 }

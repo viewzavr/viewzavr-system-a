@@ -92,6 +92,7 @@ SimpleDialog {
      function capitalize(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
      }
+     cats = cats.sort(); // по алфавиту, такая фича
      cb.cats = cats;
      cb.model = cats.map( function(s) { return capitalize(s) } );
    }

@@ -43,6 +43,9 @@ Column {
                                 height: 400; // param.desired_height
                                 width: parent.width
                                 id: theText
+                                Component.onCompleted: {
+                                  theText.dom.firstChild.style.whiteSpace = "nowrap"; // чтобы не было переносов строк
+                                }
                             }
 
                             Button {
