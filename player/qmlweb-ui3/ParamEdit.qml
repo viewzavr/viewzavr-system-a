@@ -247,6 +247,16 @@ Column {
         g.value = rec.obj.getParam( rec.name );
       });
     });
+
+    add( "float", "TextParam", function( rec,g ) {
+      g.value = rec.value.toString();
+      g.valueChanged.connect( function( nv ) {
+        rec.setValue( parseFloat(nv) );
+      });
+      trackParam( rec,g,function() {
+        g.value = rec.obj.getParam( rec.name ).toString();
+      });
+    });    
     
     add( "text", "BigTextParam", function( rec,g ) {
       g.value = rec.value;
