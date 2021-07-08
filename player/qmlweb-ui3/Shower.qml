@@ -42,6 +42,7 @@ Column {
 
   function rescan() {
     // todo: track obj...
+    // console.log("rescan");
     var objnames = [];
     var objlist = [];
     traverse( vzroot, vzroot.ns.name || "scene", -1, function( obj, name, depth ) {
