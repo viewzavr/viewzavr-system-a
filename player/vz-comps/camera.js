@@ -48,6 +48,11 @@ export function create( vz, opts )
   
   obj.setParam( "cameraInfo",[0,0,0,0,0,0] );
   obj.setParamOption( "cameraInfo","internal",true );
+  obj.setParamOption( "cameraInfo","maylink",function(o,pname) {
+    if (pname.match(/camera/)) return 10; // приоритет
+    var v = o.getParam(pname);
+    return Array.isArray(v) || v === undefined || v === null; //&& pname.match(/camera/);
+  });
   
   var i_set_caminfo = false;
   var i_set_camparam = false;
