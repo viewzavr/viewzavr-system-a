@@ -37,6 +37,7 @@ Column {
   
   function txt2arr( txt,cols ) {
 //    var res0 = txt.split( /\s+/ );
+
     var res =  txt.split( /\s+/ ).map(parseFloat);
     if (res.length % cols != 0) res.length = res.length - (res.length % cols);
     // cut result length to match number of columns

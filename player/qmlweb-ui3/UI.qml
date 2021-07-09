@@ -18,6 +18,39 @@ Item {
       onAdded: shower.activateObj( obj );
     }
 
+    /*
+    Filter {
+       //target: shower
+       onFilterFuncChanged: shower.filterFunc = filterFunc;
+       // либо оно могло  бы выдавать вообще текст
+    }*/
+
+
+    TextField {
+      placeholderText: "фильтр по имени"
+      id: tf
+      width: 136
+      onTextChanged: {
+        //console.log(text)
+        var t = text;
+        var f;
+        if (t.length > 0)
+          f = function(obj) {
+            return obj.ns.name.match(t); 
+          }
+        console.log("setting ff",f)
+        shower.filterfunc = f;
+      }
+      onAccepted: tf.text=""; // очистка по ентеру
+      Button { // очистка по клику
+        visible: tf.text && tf.text.length > 0
+        anchors.left: parent.right+10
+        text: "очистить"
+        onClicked: tf.text="";
+      }
+    }
+
+
     Shower {
       vzroot: ui.vzroot
       id: shower
@@ -32,30 +65,11 @@ Item {
     Row {
     spacing: 2
   
-    Button {
-        //text: enabled ? "Убрать" : "-"
-        text: "Убрать"
-        onClicked: {
-          if (enabled)  shower.currentObj.remove();
-        }
-        enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())
-      }
   
   /*
-      Button {
-        text: "Выше"
-      }
-      Button {
-        text: "Ниже"
-      }
+
   */
-      Button {
-        text: "Клон"
-        onClicked: {
-          if (enabled) shower.currentObj.clone();
-        }
-        enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())        
-      }
+
       
       Button {
         text: "Ссылка"
@@ -67,7 +81,57 @@ Item {
         }
         enabled: (shower.currentObj && (Object.keys(shower.currentObj.params).length > 0 || Object.keys(shower.currentObj.guis).length > 0))
       }
+
+      Button {
+        text: "Клон"
+        onClicked: {
+          if (enabled) shower.currentObj.clone();
+        }
+        enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())        
+      }
+
+      Button {
+        text: "Редактор"
+      }
+
+      Button {
+        text: ".."
+        onClicked: extraObjActions.visible = !extraObjActions.visible;
+      }
   
+    }
+
+    Row {
+      spacing: 2
+      id: extraObjActions
+      visible: false
+      // а что он тут делает?.. лучше сюда "убрать" вынести
+
+
+      Button {
+        //text: enabled ? "Убрать" : "-"
+        text: "Убрать"
+        onClicked: {
+          if (enabled)  shower.currentObj.remove();
+        }
+        enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())
+      }
+
+      /*
+      Button {
+        text: "Имя"
+      }      
+      Button {
+        text: "Выше"
+      }
+      Button {
+        text: "Ниже"
+      }
+
+      Button {
+        text: "Перенос"
+      }
+      */
     }
     
     // feature: R-GUI-TREE

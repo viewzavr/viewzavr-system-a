@@ -50,3 +50,8 @@ When adding a link (in gui), it should not have a default target parameter value
 There were cases when adding a link - it have blank source param and some selected target param.
 An obj started behaving with default value, which were not the case (program hanged).
 
+# R-BETTER-TREE-MANAGEMENT
+We need to perform operations on object added into object [scene] tree. 
+* Move up/down in list of children
+* Move to another children
+* Rename

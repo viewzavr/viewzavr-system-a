@@ -8,6 +8,7 @@ export function create( vz, opts )
   // гуи
   obj.addArray( "cameraPos", [], 3 );
   obj.addArray( "cameraCenter", [], 3 );
+
   
   // todo: active camera.. (of player root?)
   
@@ -45,6 +46,11 @@ export function create( vz, opts )
     obj.setParam( "cameraInfo",  qmlEngine.rootObject.cameraPos.concat( qmlEngine.rootObject.cameraCenter ) );
     i_set_caminfo = false;
   });
+
+  
+
+  ////////////////////////////// тема cameraInfo - оказалось полезно иметь все в 1 массиве
+  obj.addArray( "cameraInfo", [], 3 );
   
   obj.setParam( "cameraInfo",[0,0,0,0,0,0] );
   obj.setParamOption( "cameraInfo","internal",true );

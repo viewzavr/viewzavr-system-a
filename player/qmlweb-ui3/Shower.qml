@@ -2,6 +2,10 @@
 // вход vzroot
 // выход - визуальный образ - currentObj текущий выбранный объект
 
+// местная фича - F-FILTER-FUNC - фильтр при отображении объектов
+// если бы делать ее технически фичей (например как подобъект) то получилось бы, 
+// кроме того что в qml-объект еще потребуется добавить свойство...
+
 Column {
   id: sw
   
@@ -45,7 +49,12 @@ Column {
     // console.log("rescan");
     var objnames = [];
     var objlist = [];
+
+    //var _filterfunc = filterfunc || function(obj) { return true }; // F-FILTER-FUNC
+
     traverse( vzroot, vzroot.ns.name || "scene", -1, function( obj, name, depth ) {
+
+      //if (_filterfunc(name)) return; // F-FILTER-FUNC
     
       if (obj.historicalType == "link" && obj.getParam("tied_to_parent")) {
         //name = "formula_";
@@ -55,9 +64,9 @@ Column {
           var arr = s.split ? s.split("->") : [];
           if (arr && arr[1]) name = name + arr[1];
         }
-        obj.track("linksChanged",rescan );
+        obj.track("linksChanged",rescan ); // а untrack мы делаем?
       }
-    
+
       objnames.push( "--".repeat( Math.max( 0,depth )) + name );
       objlist.push( obj );
     });
@@ -67,6 +76,7 @@ Column {
     if (sw.afterRescan) sw.afterRescan();
   }
 
+  // startobj, name, depth - текущий объект
   function traverse(startobj,name,depth, fn) {
     fn( startobj,name,depth );
     var cc = startobj.ns.getChildNames();
@@ -96,5 +106,32 @@ Column {
   }
   property var afterRescan
   // очень интре
+
+
+  // F-FILTER-FUNC
+  property var filterfunc
+  onFilterfuncChanged: {
+    sw.das_filterfunc = filterfunc || function() { return true; };
+    rescan()
+  }
+
+  Item { // попробуем.. это типа патч..
+
+    Component.onCompleted: {
+      //sw.createSimpleProperty("_")
+      sw.das_filterfunc = filterfunc || function() { return true; };
+      
+      var orig = sw.traverse;
+      var newtraverse = function (startobj,name,depth, fn) {
+        orig( startobj, name, depth, function(_obj,_name,_depth) {
+          //var f = filterfunc; // запрос qml, печаль
+          //if (f && f(_obj)) fn( _obj,_name,_depth);
+          if (sw.das_filterfunc(_obj)) fn( _obj,_name,_depth);
+        })
+      }
+      sw.traverse = newtraverse;
+    }
+
+  }
 
 }
