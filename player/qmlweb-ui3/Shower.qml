@@ -12,6 +12,9 @@ Column {
   property var vzroot
 
   property var currentObj: cb.objects[ cb.currentIndex ];
+  
+  // MF-FILTER-FOCUS причина
+  function focus() { cb.dom.focus(); }
 
   ComboBox {
     size: isMobile ? 1 : 10

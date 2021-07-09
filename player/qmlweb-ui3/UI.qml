@@ -24,6 +24,10 @@ Item {
        shower: shower
        id: tf
        onFilterfuncChanged: shower.filterfunc = filterfunc
+       // MF-FILTER-FOCUS микрофишка - в фильтре хочется нажать enter и перейти к списку объектов
+       onAccepted: {
+         shower.focus();
+       }
     }
 
 
