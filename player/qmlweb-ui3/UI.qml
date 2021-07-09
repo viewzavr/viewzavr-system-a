@@ -19,39 +19,13 @@ Item {
       onAdded: shower.activateObj( obj );
     }
 
-    /*
+    
     Filter {
-       //target: shower
-       onFilterFuncChanged: shower.filterFunc = filterFunc;
-       // либо оно могло  бы выдавать вообще текст
-    }*/
-
-
-    TextField {
-      placeholderText: "фильтр по имени"
-      id: tf
-      width: 136
-      onTextChanged: {
-        //console.log(text)
-        var t = text;
-        var f;
-        if (t.length > 0)
-          f = function(obj,arg) {
-            return arg || obj.ns.name.match(t);
-          }
-        //console.log("setting ff",f)
-        shower.filterfunc = f;
-      }
-      onAccepted: tf.text=""; // очистка по ентеру
-      Button { // очистка по клику
-        visible: tf.text && tf.text.length > 0
-        anchors.left: parent.right+10
-        text: "очистить"
-        onClicked: tf.text="";
-      }
-      
-
+       shower: shower
+       id: tf
+       onFilterfuncChanged: shower.filterfunc = filterfunc
     }
+
 
     Shower {
       vzroot: ui.vzroot
