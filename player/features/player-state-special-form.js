@@ -22,6 +22,7 @@ export default function setup( player ) {
     var packages_by_cb  = player.vz.createObjByType( {parent: b, type: "load-packages-checkbox", player: player} );
     var packages_by_url = player.vz.createObjByType( {parent: b, type: "load-packages-by-url", player: player} );
     var savescene       = player.vz.createObjByType( {parent: b, type: "import-export", player: player} );
+    //var guistate        = player.vz.createObj( {parent: b, player: player, name: "guistate"} );
 
     packages_by_cb.dump = function() {};
     packages_by_url.dump = function() {};
@@ -95,6 +96,7 @@ export default function setup( player ) {
 
   });
   
+  // update: а нельзя это попроще как-то сделать? зачем вот это все? если пакеты это объект вьюзавра, то пусть уж и сохраняют свои параметры, не?
   // сохраним пакеты во время дампа
   player.vz.chain( "dumpObj", function(obj) {
     var d = this.orig( obj );

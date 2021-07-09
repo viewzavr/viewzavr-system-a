@@ -19,8 +19,30 @@ Column {
     height: isMobile ? 25 : 250
     id: cb
     property var objects: []
+    
+    ///////////////////////////////////////////////////////////
+    // feature: keep currently selected object if model changes
+    function setdata( objnames, objlist ) {
+      var curobj = objects[ cb.currentIndex ];
+      var curpath = curobj ? curobj.getPath() : null;
+      model = objnames;
+      objects = objlist;
+      if (curpath) setbypath( curpath );
+    }
+    
+    function setbypath( path ) {
+      var cblist = objects;
+      for (var i=0; i<cblist.length; i++) {
+        var obj = cblist[i];
+        if (obj.getPath() == path) {
+          currentIndex = i;
+          return;
+        }
+      }
+    }
+    ///////////////////////////////////////////////////////////    
   }
-  
+
   Timer {
     id: rescantimer
     interval: 50
@@ -70,9 +92,9 @@ Column {
       objnames.push( "--".repeat( Math.max( 0,depth )) + name );
       objlist.push( obj );
     });
-    cb.model = objnames;
-    cb.objects = objlist;
     
+    cb.setdata( objnames, objlist );
+
     if (sw.afterRescan) sw.afterRescan();
   }
 
@@ -108,6 +130,7 @@ Column {
   // очень интре
 
 
+  ////////////////////////////////////////////////
   // F-FILTER-FUNC
   property var filterfunc
   onFilterfuncChanged: {
@@ -120,18 +143,54 @@ Column {
     Component.onCompleted: {
       //sw.createSimpleProperty("_")
       sw.das_filterfunc = filterfunc || function() { return true; };
-      
+    
+    /*  
       var orig = sw.traverse;
       var newtraverse = function (startobj,name,depth, fn) {
         orig( startobj, name, depth, function(_obj,_name,_depth) {
-          //var f = filterfunc; // запрос qml, печаль
-          //if (f && f(_obj)) fn( _obj,_name,_depth);
-          if (sw.das_filterfunc(_obj)) fn( _obj,_name,_depth);
+          if (sw.das_filterfunc(_obj)) // thus we signal out only if obj matches
+              fn( _obj,_name,_depth);
         })
+      }
+    */
+      
+      // update: решил еще передавать аргумент в функцию фильтра - тогда можно будет делать выбор поддеревьев например
+      // ну и заодно этот аргумент будет результатом вызова у родителя
+      var newtraverse = function traverse(startobj,name,depth, fn, filterarg) {
+        var filterres = sw.das_filterfunc( startobj, filterarg );
+        if (filterres)
+            fn( startobj,name,depth );
+        var cc = startobj.ns.getChildNames();
+        for (var i=0; i<cc.length; i++) {
+            var name = cc[i];
+            var obj = startobj.ns.getChildByName( name );
+            sw.traverse( obj, name, depth+1, fn, filterres );
+        }
       }
       sw.traverse = newtraverse;
     }
 
   }
+  
+  ///////////////////////////////////////////
+  // save restore current obj feature
+  // API
+  // output: currentObjPath property
+  // input: newCurrentObjPath property
+  property var currentObjPath: currentObj ? currentObj.getPath() : "";
+  property var newCurrentObjPath
+  onNewCurrentObjPathChanged: {
+    var p = newCurrentObjPath;
+    var co = currentObj;
+    if (!co || co.getPath() != p) {
+
+      // case to restore
+      // this doesn't work if object is not added yet
+      // cb.setbypath( p );
+      var realtargetobj = vzroot.findByPath( p );
+      if (realtargetobj) 
+        sw.activateObj( realtargetobj );
+    }
+  }  
 
 }

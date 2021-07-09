@@ -3,6 +3,7 @@ Item {
   property var vzroot
   property var adder_target     // an object where to add new objects
   property var special_objects  // a list of vzPlayer special objects required for some components
+  property var stateobj         // a state where UI may save it's state
   
 //  onVzrootChanged: console.log("UI vzroot is",vzroot );
 
@@ -35,10 +36,10 @@ Item {
         var t = text;
         var f;
         if (t.length > 0)
-          f = function(obj) {
-            return obj.ns.name.match(t); 
+          f = function(obj,arg) {
+            return arg || obj.ns.name.match(t);
           }
-        console.log("setting ff",f)
+        //console.log("setting ff",f)
         shower.filterfunc = f;
       }
       onAccepted: tf.text=""; // очистка по ентеру
@@ -48,8 +49,9 @@ Item {
         text: "очистить"
         onClicked: tf.text="";
       }
-    }
+      
 
+    }
 
     Shower {
       vzroot: ui.vzroot
@@ -157,7 +159,7 @@ Item {
       }
 
     }
-        
+
     } // column
     
     Text {
@@ -172,6 +174,21 @@ Item {
   }
   Component.onCompleted: qmlEngine.rootObject.refineSelf();
   
-
+  //////////////// state
+  ViewzavrParam {
+    id: vz1
+    obj: stateobj
+    name: "filter-text"
+    onChanged: tf.text = value
+    newValue: tf.text
+  }
+  
+  ViewzavrParam {
+    id: vz1
+    obj: stateobj
+    name: "current-obj"
+    onChanged: shower.newCurrentObjPath = value
+    newValue: shower.currentObjPath
+  }  
 
 }

@@ -21,6 +21,7 @@ Scene {
     vzroot: my.vzroot
     adder_target: my.adder_target
     special_objects: my.special_objects
+    stateobj: my.special_objects.state
   }
   //Modules {}
 

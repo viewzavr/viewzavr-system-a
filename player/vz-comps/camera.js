@@ -79,7 +79,7 @@ export function create( vz, opts )
 
 export function setup( vz ) {
 
-  vz.addItemType( "camera","Camera", function( opts ) {
+  vz.addItemType( "camera","Camera: Camera", function( opts ) {
     return create( vz, opts );
   } );
 
