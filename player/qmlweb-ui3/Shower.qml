@@ -191,8 +191,14 @@ Column {
       // this doesn't work if object is not added yet
       // cb.setbypath( p );
       var realtargetobj = vzroot.findByPath( p );
-      if (realtargetobj) 
+      if (realtargetobj)
         sw.activateObj( realtargetobj );
+      else
+        setTimeout( function() { // retry once..
+          var realtargetobj = vzroot.findByPath( p );
+          if (realtargetobj)
+              sw.activateObj( realtargetobj );
+        },250);
     }
   }  
 

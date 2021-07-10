@@ -84,6 +84,7 @@ export function create( vz, qmlEngine ) {
 
     return new Promise( function( resolv, rej ) {
       var url2 = formatSrc( url ); // TODO this is hack based on viewlang function formatSrc
+      //console.log("url2=",url2)
       import( url2 ).then( function(mod) {
         if (mod.setup) {
           var s = mod.setup( p.vz );

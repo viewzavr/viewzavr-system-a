@@ -21,7 +21,6 @@ Item {
 
     
     Filter {
-       shower: shower
        id: tf
        onFilterfuncChanged: shower.filterfunc = filterfunc
        // MF-FILTER-FOCUS микрофишка - в фильтре хочется нажать enter и перейти к списку объектов
@@ -165,7 +164,9 @@ Item {
     id: vz1
     obj: stateobj
     name: "current-obj"
-    onChanged: shower.newCurrentObjPath = value
+    onChanged: {
+      shower.newCurrentObjPath = value
+    }
     newValue: shower.currentObjPath
   }  
 
