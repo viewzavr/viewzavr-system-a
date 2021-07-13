@@ -133,6 +133,10 @@ Item {
       AddItemDialog {
         id: add_elem_dlg
         target: shower.currentObj
+        onAdded: {
+          adder.added( obj );
+          add_elem_dlg.close();
+        }        
       }
 
     }

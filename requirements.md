@@ -24,3 +24,7 @@ in addition to normal adding items gui to root element.
 # R-LOAD-PACKAGE-ONCE
 If package is already loaded by loadPackage, ongoing calls to same url should just return.
 (no import, nor setup should be called).
+
+# R-NEED-GUI-TITLE we need be able to differentiate user-screen titles on gui elements and actual parameter names
+ => # R-PROVIDE-GUI-TITLE we need a way to specify title for gui element
+   => # F-USE-PARAM-OPTIONS

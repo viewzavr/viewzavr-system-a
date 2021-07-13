@@ -183,7 +183,8 @@ export function create( vz, opts ) {
   
   
   obj.addCmd("Reset",function(value) {
-    mv.createSyncFromDump( {}, vzPlayer.getRoot() ).then( obj => vzPlayer.setRoot(obj)  );
+    //mv.createSyncFromDump( {}, vzPlayer.getRoot() ).then( obj => vzPlayer.setRoot(obj)  );
+    mv.createSyncFromDump( {}, vzPlayer.getRoot() );
     /*
     var new_root = mv.createObj();
     var old_root = vzPlayer.getRoot();

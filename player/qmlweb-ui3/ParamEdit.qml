@@ -93,7 +93,8 @@ Column {
   }
 
   function gui2init( rec, g ) {
-    g.text = rec.name;
+    g.text = rec.getTitle(); // R-PROVIDE-GUI-TITLE
+    
     if (g.ahasher) g.ahasher.enabled = false;
     tablica[ rec.type ][1]( rec,g );
     trackVisible( rec, g );
