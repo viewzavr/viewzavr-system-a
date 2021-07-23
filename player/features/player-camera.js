@@ -1,4 +1,6 @@
-import * as cam from "../vz-comps/camera.js";
+// purpose: provide a state for scene default camera, so it will be saved and restored
+
+import * as cam from "../../graphical-api/camera.js";
 
 export default function setup( player ) {
   cam.setup( player.vz );

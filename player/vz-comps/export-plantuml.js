@@ -7,6 +7,10 @@
 // тогда стрелка идет объект->имясобытия (или это поле), а от него уже - стрелка к.
 // ну либо - выделять ТПУ как записи в объекте (plantuml умеет)
 
+// запуск сервера:
+// docker run -d -p 8090:8080 plantuml/plantuml-server:jetty
+// https://hub.docker.com/r/plantuml/plantuml-server 
+
 export default function setup( obj ) {
   obj.addCmd("Export PlantUML",function(value) {
     var root = obj.findRoot();
@@ -19,7 +23,7 @@ export default function setup( obj ) {
     var h = tohex(text);
     console.log(h);
     
-    var url = `http://localhost:8080/uml/~h${h}`;
+    var url = `http://localhost:8090/uml/~h${h}`;
     window.open( url );
   });
 }
