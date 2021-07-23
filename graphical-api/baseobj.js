@@ -1,7 +1,7 @@
 // gui - объект с гуями, p - объект с js-свойствами
 export function addBaseGui( gui, p ) {
 
-  var sr = gui.addSlider( "radius", 2, 0.1, 10, 0.1, function(v) {
+  var sr = gui.addSlider( "radius", 2, 0.1, 20, 0.1, function(v) {
     p.radius = v;
   });
   var sc = gui.addColor( "color", p.color, function(v) {

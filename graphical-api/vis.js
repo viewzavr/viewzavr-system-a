@@ -20,8 +20,11 @@ export default function setup( vz ) {
     obj.addSlider( "additive",0,0,1,1,function(v) {
       obj.additive = v > 0;
     });
-    obj.addSlider( "depth-test",1,0,1,1,function(v) {
+    obj.addSlider( "depth_test",1,0,1,1,function(v) {
       obj.depthTest = v > 0;
+    });
+    obj.addCheckbox("size_attenuation",true,(v) => {
+       obj.sizeAttenuation = v;
     });
     
     obj.addArray("colors",[],3);

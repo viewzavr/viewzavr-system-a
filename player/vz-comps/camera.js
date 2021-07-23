@@ -43,7 +43,10 @@ export function create( vz, opts )
   
   var updateCameraInfo = delayed( function() {
     i_set_caminfo = true;
-    obj.setParam( "cameraInfo",  qmlEngine.rootObject.cameraPos.concat( qmlEngine.rootObject.cameraCenter ) );
+    var p = qmlEngine.rootObject.cameraPos;
+    var c = qmlEngine.rootObject.cameraCenter;
+    var arr = [ p[0],p[1],p[2], c[0], c[1], c[2] ]; // такой расклад т.к. p,c могут быть float32array внезапно и concat у них нет
+    obj.setParam( "cameraInfo", arr );
     i_set_caminfo = false;
   });
 
