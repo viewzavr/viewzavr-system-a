@@ -248,7 +248,7 @@ export function json2js( objname, dump,padding ) {
 export function json2js_v2( objname, objvarname, parentvarname, dump, padding, isroot ) {
     var result = `// object ${objname}\n`;
 
-    objvarname = objvarname.replace(/[^\d\w]/,"_").replace("-","_");
+    objvarname = objvarname.replace(/[^\d\w]/g,"_").replace(/-/g,"_");
     
     if (dump.module_url)
     {
@@ -257,11 +257,11 @@ export function json2js_v2( objname, objvarname, parentvarname, dump, padding, i
     else
     if (dump.manual)
     {
-      result += `var ${objvarname} = vz.create_obj_by_type( { type: '${dump.type}', parent: ${parentvarname}, name: '${objname}' } );\n`;
+      result += `var ${objvarname} = vz.createObj( { manual: true, type: '${dump.type}', parent: ${parentvarname}, name: '${objname}' } );\n`;
     }
     else
     if (isroot) {
-      result += `var ${objvarname} = vz.createObj( { parent: ${parentvarname}, name: '${objname}' } );\n`;
+      result += `var ${objvarname} = vz.createObj( { name: '${objname}', ...opts } );\n`;
     }
     else
     {
@@ -281,7 +281,12 @@ export function json2js_v2( objname, objvarname, parentvarname, dump, padding, i
 
     // todo отсортировать в порядке order..
     ckeys.forEach( function(name) {
-      result += "\n" + json2js_v2( name, objvarname + "_" + name, objvarname, c[name],padding);
+      let cobj = c[name];
+      if (cobj.type == "link") {
+        result += `\n  ${objvarname}.linkParam( '${cobj.params.to}','${cobj.params.from}' )`;
+      }
+      else
+        result += "\n" + json2js_v2( name, objvarname + "_" + name, objvarname, c[name],padding);
     });
     
 

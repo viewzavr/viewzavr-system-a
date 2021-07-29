@@ -191,7 +191,13 @@ Column {
       var values = rec.getValues ? rec.getValues() : rec.values;
 
       g.values = values;
-      g.value = values.indexOf( rec.value );
+
+      var i = values.indexOf( rec.value );
+      if (i < 0 && rec.notFound) {
+          i = rec.notFound( rec.value, values );
+      } 
+      g.value = i;
+
       // console.log("ASSIGNED COMBOSTRING value to indexOf: ",g.value," rec.value was",rec.value, "rec.name was",rec.name );
       g.aslider.visible = false;
       g.acombo.width = 173;
@@ -204,7 +210,13 @@ Column {
       trackParam( rec,g,function() {
         var s = rec.obj.getParam( rec.name );
         var i = values.indexOf( s );
-        g.value = i; // что делать если не нашли? как?
+        /*
+        debugger;
+        if (i < 0 && rec.notFound) {
+            i = rec.notFound( s, values );
+        }
+        */
+        g.value = i; // что делать если не нашли? как? или в этой ситуации мы всегда находим?
       });
       // вот тут бы трэкать изменение списка опций..
       // rec.setValues

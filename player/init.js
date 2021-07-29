@@ -134,10 +134,16 @@ export function create( vz, qmlEngine ) {
   p.loadJson = function( url ) {
      return new Promise( function( resolv, rej ) {
       fetch(url).then((response) => {
-        return response.json();
+          if (!response.ok) {
+            console.error("loadJson fetch not ok:",response.statusText)
+            throw "fetch error";
+          }
+          
+          return response.json();
         },
         (reason) => {
           console.log("viewzavr loadJson error: ",reason); // Ошибка!
+          rej( reason )
           //resolv( {} );
           return {};
         }
@@ -150,7 +156,9 @@ export function create( vz, qmlEngine ) {
           console.log("loadJson: synced");
           resolv(obj);
         });
-      });
+      }
+      ,(err) => { console.error("loadJson parse error",err); rej(err); }
+      );
      });
   }
   
