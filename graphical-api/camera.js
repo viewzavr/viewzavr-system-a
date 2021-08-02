@@ -59,6 +59,7 @@ export function create( vz, opts )
   obj.setParamOption( "cameraInfo","internal",true );
   obj.setParamOption( "cameraInfo","maylink",function(o,pname) {
     if (pname.match(/camera/)) return 10; // приоритет
+    return true; // чето динамические эти штуки не срабатывают
     var v = o.getParam(pname);
     return Array.isArray(v) || v === undefined || v === null; //&& pname.match(/camera/);
   });
