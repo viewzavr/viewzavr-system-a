@@ -185,8 +185,8 @@ Column {
       });
     });
     
-    // вариант как combo но храним строчку в параметре
-    add( "combostring", "Param", function( rec,g ) {
+    // вариант как combo но храним значение в параметре
+    add( "combovalue", "Param", function( rec,g ) {
     
       var values = rec.getValues ? rec.getValues() : rec.values;
 
