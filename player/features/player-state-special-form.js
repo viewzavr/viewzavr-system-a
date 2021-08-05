@@ -66,7 +66,7 @@ export default function setup( player ) {
     else {
       orig( dump, obj ).then( obj => {
         resolve( obj );
-      });
+      }).catch( err => reject(err) );
     }
     /*
     // первым делом, первым делом самолеты, ну а девушки - а девушки потом

@@ -151,11 +151,13 @@ export function create( vz, qmlEngine ) {
       .then((data) => {
         //console.log(data);
         console.log("loadJson: loaded, syncing");
-        var r = vz.createSyncFromDump( data,vzPlayer );
-        r.then( (obj) => {
-          console.log("loadJson: synced");
-          resolv(obj);
-        });
+          var r = vz.createSyncFromDump( data,vzPlayer );
+          r.then( (obj) => {
+            console.log("loadJson: synced");
+            resolv(obj);
+          }) 
+          // .catch( (rerr) => { console.error("loadJson: error during sync",rerr); rej(rerr); } );
+          // @todo: createSyncFromDump always returns success (see allSettled). track that..
       }
       ,(err) => { console.error("loadJson parse error",err); rej(err); }
       );
