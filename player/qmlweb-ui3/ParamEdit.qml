@@ -77,7 +77,7 @@ Column {
     Loader {
       timeoutMode: false
       property var gui: rep.guis[ index ]
-      source: gui2type( gui )
+      source: gui2file( gui )
       id: ldr
       visible: item ? item.visible : false
       onInit: {
@@ -88,8 +88,15 @@ Column {
     }
   }
 
-  function gui2type( rec ) {
-    return tablica[ rec.type ][0];
+  function gui2file( rec ) {
+    var t = tablica[ rec.type ];
+    if (!t) {
+      console.error("ParamEdit.qml: gui2file no table record for type ",rec.type );
+      debugger;
+      return "";
+    }
+    
+    return t[0];
   }
 
   function gui2init( rec, g ) {
