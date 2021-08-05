@@ -57,14 +57,18 @@ SimpleDialog {
           if (!vz) return [];
           var t = vz.getTypesByCat( cat );
           t = t.filter( function(code) { return !vz.getTypeOptions( code ).hidegui } );
+          
+          t = t.sort( function(a,b) { return gettitle(vz,a).localeCompare( gettitle(vz,b) ) }); // F-SORT-TYPES sort by name
           return t;
+        }
+        
+        function gettitle( vz, code ) {
+          var s = vz.getTypeOptions(code).title;
+          return s;
         }
 
         function gettitles( vz, types ) {
-          return types.map( function(code) {
-            var opts = vz.getTypeOptions( code );
-            return opts.title;
-          });
+          return types.map( function(code) { return gettitle( vz, code ) });
         }
 
         // feature: add object when it's name is clicked in a list
