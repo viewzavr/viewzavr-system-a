@@ -13,10 +13,9 @@ Item {
     id: scene3da
   }
   
-  property alias controls: editor
-  
+  property alias editor: editora
   SceneControls {
-    id: editor
+    id: editora
 
     Packages {
       vzroot: my.vzroot
@@ -39,7 +38,25 @@ Item {
 
   Component.onCompleted: editor.refineSelf();
   
-  /////// ожидается от корневого объекта
+  /////// интерфейс выбора текущего слоя P3
+  property var screens: [editor]
+  
+  function setActiveScreen( screen ) {
+    var arr = screens;
+    var found = false;
+    for (var i=0; i<arr.length; i++) {
+      var a = arr[i];
+      if (a === screen) {
+          a.visible = true;
+          found = true;
+      }
+      else
+          a.visible = false;
+    }
+    if (!found) screens.push( screen );
+  }
+  
+  /////// ожидается от корневого объекта viewlang-ом
   property int propertyComputationPending: 0
   property var gatheredParams: []
   
