@@ -41,20 +41,66 @@ Item {
   /////// интерфейс выбора текущего слоя P3
   property var screens: [editor]
   
-  function setActiveScreen( screen ) {
+  // todo вынести это в screenManager
+  
+  /////// фича "активировать экран"
+  // screen - qml-объект (но не обязательно; главное чтобы на visible реагировал)
+  
+  function setActiveScreen0( screen ) {
     var arr = screens;
-    var found = false;
+    var found = -1;
     for (var i=0; i<arr.length; i++) {
       var a = arr[i];
       if (a === screen) {
           a.visible = true;
-          found = true;
+          found = i;
       }
       else
           a.visible = false;
     }
-    if (!found) screens.push( screen );
+    if (found < 0) {
+      screens.push( screen );
+      return (screens.length-1);
+    }
+    return found;
   }
+  
+  ///// фича "следующий экран"
+  
+  property var currentScreenIndex: 0
+  
+  function setActiveScreen( screen ) {
+    var i = setActiveScreen0( screen );
+    currentScreenIndex = i;
+  }
+
+  function setNextScreen() {
+    var s = screens[ (currentScreenIndex+1) % screens.length ];
+    setActiveScreen( s );
+  }
+  
+  function removeScreen( screen ) {
+    var i = removeScreen0( screen );
+    if (i == currentScreenIndex) {
+      currentScreenIndex = currentScreenIndex-1;
+      setNextScreen()
+    }
+  }
+  
+  ////// фича "добавить экран"
+  function addScreen( screen ) {
+    var i = screens.indexOf( screen );
+    if (i < 0) screens.push( screen );
+  }
+  function removeScreen0( screen ) {
+    var i = screens.indexOf( screen );
+    if (i >= 0) {
+      screens.splice( i,1 );
+    }
+    return i;
+  }
+
+  // идеи: find-screen-by-code?
   
   /////// ожидается от корневого объекта viewlang-ом
   property int propertyComputationPending: 0
