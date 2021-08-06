@@ -41,7 +41,7 @@ Item {
   /////// интерфейс выбора текущего слоя P3
   property var screens: [editor]
   
-  // todo вынести это в screenManager
+  // todo вынести это в screenManager. Кстати это относится к player, а не к qml уже.
   
   /////// фича "активировать экран"
   // screen - qml-объект (но не обязательно; главное чтобы на visible реагировал)
