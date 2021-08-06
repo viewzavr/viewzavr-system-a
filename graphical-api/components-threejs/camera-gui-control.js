@@ -21,7 +21,7 @@ export function create( vz, opts )
   
   obj.addCombo( "type",0,["orbit","map","orbit-old"],function(v) {
     let args = argstable[ v ];
-    qmlEngine.rootObject.cameraControlC.setupControl.apply( qmlEngine.rootObject.cameraControlC, args );
+    qmlEngine.rootObject.scene3d.cameraControlC.setupControl.apply( qmlEngine.rootObject.scene3d.cameraControlC, args );
   });
 
   return obj;

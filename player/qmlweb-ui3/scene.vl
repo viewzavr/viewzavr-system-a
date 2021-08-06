@@ -2,6 +2,9 @@ import "."
 
 Scene {
   id: my
+  
+  property alias scene3d: my
+  property alias controls: my
 
   property var vzroot
   property var adder_target: vzroot

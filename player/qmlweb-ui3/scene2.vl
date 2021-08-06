@@ -1,0 +1,51 @@
+import "."
+
+Item {
+  id: my
+  anchors.fill: parent
+
+  property var vzroot
+  property var adder_target: vzroot
+  property var special_objects
+  
+  property alias scene3d: scene3da
+  Scene3D {
+    id: scene3da
+  }
+  
+  property alias controls: editor
+  
+  SceneControls {
+    id: editor
+
+    Packages {
+      vzroot: my.vzroot
+      special_objects: my.special_objects
+    }
+
+    Export {
+      vzroot: my.vzroot
+      special_objects: my.special_objects
+    }
+
+    UI {
+      vzroot: my.vzroot
+      adder_target: my.adder_target
+      special_objects: my.special_objects
+      stateobj: my.special_objects.state
+    }
+
+  }
+
+  Component.onCompleted: editor.refineSelf();
+  
+  /////// ожидается от корневого объекта
+  property int propertyComputationPending: 0
+  property var gatheredParams: []
+  
+  property bool animationActive : false;
+  property bool animationRecord : false;
+  
+  signal animationTick();
+
+}

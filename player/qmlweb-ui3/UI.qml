@@ -153,7 +153,7 @@ Item {
       id: pe
     }
   }
-  Component.onCompleted: qmlEngine.rootObject.refineSelf();
+  // Component.onCompleted: .refineSelf();
   
   //////////////// state
   ViewzavrParam {

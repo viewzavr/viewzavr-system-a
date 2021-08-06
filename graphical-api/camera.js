@@ -18,24 +18,24 @@ export function create( vz, opts )
     var cp = obj.getParam("cameraPos");
 //    console.log( "cameraPos param changed to",cp );
     if (cp && cp.length && cp.length == 3)
-      qmlEngine.rootObject.cameraPos = cp;
+      qmlEngine.rootObject.scene3d.cameraPos = cp;
   });
   obj.setParam( "cameraCenter",[] );
   obj.trackParam( "cameraCenter", function() {
     var cp = obj.getParam("cameraCenter");
 //    console.log( "cameraCenter param changed to",cp );
     if (cp && cp.length && cp.length == 3)
-      qmlEngine.rootObject.cameraCenter = cp;
+      qmlEngine.rootObject.scene3d.cameraCenter = cp;
   })
   ;
 
-  qmlEngine.rootObject.cameraCenterChanged.connect( obj, function(v) {
+  qmlEngine.rootObject.scene3d.cameraCenterChanged.connect( obj, function(v) {
     if (i_set_camparam) return; // защита от воздействия установки параметра cameraInfo
     obj.setParam( "cameraCenter",v );
     updateCameraInfo();    
   });
 
-  qmlEngine.rootObject.cameraPosRealChanged.connect( obj, function(v) {
+  qmlEngine.rootObject.scene3d.cameraPosRealChanged.connect( obj, function(v) {
     if (i_set_camparam) return; // защита от воздействия установки параметра cameraInfo
     obj.setParam( "cameraPos",v );
     updateCameraInfo();
@@ -43,8 +43,8 @@ export function create( vz, opts )
   
   var updateCameraInfo = delayed( function() {
     i_set_caminfo = true;
-    var p = qmlEngine.rootObject.cameraPos;
-    var c = qmlEngine.rootObject.cameraCenter;
+    var p = qmlEngine.rootObject.scene3d.cameraPos;
+    var c = qmlEngine.rootObject.scene3d.cameraCenter;
     var arr = [ p[0],p[1],p[2], c[0], c[1], c[2] ]; // такой расклад т.к. p,c могут быть float32array внезапно и concat у них нет
     obj.setParam( "cameraInfo", arr );
     i_set_caminfo = false;
