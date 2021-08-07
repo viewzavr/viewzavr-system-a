@@ -91,6 +91,8 @@ Item {
   function addScreen( screen ) {
     var i = screens.indexOf( screen );
     if (i < 0) screens.push( screen );
+    // особая субфича - экраны надо гасить на этапе инициализации
+    screen.visible = false;
   }
   function removeScreen0( screen ) {
     var i = screens.indexOf( screen );
