@@ -78,6 +78,10 @@ Item {
     var s = screens[ (currentScreenIndex+1) % screens.length ];
     setActiveScreen( s );
   }
+
+  function setActiveScreenN( num ) {
+    setActiveScreen( screens[num] || screen[0] )
+  }
   
   function removeScreen( screen ) {
     var i = removeScreen0( screen );

@@ -71,6 +71,10 @@ Item {
 
       Button {
         text: "Редактор"
+        onClicked: ote.perform( shower.currentObj );
+        ObjectTextEdit {
+          id: ote
+        }
       }
 
       Button {

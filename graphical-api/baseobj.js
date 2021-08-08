@@ -33,7 +33,14 @@ export default function setup( m, vis ) {
   
   m.addQml = function( qmlfile, opts ) {
     var isparentqml = opts && opts.parent && opts.parent.$tidyupList ? true : false;
-    var p = m.create_qml( qmlfile, isparentqml ? opts.parent : qmlEngine.rootObject );
+    var p = m.create_qml( qmlfile, isparentqml ? opts.parent : qmlEngine.rootObject,function(newobj) {
+      newobj.vz = m; // pass viewzavr system to created objects.
+    } );
+    if (!p) {
+      //console.error("addQml: failed to create QML from file",qmlfile)
+      console.error("addQml: returning just blank object");
+      return m.createObj( opts );
+    }
     m.create_obj( p, opts );
 //    m.chain("remove",function() {
 //    });

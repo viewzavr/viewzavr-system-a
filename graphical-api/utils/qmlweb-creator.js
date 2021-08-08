@@ -39,7 +39,7 @@ export function create_qml_obj( source, parent, init_func ) {
   }
   
   if (init_func)
-    init_func.apply( it );
+    init_func.apply( it,[it] );
     
   //
   var oldState = engine.operationState;
