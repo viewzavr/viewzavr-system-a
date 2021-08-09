@@ -10,7 +10,9 @@ Item {
         vzPlayer.vz.createFromXml( '<dlg><column id="col"><codeflask id="cf"/><btn id='commitbtn' text="commit"/></column></dlg>' )
         .then( function(res) {
           dlg = res;
-          res.items.col.items.commitbtn.on("click",function)  
+          res.items.col.items.commitbtn.on("click",function() {
+            
+          })
         } );
     }
   }
