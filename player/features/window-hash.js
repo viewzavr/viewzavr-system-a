@@ -15,10 +15,10 @@ function setup_obj(x) {
   var _getParam = x.getParam;
   var _removeParam = x.removeParam;
 
-  x.setParam = function(name,value) {
+  x.setParam = function(name,value, ...rest) {
     //console.log("hasher see setParam call",name,value);
     if (!x.getParamOption(name,"internal")) player.scheduleSaveToHash( x );
-    return _setParam( name, value );
+    return _setParam( name, value, ...rest );
   }
 
   x.removeParam = function(name) {
@@ -96,7 +96,7 @@ player.loadFromHash = function( aname, targetobj ) {
         targetobj = player.root;
         console.error( "restoreFromHash: reading deprecated thing vz.root!" );
       }
-      return vz.createSyncFromDump( q[name], targetobj );
+      return vz.createSyncFromDump( q[name], targetobj, undefined, undefined, true );
     }
     return new Promise( (resolv, reject) => {
       resolv( targetobj );

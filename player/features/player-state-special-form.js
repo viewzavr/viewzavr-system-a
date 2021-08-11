@@ -44,7 +44,7 @@ export default function setup( player ) {
     //////////////////////////////////////////////////////////
 
   // перед тем как загружать children-ов мы загрузим свои пакеты
-  player.vz.chain( "createChildrenByDump", function( dump, obj )
+  player.vz.chain( "createChildrenByDump", function( dump, obj, ...rest )
   {
     var p = dump.packages || {};
     var p1 = p.codes || []
@@ -59,12 +59,12 @@ export default function setup( player ) {
     var p3 = p1.concat(p2);
     if (p3.length > 0)
       player.loadPackage( p3 ).then( () => {
-        orig( dump, obj ).then( obj => {
+        orig( dump, obj, ...rest ).then( obj => {
           resolve( obj );
         });
       });
     else {
-      orig( dump, obj ).then( obj => {
+      orig( dump, obj, ...rest ).then( obj => {
         resolve( obj );
       }).catch( err => reject(err) );
     }
