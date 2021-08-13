@@ -257,7 +257,7 @@ export function json2js_v2( objname, objvarname, parentvarname, dump, padding, i
     else
     if (dump.manual)
     {
-      result += `var ${objvarname} = vz.createObj( { manual: true, type: '${dump.type}', parent: ${parentvarname}, name: '${objname}' } );\n`;
+      result += `var ${objvarname} = vz.createObjByType( { manual: true, type: '${dump.type}', parent: ${parentvarname}, name: '${objname}' } );\n`;
     }
     else
     if (isroot) {

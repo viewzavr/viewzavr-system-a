@@ -18,7 +18,10 @@
 
 export default function setup( player ) {
 
-    var b = player.vz.createObj( {name: "state", parent: player } );
+    var b = player.vz.createObj( {name: "state", parent: player } ); // здесь флаг manual служит чтобы сохраняли
+    // always dump
+    b.chain("dump",function() { return this.orig( true ); })
+
     var packages_by_cb  = player.vz.createObjByType( {parent: b, type: "load-packages-checkbox", player: player} );
     var packages_by_url = player.vz.createObjByType( {parent: b, type: "load-packages-by-url", player: player} );
     var savescene       = player.vz.createObjByType( {parent: b, type: "import-export", player: player} );

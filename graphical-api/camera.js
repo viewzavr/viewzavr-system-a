@@ -31,13 +31,13 @@ export function create( vz, opts )
 
   qmlEngine.rootObject.scene3d.cameraCenterChanged.connect( obj, function(v) {
     if (i_set_camparam) return; // защита от воздействия установки параметра cameraInfo
-    obj.setParam( "cameraCenter",v );
+    obj.setParam( "cameraCenter",v, true );
     updateCameraInfo();    
   });
 
   qmlEngine.rootObject.scene3d.cameraPosRealChanged.connect( obj, function(v) {
     if (i_set_camparam) return; // защита от воздействия установки параметра cameraInfo
-    obj.setParam( "cameraPos",v );
+    obj.setParam( "cameraPos",v, true );
     updateCameraInfo();
   });
   
@@ -57,6 +57,7 @@ export function create( vz, opts )
   
   obj.setParam( "cameraInfo",[0,0,0,0,0,0] );
   obj.setParamOption( "cameraInfo","internal",true );
+
   obj.setParamOption( "cameraInfo","maylink",function(o,pname) {
     if (pname.match(/camera/)) return 10; // приоритет
     return true; // чето динамические эти штуки не срабатывают

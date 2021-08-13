@@ -24,6 +24,8 @@ export function create( vz, qmlEngine ) {
 
   var p = vz.createObj();
   p.qmlEngine = qmlEngine;
+  // always dump
+  p.chain("dump",function() { return this.orig( true ); })
 
   p.setRoot = function(root) {
     p.root = root;
