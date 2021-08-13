@@ -158,9 +158,7 @@ function make(opts) {
    t +=`
 // package setup adds record(s) to the table of visual components, which is used by visual interface
 export function setup( vz ) {
-  vz.addItemType( "${new_type_id}","My ${new_type_id}", function( opts ) {
-    return create( vz, opts );
-  } );
+  vz.addType( "${new_type_id}",create, "My: ${new_type_id}");
   // you may add many components in 1 module
 }
 

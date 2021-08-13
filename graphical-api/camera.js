@@ -8,7 +8,6 @@ export function create( vz, opts )
   // гуи
   obj.addArray( "cameraPos", [], 3 );
   obj.addArray( "cameraCenter", [], 3 );
-
   
   // todo: active camera.. (of player root?)
   
@@ -31,13 +30,19 @@ export function create( vz, opts )
 
   qmlEngine.rootObject.scene3d.cameraCenterChanged.connect( obj, function(v) {
     if (i_set_camparam) return; // защита от воздействия установки параметра cameraInfo
-    obj.setParam( "cameraCenter",v, true );
-    updateCameraInfo();    
+    // @todo разобраться отдельно - получается что камеры все реагируют на экран
+    // выставляя себе параметр будто он выставлен руками
+    /// и при этом они конечно должны реагировать - некоторые алгоритмы считают что так и будет
+    // (т.е. быть может это должно быть и опцией)ы
+    // update вводим спец-флаг насчет manual - considerParamsManual
+
+    obj.setParam( "cameraCenter",v, obj.considerParamsManual );
+    updateCameraInfo();
   });
 
   qmlEngine.rootObject.scene3d.cameraPosRealChanged.connect( obj, function(v) {
     if (i_set_camparam) return; // защита от воздействия установки параметра cameraInfo
-    obj.setParam( "cameraPos",v, true );
+    obj.setParam( "cameraPos",v, obj.considerParamsManual );
     updateCameraInfo();
   });
   
