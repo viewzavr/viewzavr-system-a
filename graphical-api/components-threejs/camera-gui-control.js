@@ -13,15 +13,16 @@ export function create( vz, opts )
 {
   var obj = vz.createObj( Object.assign( { name: "camera-gui-control" }, opts )); //, parent: opts.parent } );
   
-  var argstable = [
-    ["OrbitControls"],
-    ["OrbitControls","MapControls"],
-    ["../threejs_driver/OrbitControls.js","OrbitControls"]
-  ]
+  var argstable = {
+    "orbit": ["OrbitControls"],
+    "map" : ["OrbitControls","MapControls"],
+    "orbit-old" : ["../threejs_driver/OrbitControls.js","OrbitControls"]
+  }
   
-  obj.addCombo( "type",0,["orbit","map","orbit-old"],function(v) {
+  obj.addComboValue( "type",0,["orbit","map","orbit-old"],function(v) {
     let args = argstable[ v ];
-    qmlEngine.rootObject.scene3d.cameraControlC.setupControl.apply( qmlEngine.rootObject.scene3d.cameraControlC, args );
+    if (args)
+      qmlEngine.rootObject.scene3d.cameraControlC.setupControl.apply( qmlEngine.rootObject.scene3d.cameraControlC, args );
   });
 
   return obj;
