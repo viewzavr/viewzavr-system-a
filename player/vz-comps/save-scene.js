@@ -283,8 +283,10 @@ export function json2js_v2( objname, objvarname, parentvarname, dump, padding, i
     // todo отсортировать в порядке order..
     ckeys.forEach( function(name) {
       let cobj = c[name];
-      if (cobj.type == "link") {
-        result += `\n  ${objvarname}.linkParam( '${cobj.params.to}','${cobj.params.from}' )`;
+      if (cobj.type == "link") { // todo проверить tied_to_parent
+        var toparamarr = cobj.params.to?.split("->");
+        var toparam = toparamarr[ toparamarr.length-1 ];
+        result += `\n  ${objvarname}.linkParam( '${toparam}','${cobj.params.from}' )`;
       }
       else
         result += "\n" + json2js_v2( name, objvarname + "_" + name, objvarname, c[name],padding);

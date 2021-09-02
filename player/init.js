@@ -71,7 +71,7 @@ export function create( vz, qmlEngine ) {
         return response.text();
         })
       .then((data) => {
-        console.log("loaded txt:",data);
+        console.warn("loaded txt:",data);
         var dir = url.substr( 0, url.lastIndexOf("/") ) + "/";
         p.loadPackage( data.split("\n").filter( l => l.length > 0 ).map( function(line) {
           return dir + "./" + line;

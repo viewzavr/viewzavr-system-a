@@ -54,7 +54,7 @@ Column {
   }
 
   function setup() {
-    console.log("shower chaining");
+    //console.log("shower chaining");
     
     // новая идея - trackOnce + имя фичи. Но этот once кстати нам заблокирует другие шоверы, формально..
 
