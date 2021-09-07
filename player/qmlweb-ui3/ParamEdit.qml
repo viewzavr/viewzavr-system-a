@@ -10,8 +10,9 @@ Column {
   
 //  Text { text: "Параметры " + rep.model + " шт" }
 
-  property var vzroot
-  property var obj
+  property var vzroot //: obj ? obj.findRoot() : null
+  property var obj: obj_path ? vzroot.findByPath( obj_path ) : null
+  property var obj_path
   
 //  onVzrootChanged: console.log("PAramEdit vzroot is",vzroot );
 

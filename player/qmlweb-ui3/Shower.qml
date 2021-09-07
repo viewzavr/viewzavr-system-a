@@ -88,8 +88,10 @@ Column {
         if (s) {
           var arr = s.split ? s.split("->") : [];
           if (arr && arr[1]) name = name + arr[1];
+        
         }
-        obj.track("linksChanged",rescan ); // а untrack мы делаем?
+        obj.off("linksChanged",rescan );
+        obj.on("linksChanged",rescan );
       }
 
       objnames.push( "--".repeat( Math.max( 0,depth )) + name );
