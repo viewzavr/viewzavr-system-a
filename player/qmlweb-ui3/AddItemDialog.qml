@@ -57,7 +57,6 @@ SimpleDialog {
           if (!vz) return [];
           var t = vz.getTypesByCat( cat );
           t = t.filter( function(code) { return !vz.getTypeOptions( code ).hidegui } );
-          
           t = t.sort( function(a,b) { return gettitle(vz,a).localeCompare( gettitle(vz,b) ) }); // F-SORT-TYPES sort by name
           return t;
         }
