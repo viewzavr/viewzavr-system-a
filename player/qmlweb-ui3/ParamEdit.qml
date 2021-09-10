@@ -133,14 +133,16 @@ Column {
     // g.Component.destruction.connect( function() { rec.obj.untrackParam( rec.name,fn ); });
     var f = function() {
       //debugger;
-      g.visible = rec.visible;
+      g.visible = rec.obj.getParamOption( rec.name, "visible",true );
+      //g.visible = rec.visible;
       //qmlEngine.rootObject.refineSelf();
       //debugger;
       //ed.layoutChildren();
     }
-    rec.events.addEventListener( "visible-changed",f );
-    g.Component.destruction.connect( function() { rec.events.removeEventListener( "visible-changed",f ); });
-    g.visible = rec.visible;
+    //rec.events.addEventListener( "visible-changed",f );
+    var unbind = rec.obj.trackParamOption( rec.name, "visible", f )
+    g.Component.destruction.connect( unbind );
+    g.visible = rec.obj.getParamOption( rec.name, "visible", true );
   }
   
   function init() {
@@ -180,11 +182,13 @@ Column {
     });
     
     add( "combo", "Param", function( rec,g ) {
+      g.bigCase = false;
       g.values = rec.values;
       g.value = rec.value;
       g.aslider.visible = false;
       g.acombo.width = 173;
       g.acombo.parent.height = 32; // ugly hack. setting height of combo row
+      
       g.valueChanged.connect( function( nv ) {
         rec.setValue( nv );
       });
@@ -198,6 +202,7 @@ Column {
     
       var values = rec.getValues ? rec.getValues() : rec.values;
 
+      g.bigCase = false;
       g.values = values;
 
       var i = values.indexOf( rec.value );
