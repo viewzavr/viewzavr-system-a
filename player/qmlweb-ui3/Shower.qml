@@ -81,7 +81,7 @@ Column {
 
       //if (_filterfunc(name)) return; // F-FILTER-FUNC
     
-      if (obj.historicalType == "link" && obj.getParam("tied_to_parent")) {
+      if (vzroot.vz.getObjType(obj) == "link" && obj.getParam("tied_to_parent")) {
         //name = "formula_";
         name = "link@";
         var s = obj.getParam("to");

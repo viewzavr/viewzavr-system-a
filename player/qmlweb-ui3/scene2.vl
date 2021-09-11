@@ -7,7 +7,7 @@ Item {
   property var vzroot
   property var adder_target: vzroot
   property var special_objects
-  
+
   property alias scene3d: scene3da
   Scene3D {
     id: scene3da
