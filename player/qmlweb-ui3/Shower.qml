@@ -58,8 +58,8 @@ Column {
     
     // новая идея - trackOnce + имя фичи. Но этот once кстати нам заблокирует другие шоверы, формально..
 
-    vzroot.track("appendChild",function() { rescantimer.start() } );
-    vzroot.track("forgetChild",function() { rescantimer.start() } );
+    vzroot.track("appendChildInTree",function() { rescantimer.start() } );
+    vzroot.track("forgetChildInTree",function() { rescantimer.start() } );
     
     rescan();
   }
