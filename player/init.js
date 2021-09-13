@@ -31,7 +31,7 @@ export function create( vz, qmlEngine ) {
     p.root = root;
     qmlEngine.rootObject.vzroot = root;
     // может быть надо remove у ниво вызвать?
-    p.ns.forgetChild( "scene" );
+    p.ns.forgetChild( p.ns.getChildByName("scene") );
     p.ns.appendChild( root, "scene" );
     root.findRoot = function() { return root; }; // устанавливаем водораздел, чтобы всякие искатели по именам тут и оставались
   }
