@@ -11,15 +11,14 @@ var example = `// source code for create. parameters:
 `;
 
 export function setup( vz ) {
-  vz.addItemType( "js-code","Javascript code", function( opts ) {
-    return create( vz, opts );
-  } );
+  vz.addType( "js-code",create, "Javascript code" );
 }
 
 // create function should return Viewzavr object
 export function create( vz, opts ) {
   //opts.name ||= "js-component";
   var eobj = vz.createObj( opts );
+  eobj.opts = opts;
   eobj.addText( "code",opts?.params?.code || example,f );
   eobj.setParamOption("code","language","js");
   
@@ -46,26 +45,16 @@ export function create( vz, opts ) {
     }
 
     obj.ns.removeChildren(); // что там было насоздовано все стираем - щас заново создадим
-
-    //exportjs();
-    var qq;
     
-    //if (obj) { qq = obj.dump(); obj.remove(); }
-    //obj = vz.createObj( {parent: eobj, name: "obj"} );
-    
-//    obj.setParamOption("input","internal",true );
-//    obj.setParamOption("output","internal",true );
-
     var t = eobj.getParam("code");
 
     try {
       eval( t );
-      //if (qq) obj.restoreFromDump( qq );
       eobj.setParam("status","статус: норма");
     } catch (ex) {
       eobj.setParam("status","статус: ошибка");
       console.error("EXCEPTION:",ex );
-      console.info("Ошибка шейдера:",ex );
+      console.info("ERROR: ошибка внешнего js-кода:",ex.toString(),ex.stack );
     }
 
     eobj.emit("obj-updated");
@@ -74,6 +63,23 @@ export function create( vz, opts ) {
   eobj.own_parameters = ["code","export_app_js","export_EDITABLE_app_js"];
 
   f();
+
+  eobj.generate_editable = ( t, id, name ) => {
+    return `
+// this is Viewzavr component/app, generated at ${new Date()}
+
+export function setup( vz ) {
+  vz.addType( "${id}",create,"${name}" );
+}
+  
+export function create( vz,opts ) {
+  var obj = vz.createObjByType( "js-code", opts ) );
+  ${t}
+  return obj;
+}
+// done
+`;
+  }
   
 
   return eobj;
@@ -98,8 +104,7 @@ export function create( vz, opts ) {
     dump.params = clon;
     
     var t2 = "\n  // ******************* code done \n" + json2js_v3( "obj","obj","obj.parent",dump,"  ", true );
-    
-    
+
 //    opts.name ||= "${name2}";    
     var code = `
 // this is Viewzavr component/app, generated at ${new Date()}
@@ -114,8 +119,6 @@ export function create( vz,opts ) {
   ${t2}
   return obj;
 }
-
-
 `;
    
     download( code, "app.js","text/javascript" );
@@ -125,44 +128,13 @@ export function create( vz,opts ) {
 //////////////////////////////////  
   
   
-  function exportjs_e(eobj) {
-    var t = "\n  // ******************** code\n" + json2js_v3( "obj","obj","obj.parent",eobj.dump(),"  ", true );
-    
-//    eobj.getParam("code");
-//    var id = obj.getParam("component_id");
-//    var name = obj.getParam("component_name");  
-    var id = "js-" +Math.ceil(Math.random()*1000);
-    var name = "My "+id;
-    var name2 = name.replace(/[ \/,|()]+/,"_");
-    
-//    var t2 = "\n  // ******************* parameters\n" + json2js_v3( "obj","obj","obj.parent",obj.dump(),"  ", true );
-    
-    
-//    opts.name ||= "${name2}";    
-    var code = `
-// this is Viewzavr component/app, generated at ${new Date()}
-
-export function setup( vz ) {
-  vz.addType( "${id}",create,"${name}" );
+function exportjs_e(eobj) {
+  var t = "\n  // ******************** code\n" + json2js_v3( "obj","obj","obj.parent",eobj.dump(),"  ", true );
+  var id = "js" + "-" + Math.ceil(Math.random()*1000);
+  var name = "My "+id;
+  var code = eobj.generate_editable( t, id, name );
+  download( code, "app.js","text/javascript" );
 }
-  
-export function create( vz,opts ) {
-  var obj = vz.createObjByType( Object.assign( {},opts,{type: "js-code"}) );
-  ${t}
-  return obj;
-}
-// done
-`;
-
-    download( code, "app.js","text/javascript" );
-    //eobj.setParam("export_app",code );
-  }  
-
-/*  
-  function clonethis() {
-    var q = create( {parent: eobj.parent} );
-  }
-*/ 
 
 //////////////////////////////////
 
