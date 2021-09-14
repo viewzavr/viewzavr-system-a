@@ -80,6 +80,23 @@ export function create( vz,opts ) {
 // done
 `;
   }
+
+  eobj.generate_final = ( t, t2, id, name ) => {
+  return `
+// this is Viewzavr component/app, generated at ${new Date()}
+
+export function setup( vz ) {
+  vz.addType( "${id}",create,"${name}");
+}
+  
+export function create( vz,opts ) {
+  var obj = vz.createObj( opts );
+  ${t}
+  ${t2}
+  return obj;
+}
+`;
+}
   
 
   return eobj;
@@ -105,21 +122,10 @@ export function create( vz,opts ) {
     
     var t2 = "\n  // ******************* code done \n" + json2js_v3( "obj","obj","obj.parent",dump,"  ", true );
 
-//    opts.name ||= "${name2}";    
-    var code = `
-// this is Viewzavr component/app, generated at ${new Date()}
+    var code = eobj.generate_final( t, t2, id, name );
 
-export function setup( vz ) {
-  vz.addType( "${id}",create,"${name}");
-}
-  
-export function create( vz,opts ) {
-  var obj = vz.createObj( opts );
-  ${t}
-  ${t2}
-  return obj;
-}
-`;
+//    opts.name ||= "${name2}";    
+    
    
     download( code, "app.js","text/javascript" );
     //eobj.setParam("export_app",code );
