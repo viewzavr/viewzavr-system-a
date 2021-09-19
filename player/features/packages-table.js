@@ -6,10 +6,13 @@ export function setup( x ) {
   var packagesTable = {};
   // a table of records: { code, title, url, info, ... }
   
-  x.addPackage = function(opts) {
+  x.addPackage = function(opts,arg2) {
     if (Array.isArray(opts)) {
       opts.forEach( function(rec) { x.addPackage(rec); } );
       return;
+    }
+    if (typeof(opts) === "string") {
+       opts = { code: opts, url: arg2 }
     }
     packagesTable[ opts.code ] = opts;
   }

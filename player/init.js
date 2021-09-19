@@ -181,6 +181,10 @@ export function create( vz, qmlEngine ) {
   
   // вот такая вот временная жесть
   window.qmlwebParamsHashProhibitied = true;
+  
+  /////////////// temp2
+  vz.import = p.loadPackage;
+  vz.addPackage = p.addPackage;
 
   return p;
 }
