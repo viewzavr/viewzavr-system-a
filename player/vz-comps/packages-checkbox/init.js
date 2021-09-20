@@ -40,8 +40,8 @@ export function create( vz, opts ) {
   
   var player = opts.player || vzPlayer;
   var orig = player.addPackage;
-  player.addPackage = function(opts) {
-    orig( opts );
+  player.addPackage = function(...args) {
+    orig( ...args );
     reflect_variants();
   }
   // todo: change to events / or maybe "append"

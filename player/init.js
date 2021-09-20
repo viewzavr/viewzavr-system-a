@@ -73,9 +73,18 @@ export function create( vz, qmlEngine ) {
       .then((data) => {
         console.warn("loaded txt:",data);
         var dir = url.substr( 0, url.lastIndexOf("/") ) + "/";
-        p.loadPackage( data.split("\n").filter( l => l.length > 0 ).map( function(line) {
-          return dir + "./" + line;
-        }) ).then( function() { 
+        var things_to_load = data.split("\n")
+             .map( l => l.split("#")[0].trim() ) // # комментарии
+             .filter( l => l.length > 0 )        // непустые строки
+             .map( function(line) {
+                 // проверим может это ссылка на известный пакет
+                 if (vzPlayer.getPackageByCode( line ))
+                    return line; // ссылка на пакет - грузим как внешний пакет
+                 // на будущее - еще можно разделить на / и проверять по первому символу
+                 // и если это там то это подпакет.. 
+                 return dir + "./" + line;
+             })
+        p.loadPackage( things_to_load ).then( function() { 
            resolv( {} ); // we provide empty {} object to resolv - so module arg will not be null (see below)
         } );
       });
@@ -183,7 +192,7 @@ export function create( vz, qmlEngine ) {
   window.qmlwebParamsHashProhibitied = true;
   
   /////////////// temp2
-  vz.import = p.loadPackage;
+  vz.load = vz.import = p.loadPackage;
   vz.addPackage = p.addPackage;
 
   return p;
