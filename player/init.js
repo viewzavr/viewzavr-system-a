@@ -193,6 +193,7 @@ export function create( vz, qmlEngine ) {
   
   /////////////// temp2
   vz.load = vz.import = p.loadPackage;
+  
   vz.addPackage = p.addPackage;
 
   return p;
