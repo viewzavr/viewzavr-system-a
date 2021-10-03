@@ -28,3 +28,13 @@ If package is already loaded by loadPackage, ongoing calls to same url should ju
 # R-NEED-GUI-TITLE we need be able to differentiate user-screen titles on gui elements and actual parameter names
  => # R-PROVIDE-GUI-TITLE we need a way to specify title for gui element
    => # F-USE-PARAM-OPTIONS
+
+# R-CHANGE-OBJ-NAME-GUI
+Need a way to change object name in gui edit mode.
+ideas,
+1) direct button "rename",
+2) edit in (xml, yaml) and allow rename from there?  F-XML-ID
+3) allow to setup id in dump? F-DUMP-READ-ID
+
+
+

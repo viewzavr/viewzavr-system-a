@@ -100,17 +100,28 @@ Item {
         enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())
       }
 
-      /*
+      
       Button {
         text: "Имя"
-      }      
+        onClicked: {
+          if (enabled) {
+            var newname = window.prompt("Имя объекта",shower.currentObj.ns.name);
+            if (newname)
+                shower.currentObj.ns.parent.ns.renameChild( shower.currentObj.ns.name, newname );
+          }
+        }
+        enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())
+      }
+
+/*
       Button {
         text: "Выше"
       }
       Button {
         text: "Ниже"
       }
-
+*/      
+      /*
       Button {
         text: "Перенос"
       }
