@@ -33,8 +33,13 @@ If package is already loaded by loadPackage, ongoing calls to same url should ju
 Need a way to change object name in gui edit mode.
 ideas,
 1) direct button "rename",
-2) edit in (xml, yaml) and allow rename from there?  F-XML-ID
-3) allow to setup id in dump? F-DUMP-READ-ID
+2) edit in (xml, yaml) and allow rename from there?  F-XML-SET-ID
+3) allow to setup id in dump? F-DUMP-READ-ID ???
 
+=>
+# F-XML-SET-ID
+If user edit object in xml form, it might be usable to edit element's id right there.
+We may do this by utilizing 'id' attribute in xml notation.
 
-
+# R-VISUAL-INFO
+Programs become complex, we need a built-in visualizer for program, especially for links.

@@ -11,7 +11,7 @@ export function create( vz, opts )
   
   // todo: active camera.. (of player root?)
   
-  obj.setParam( "cameraPos",[] );
+  obj.setParam( "cameraPos", qmlEngine.rootObject.scene3d.cameraPos );
   
   obj.trackParam( "cameraPos", function() {
     var cp = obj.getParam("cameraPos");
@@ -19,7 +19,7 @@ export function create( vz, opts )
     if (cp && cp.length && cp.length == 3)
       qmlEngine.rootObject.scene3d.cameraPos = cp;
   });
-  obj.setParam( "cameraCenter",[] );
+  obj.setParam( "cameraCenter", qmlEngine.rootObject.scene3d.cameraCenter );
   obj.trackParam( "cameraCenter", function() {
     var cp = obj.getParam("cameraCenter");
 //    console.log( "cameraCenter param changed to",cp );
