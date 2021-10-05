@@ -174,7 +174,32 @@ export function create( vz, qmlEngine ) {
       );
      });
   }
-  
+
+  p.loadJson2 = function( url ) {
+     return new Promise( function( resolv, rej ) {
+      fetch(url).then((response) => {
+          if (!response.ok) {
+            console.error("loadJson2 fetch not ok:",response.statusText)
+            //throw "fetch error";
+            rej( "response not ok" );
+          }
+          return response.json();
+        },
+        (reason) => {
+          console.log("loadJson2 error: ",reason); // Ошибка!
+          rej( reason )
+          //resolv( {} );
+          return {};
+        }
+      )
+      .then((data) => {
+          resolv( data );
+      }
+      ,(err) => { console.error("loadJson2 parse error",err); rej(err); }
+      );
+     });
+  }
+
   url_hash_persistence( vz,p );
   add_importexport_component( vz,p );
   load_packages_checkbox.setup( vz,p );
