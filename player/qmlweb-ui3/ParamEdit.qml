@@ -160,6 +160,13 @@ Column {
       else // if sliding set to false, we should disable it!
       if (rec.obj.getParamOption( rec.name,"sliding" ) === false) g.enableSliding=false;
       
+      var values = rec.obj.getParamOption( rec.name,"values" )
+      //rec.getValues ? rec.getValues() : rec.values;
+      if (values) {
+//        debugger;
+        g.values = values;
+      }
+      
       // от слайдера к параметру
       var me = false;
       g.valueChanged.connect( function( nv ) {
