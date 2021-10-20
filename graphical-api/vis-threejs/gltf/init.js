@@ -196,6 +196,7 @@ export default function setup( vz ) {
       }
 
       obj.doload( loader, src ).then( function( gltf ) {
+          if (gltf.scene) gltf.scene.$viewzavr_parent_obj = obj;
           console.log( "loaded gltf",gltf );
           clear();
           

@@ -161,9 +161,10 @@ Column {
       if (rec.obj.getParamOption( rec.name,"sliding" ) === false) g.enableSliding=false;
       
       var values = rec.obj.getParamOption( rec.name,"values" )
+
       //rec.getValues ? rec.getValues() : rec.values;
       if (values) {
-//        debugger;
+        
         g.values = values;
       }
       
