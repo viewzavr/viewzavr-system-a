@@ -21,4 +21,17 @@ export function setup( vz, opts={} ) {
 
 //  components_setup( vz );
   components_threejs_setup( vz );
+
+  vz.register_feature_set( {scene_screenshot} );
+}
+
+/////////////////
+export function scene_screenshot(env) {
+  env.sceneScreenShot = (format="image/png") => {
+    var img = renderer.domElement.toDataURL(format);
+    return img;
+  }
+  env.sceneScreenShotBlob = (format="image/png",cb) => {
+    renderer.domElement.toBlob(cb,format);
+  }  
 }

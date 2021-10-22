@@ -84,8 +84,8 @@ export function create( vz, qmlEngine ) {
                  // и если это там то это подпакет.. 
                  return dir + "./" + line;
              })
-        p.loadPackage( things_to_load ).then( function() { 
-           resolv( {} ); // we provide empty {} object to resolv - so module arg will not be null (see below)
+        p.loadPackage( things_to_load ).then( function(res) { 
+           resolv( res ); // we provide empty {} object to resolv - so module arg will not be null (see below)
         } );
       });
         // todo errors!
@@ -97,8 +97,9 @@ export function create( vz, qmlEngine ) {
       var url2 = formatSrc( url ); // TODO this is hack based on viewlang function formatSrc
       //console.log("url2=",url2)
       import( url2 ).then( function(mod) {
-        if (mod.setup) {
-          var s = mod.setup( p.vz );
+        var setup = mod.setup || mod.default; // спорно, что юзаем default
+        if (setup) {
+          var s = setup( p.vz, mod );
           if (s instanceof Promise)
             s.then( function() { resolv(mod) } );
           else
@@ -114,9 +115,11 @@ export function create( vz, qmlEngine ) {
   p.loadApp = function( url ) {
      return new Promise( function( resolv, rej ) {
        p.loadPackage( url ).then( function(module) {
-        if (module.create) {
+        var m1 = Array.isArray( module ) ? module[0].value : module; // this allows us to load apps from lists.txt
+
+        if (m1?.create) {
           // up to this moment, all the packages chosen by user should be loaded...
-          var root = module.create( vz, {}); // create a root object for scene
+          var root = m1.create( vz, {}); // create a root object for scene
           //root.module_url = (url.indexOf("//") >= 0 ? url : import.meta.url.split("#")[0] + url); //;
           root.module_url = url; // это все временно и странно, и надо вообще только для сохранения сцены и восстановления - мб там овверрайдить.. типа фича
 
