@@ -15,7 +15,11 @@ Item {
 
   function perform( obj ) {
     init();
-    if (!dlg) return setTimeout( function() { perform(obj)},250 );
+    //if (!dlg) return setTimeout( function() { perform(obj)},250 );
+    if (!dlg) {
+      console.error("failed to create editor dlg");
+      return;
+    }
     dlg.perform( obj );
   }
 }

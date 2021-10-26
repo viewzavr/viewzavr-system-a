@@ -33,7 +33,9 @@ export function create( vz, qmlEngine ) {
     // может быть надо remove у ниво вызвать?
     p.ns.forgetChild( p.ns.getChildByName("scene") );
     p.ns.appendChild( root, "scene" );
-    root.findRoot = function() { return root; }; // устанавливаем водораздел, чтобы всякие искатели по именам тут и оставались
+    root.findRoot = function() { return root; }; // устанавливаем водораздел, чтобы всякие искатели по именам внутри сцены пользователя тут и оставались
+
+    p.setParam("scene",root); // надо уметь ловить изменение сцены
   }
 
   p.getRoot = function() {
@@ -221,8 +223,24 @@ export function create( vz, qmlEngine ) {
   
   /////////////// temp2
   vz.load = vz.import = p.loadPackage;
-  
   vz.addPackage = p.addPackage;
 
+  //////////
+  player_libs( p );
+
   return p;
+}
+
+function player_libs(vzPlayer) {
+  vzPlayer.addPackage( "gui-lib",vzPlayer.vz.getDir( import.meta.url) + "../features/gui-lib/list.txt" );
+
+  // а что если все есть фича? тогда добавка пакетов это есть добавка фич в vz... (или vzPlayer)
+  // ну и загрузку фич заодно проработать в том плане что это = загрузка пакета.
+
+  /*
+  vz.register_feature( "package_gui_lib",(env) => {
+     vz.load( vz.getDir( import.meta.url) + "/features/gui-lib");
+  })
+  */
+
 }

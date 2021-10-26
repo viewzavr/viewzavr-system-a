@@ -38,6 +38,8 @@ Item {
 
   Component.onCompleted: editor.refineSelf();
   
+
+  /* заменено на screens-api
   /////// интерфейс выбора текущего слоя P3
   property var screens: [editor]
   
@@ -105,6 +107,7 @@ Item {
     }
     return i;
   }
+  */
 
   // идеи: find-screen-by-code?
   
