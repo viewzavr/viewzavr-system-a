@@ -40,7 +40,6 @@ export function create( vz, opts )
     if (names.length == 0) {
       let t2 = vz.createObjByType("text",{parent:obj});
        t2.setParam("text","no parameters");
-       debugger;
        return; 
     }
 
@@ -65,7 +64,7 @@ export function create( vz, opts )
           trackVisible( gui, g );
         }
         else {
-          console.log("edit-params: gui not supported",gui.type );
+          console.log("edit-params: gui not supported",gui.type,name,o.getPath() );
           //let t = vz.createObjByType("text",{parent:obj});
           //t.setParam("text",`${name}(${gui.type})`);
         }

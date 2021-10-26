@@ -73,7 +73,7 @@ Column {
     var objnames = [""];
     var objlist = [""];
     var crit_fn = sw.crit_fn || function(v) { return true; };
-    traverse( vzroot, "", -1, function( obj, name, depth ) {
+    traverse( vzroot, "/", -1, function( obj, name, depth ) {
       if (!crit_fn( obj )) return;
       objnames.push( name );
       //objlist.push( obj );
@@ -88,6 +88,8 @@ Column {
 
   function traverse(startobj,name,depth, fn) {
     fn( startobj,name,depth );
+    
+    if (name == "/") name = "";
     var cc = startobj.ns.getChildNames();
     for (var i=0; i<cc.length; i++) {
       var cname = cc[i];

@@ -28,12 +28,15 @@ export function create( vz, qmlEngine ) {
   p.chain("dump",function() { return this.orig( true ); })
 
   p.setRoot = function(root) {
+    // оказывается это надо в первую очередь делать а то там на события appendChild начинают реагировать всякие
+    root.findRoot = function() { return root; }; // устанавливаем водораздел, чтобы всякие искатели по именам внутри сцены пользователя тут и оставались
+
     p.root = root;
     qmlEngine.rootObject.vzroot = root;
     // может быть надо remove у ниво вызвать?
+
     p.ns.forgetChild( p.ns.getChildByName("scene") );
     p.ns.appendChild( root, "scene" );
-    root.findRoot = function() { return root; }; // устанавливаем водораздел, чтобы всякие искатели по именам внутри сцены пользователя тут и оставались
 
     p.setParam("scene",root); // надо уметь ловить изменение сцены
   }
