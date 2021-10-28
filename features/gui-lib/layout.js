@@ -25,15 +25,15 @@ export function create( vz, opts )
   });
   */
 
-  obj.addComboValue( "justify","flex-start",["flex-start","flex-end","center","space-between","space-around","space-evenly"],(v) => {
+  obj.addComboValue( "justify-content","flex-start",["flex-start","flex-end","center","space-between","space-around","space-evenly"],(v) => {
     dom.style.justifyContent = v;
   });
 
-  obj.addComboValue( "align_items","stretch",["stretch","flex-start","flex-end","center","baseline"],(v) => {
+  obj.addComboValue( "align-items","stretch",["stretch","flex-start","flex-end","center","baseline"],(v) => {
     dom.style.alignItems = v;
   });
 
-  obj.addComboValue( "align_content","normal",["normal","flex-start","flex-end","center","space-between","space-around","space-evenly","stretch"],(v) => {
+  obj.addComboValue( "align-content","normal",["normal","flex-start","flex-end","center","space-between","space-around","space-evenly","stretch"],(v) => {
     dom.style.alignContent = v;
   });
 
@@ -47,6 +47,8 @@ export function create( vz, opts )
   obj.trackParam("visible",() => {
     dom.style.display = (obj.params.visible ? flextype : "none");
   })
+
+  obj.addLabel( "flexbox-help","<a href='https://css-tricks.com/snippets/css/a-guide-to-flexbox/' target=_blank>Flexbox docs</a>");
 
   return obj;
 }

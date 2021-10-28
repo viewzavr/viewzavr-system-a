@@ -28,10 +28,30 @@ export function switch_to_editor_link( env ) {
 export function switch_to_editor_kbd( env ) { 
  // фича ctrl+b - переход в редактор
  env.feature("screens-api");
+ var prev_screen;
 
  document.addEventListener('keydown', function(e) {
     if ( e.ctrlKey && ( String.fromCharCode(e.which) === 'b' || String.fromCharCode(e.which) === 'B' ) ) {
-       env.setParam("active_screen",null,true);
+       var cur = env.getParam( "active_screen");
+       if (!cur && prev_screen) // текущий экран пуст, но есть значение предыдущего экрана
+         env.setParam("active_screen",prev_screen,true); // вернуться в экран
+      else
+         env.setParam("active_screen",null,true);
+      prev_screen = cur;
      };
  }); 
 }
+
+
+/*
+export function switch_to_editor_kbd_direct( env ) { 
+ // фича ctrl+b - переход в редактор
+ env.feature("screens-api");
+ 
+ document.addEventListener('keydown', function(e) {
+    if ( e.ctrlKey && ( String.fromCharCode(e.which) === 'b' || String.fromCharCode(e.which) === 'B' ) ) {
+         env.setParam("active_screen",null,true);
+     };
+ }); 
+}
+*/

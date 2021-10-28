@@ -141,9 +141,13 @@ export function create( vz, opts, f )
     dom.style.cssText = dom.style.cssText + ";" + v; // todo странная вещь - будет расти
   })
 
-  obj.addString("content-padding","0em",(v) => {
+  obj.addString("padding","0em",(v) => {
     dom.style.padding = v;
   })
+
+  obj.addString("margin","0em",(v) => {
+    dom.style.margin = v;
+  })  
 
   // ну это вестимо да, всем надо..
   obj.addCheckbox("visible",true,(v) => {
