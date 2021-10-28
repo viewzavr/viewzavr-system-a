@@ -162,12 +162,14 @@ function init_param_guis(vz) {
          // замысел в том чтобы в едите показывать таки финальное значение
          // из списка values. а не индекс.
          g.trackParam("value",(v) => {
-            te.setParam("value", vals[v] );
+            te.setParam("value", vals[v] || "" );
          })
          te.trackParam("value",(v) => {
+          var v0 = v;
                 v = parseFloat( v );
                 if (isNaN(v))
-                  v = rec.min;
+                  return;
+                  //v = rec.min;
                 else
                 {
                   var nearest_i = -1;
@@ -191,6 +193,8 @@ function init_param_guis(vz) {
       {
         te.linkParam( "value", g.getPath() + "->value");
         g.linkParam( "value", te.getPath() + "->value");
+        //g.signalParam("value");
+        te.setParam("value", g.params.value || "" );
       }
 
       t.linkParam("visible", g.getPath() + "->visible" );
