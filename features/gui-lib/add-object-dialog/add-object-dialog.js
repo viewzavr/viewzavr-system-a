@@ -17,6 +17,7 @@ export function create_find( vz, opts ) {
   return obj;
 }
 
+// input: js obj in form { category_name -> [type1,type2,...] }
 export function create( vz, opts ) {
   var obj = vz.createObj( opts );
   vz.feature("simple-denis-lang");
@@ -112,6 +113,10 @@ dlg Добавить_объект name=dlg content-padding=1em
       if (obj.params.target_parent === "") parent = undefined;
       parent  ||= obj.findRoot();
       var res = obj.vz.createObjByType( {type: cur, manual: true, parent:parent, name: title } );
+      obj.emit( "object-created", res );
+      // спорно, но может сойдет, добавлять фичи новым объектам
+      if (obj.getParam("add-features")) res.manual_feature(obj.getParam("add-features"));
+
       q.dlg.close();
     }
     
