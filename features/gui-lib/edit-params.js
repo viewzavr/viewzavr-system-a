@@ -156,9 +156,42 @@ function init_param_guis(vz) {
       });
 
       
-      //te.setParam( rec.value );
-      te.linkParam( "value", g.getPath() + "->value");
-      g.linkParam( "value", te.getPath() + "->value");
+      var vals = rec.obj.getParamOption( rec.name,"values");
+      if (vals) {
+         // особый режим однако
+         // замысел в том чтобы в едите показывать таки финальное значение
+         // из списка values. а не индекс.
+         g.trackParam("value",(v) => {
+            te.setParam("value", vals[v] );
+         })
+         te.trackParam("value",(v) => {
+                v = parseFloat( v );
+                if (isNaN(v))
+                  v = rec.min;
+                else
+                {
+                  var nearest_i = -1;
+                  var nearest_dist = 1e10;
+                  for (var i=0; i<vals.length; i++) {
+                    var d = Math.abs( vals[i] - v );
+                    if (d < nearest_dist) {
+                      nearest_dist = d;
+                      nearest_i = i;
+                      if (d <= 0) break;
+                    }
+                  }
+                  v = nearest_i;
+                }
+                
+                g.setParam("value",v);
+         });
+         g.signalParam("value");
+      }
+      else
+      {
+        te.linkParam( "value", g.getPath() + "->value");
+        g.linkParam( "value", te.getPath() + "->value");
+      }
 
       t.linkParam("visible", g.getPath() + "->visible" );
 
