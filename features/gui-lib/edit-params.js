@@ -188,6 +188,34 @@ function init_param_guis(vz) {
     
     });
 
+    add( "checkbox", function( editor, rec, o ) {
+      //let t = vz.createObjByType("text",{parent:editor});
+      //t.setParam("text",tr(vz,rec.name) );
+
+      var g = vz.createObjByType( "checkbox", {parent:editor} );
+      g.setParam("text",tr(vz,rec.name) );
+
+
+      g.setParam("checked",rec.value );
+
+      g.trackParam("checked",(v) => {
+         rec.setValue( v );
+      })
+
+      var b2 = rec.obj.trackParam( rec.name,(v) => {
+        g.setParam( "checked", v );
+      })
+
+      g.on("remove",function() {
+        b2();
+      });
+
+      //t.linkParam("visible", g.getPath() + "->visible" );
+
+      return g;
+      
+    });    
+
     add( "combo", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
       t.setParam("text",tr(vz,rec.name) );

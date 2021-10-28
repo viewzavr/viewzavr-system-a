@@ -13,3 +13,6 @@ dialog/dialog.js
 add-object-dialog/add-object-dialog.js
 codeflask/codeflask.js
 ../simple-denis-lang/simple-denis-lang.js
+objects-guis/objects-guis.js
+
+
