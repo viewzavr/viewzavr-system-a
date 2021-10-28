@@ -127,9 +127,13 @@ function init_param_guis(vz) {
     // rec - описание gui-объекта, g - qml-штука его визуальнога образа
     add( "slider", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
+      t.setParam("text",tr(vz,rec.name));
+      var co = vz.createObjByType("row",{parent:editor});
+        var te = vz.createObjByType( "input", {parent:co, params: {type: "text"}} );
+        te.setParam("style","width:40px;");
 
-      var g = vz.createObjByType( "slider", {parent:editor} );
+      var g = vz.createObjByType( "slider", {parent:co} );
+      g.setParam("style","width:100px;");
 
       g.setParam("min",rec.min || 0);
       g.setParam("max",rec.max || 100);
@@ -150,6 +154,11 @@ function init_param_guis(vz) {
         b1(); b2();
         this.orig();
       });
+
+      
+      //te.setParam( rec.value );
+      te.linkParam( "value", g.getPath() + "->value");
+      g.linkParam( "value", te.getPath() + "->value");
 
       t.linkParam("visible", g.getPath() + "->visible" );
 

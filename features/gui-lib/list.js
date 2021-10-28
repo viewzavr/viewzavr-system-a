@@ -106,6 +106,10 @@ export function create_input( vz, opts ) {
     obj.setParam("value", obj.dom.value , true);
   })
 
+  obj.trackParam("type",(v) => {
+     obj.dom.setAttribute("type",v);
+  })
+
 /*
   obj.addCheckbox("sliding",false);
 
