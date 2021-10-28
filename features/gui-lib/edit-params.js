@@ -290,6 +290,34 @@ function init_param_guis(vz) {
     
     });
 
+    add( "combovalue", function( editor, rec, o ) {
+      let t = vz.createObjByType("text",{parent:editor});
+      t.setParam("text",tr(vz,rec.name) );
+
+      var g = vz.createObjByType( "list", {parent:editor} );
+
+      g.setParam("items", rec.getValues() )
+      var vals = rec.getValues() || [];
+      g.setParam("current_index",vals.indexOf(rec.value) );
+
+      var b1 = g.trackParam("current_index",() => {
+         rec.setValue( vals[ g.params.current_index ] );
+      });
+
+      var b2 = rec.obj.trackParam( rec.name,() => {
+        var qq = rec.obj.getParam( rec.name );
+        g.setParam( "current_index", vals.indexOf(qq) );
+      })
+
+      g.on("remove",function() {
+        b1(); b2();
+      });
+
+      t.linkParam("visible", g.getPath() + "->visible" );
+
+      return g;
+    });
+
     add( "color", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
       t.setParam("text",tr(vz,rec.name) );

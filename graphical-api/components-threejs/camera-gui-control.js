@@ -16,11 +16,12 @@ export function create( vz, opts )
   var argstable = {
     "orbit": ["OrbitControls"],
     "map" : ["OrbitControls","MapControls"],
-    "orbit-old" : ["../threejs_driver/OrbitControls.js","OrbitControls"]
+    "orbit-old" : ["OrbitControlsTheta","OrbitControls"]
   }
   
   obj.addComboValue( "type",0,["orbit","map","orbit-old"],function(v) {
     let args = argstable[ v ];
+    
     if (args)
       qmlEngine.rootObject.scene3d.cameraControlC.setupControl.apply( qmlEngine.rootObject.scene3d.cameraControlC, args );
   });
