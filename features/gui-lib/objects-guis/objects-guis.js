@@ -100,14 +100,16 @@ function objects_guis( vz, opts ) {
           <row>
             <btn class='vz-object-btn' text="${c.params.title || c.ns.name}" cmd="../../edit-params-col->trigger_visible"/>
             <checkbox id="cbb" checked_link="${c.getPath()}->visible" checked_link_to="${c.getPath()}->visible @manual" features="disable_dump"/>
+            <link from="cbb->checked" to="${c.getPath()}->enabled"/>
+            <link to="cbb->checked" from="${c.getPath()}->enabled"/>
           </row>
           <column id="edit-params-col" visible="false" class='extras-params-pane'>
-            <edit-params input="${c.getPath()}" except="visible"/>
+            <edit-params input="${c.getPath()}" except="visible enabled"/>
             ${q}
           </column>
       </column>`;
     }
-    // <link id="qqqq" from="../cbb->checked" to="${c.getPath()}->enabled"/>
+
 
     for (let c of list) {
       if (typeof(c) === "string") c = obj.findByPath( c );

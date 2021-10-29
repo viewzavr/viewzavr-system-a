@@ -4,7 +4,7 @@ import * as G from "./guinode.js" ;
 
 export function setup( vz ) {
   vz.addType( "list",create,"Gui: list");
-  vz.addType( "datalist",create_datalist,"Gui: datalist");
+  vz.addType( "editable_combo",create_editable_combo,"Gui: editable combo");
   vz.addType( "slider",create_slider,"Gui: slider");
   vz.addType( "input",create_input,"Gui: input");
   vz.addType( "selectcolor",create_color,"Gui: color select");
@@ -56,7 +56,7 @@ export function create( vz, opts ) {
 }
 
 var datalist_counter=0;
-export function create_datalist( vz, opts ) {
+export function create_editable_combo( vz, opts ) {
   var obj = create_input( vz, {...opts,params:{type:"text"}})
   var my_datalist_id = `vz_datalist_${datalist_counter++}`;
   obj.dom.setAttribute("list",my_datalist_id);

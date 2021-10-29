@@ -243,6 +243,55 @@ Column {
       // rec.setValues
       
     });
+
+    // вариант как combo но храним значение в параметре
+    add( "editablecombo", "Param", function( rec,g ) {
+    
+      var values = rec.getValues ? rec.getValues() : rec.values;
+
+      g.bigCase = false;
+      g.values = values;
+
+      var i = values.indexOf( rec.value );
+      if (i < 0 && rec.notFound) {
+          i = rec.notFound( rec.value, values );
+      }
+      g.value = i;
+
+      // console.log("ASSIGNED COMBOSTRING value to indexOf: ",g.value," rec.value was",rec.value, "rec.name was",rec.name );
+      g.aslider.visible = false;
+      g.acombo.width = 173;
+      g.acombo.parent.height = 32; // ugly hack. setting height of combo row
+      
+      g.valueChanged.connect( function( nv ) {
+        var s = values[ nv ];
+        rec.setValue( s );
+      });
+      trackParam( rec,g,function() {
+        var s = rec.obj.getParam( rec.name );
+        var i = values.indexOf( s );
+        /*
+        debugger;
+        if (i < 0 && rec.notFound) {
+            i = rec.notFound( s, values );
+        }
+        */
+        g.value = i; // что делать если не нашли? как? или в этой ситуации мы всегда находим?
+      });
+      // вот тут бы трэкать изменение списка опций..
+      // rec.setValues
+      
+    });    
+
+    add( "editablecombo", "TextParam", function( rec,g ) {
+      g.value = rec.value;
+      g.valueChanged.connect( function( nv ) {
+        rec.setValue( nv );
+      });
+      trackParam( rec,g,function() {
+        g.value = rec.obj.getParam( rec.name );
+      });
+    });    
     
     add( "checkbox", "CheckBoxParam", function( rec,g ) {
       g.value = rec.value ? 1 : 0;

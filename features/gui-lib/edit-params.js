@@ -16,7 +16,7 @@ export function create( vz, opts )
   obj.addString("except","");
   obj.addString("only","");
   obj.trackParam("visible",(v) => {
-     debugger;
+     //debugger;
   })
 
   let remove_subscription;
@@ -130,7 +130,7 @@ function init_param_guis(vz) {
     // rec - описание gui-объекта, g - qml-штука его визуальнога образа
     add( "slider", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name));
+      t.setParam("text",rec.getTitle());
       var co = vz.createObjByType("row",{parent:editor});
         var te = vz.createObjByType( "input", {parent:co, params: {type: "text"}} );
         te.setParam("style","width:40px;");
@@ -213,7 +213,7 @@ function init_param_guis(vz) {
 
     add( "float", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
+      t.setParam("text",rec.getTitle() );
 
       function val2s( f ) {
         //if (isFinite(f)) return f.toFixed(4);
@@ -245,7 +245,7 @@ function init_param_guis(vz) {
     ////////////////////////////////////////////////////
     add( "string", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
+      t.setParam("text",rec.getTitle() );
 
       function val2s( f ) {
         //if (isFinite(f)) return f.toFixed(4);
@@ -270,6 +270,8 @@ function init_param_guis(vz) {
 
       t.linkParam("visible", g.getPath() + "->visible" );
 
+      //var g = vz.createObjByType( "datalist", {parent:editor} );
+
       return g;
     
     });
@@ -279,7 +281,7 @@ function init_param_guis(vz) {
       //t.setParam("text",tr(vz,rec.name) );
 
       var g = vz.createObjByType( "checkbox", {parent:editor} );
-      g.setParam("text",tr(vz,rec.name) );
+      g.setParam("text",rec.getTitle() );
 
 
       g.setParam("checked",rec.value );
@@ -304,7 +306,7 @@ function init_param_guis(vz) {
 
     add( "combo", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
+      t.setParam("text",rec.getTitle() );
 
       var g = vz.createObjByType( "list", {parent:editor} );
 
@@ -332,7 +334,7 @@ function init_param_guis(vz) {
 
     add( "combovalue", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
+      t.setParam("text",rec.getTitle() );
 
       var g = vz.createObjByType( "list", {parent:editor} );
       //g.setParam("items", rec.getValues() )
@@ -374,11 +376,12 @@ function init_param_guis(vz) {
       return g;
     });    
 
-    add( "combovalue-dl", function( editor, rec, o ) {
-      let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
 
-      var g = vz.createObjByType( "datalist", {parent:editor} );
+    add( "editablecombo", function( editor, rec, o ) {
+      let t = vz.createObjByType("text",{parent:editor});
+      t.setParam("text",rec.getTitle() );
+
+      var g = vz.createObjByType( "editable_combo", {parent:editor} );
       //g.setParam("items", rec.getValues() )
       var vals = rec.getValues() || [];
       // idea - rec.obj.emit("gui-connect", rec.name) ?
@@ -411,10 +414,11 @@ function init_param_guis(vz) {
 
       return g;
     });
+    
 
     add( "color", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
+      t.setParam("text",rec.getTitle() );
 
       var g = vz.createObjByType( "selectcolor", {parent:editor} );
       
@@ -511,7 +515,10 @@ function init_param_guis(vz) {
     });
 }
 
+/*
 export function tr( vz, key ) {
+  //return vz.t(key);
+
   var tabl = {
     "opacity" : "Прозрачность",
     "color" : "Цвет",
@@ -529,6 +536,7 @@ export function tr( vz, key ) {
 
   return tabl[ key ] || key;
 }
+*/
 
 // rec - запись гуя, g - объект интерфейса
   function trackVisible( rec, g ) {
