@@ -11,16 +11,20 @@ import * as G from "./guinode.js" ;
 export function create( vz, opts )
 {
   var obj = L.create( vz, {name:"edit-params",...opts} );
+
+  obj.feature("delayed");
+  var update = obj.delayed(update2);
+  
   obj.setParam("flow","column");
   obj.addObjRef("input",null,null,(o) => update())
-  obj.addString("except","");
-  obj.addString("only","");
+  obj.addString("except","",update);
+  obj.addString("only","",update);
   obj.trackParam("visible",(v) => {
      //debugger;
   })
-
+ 
   let remove_subscription;
-  function update() {
+  function update2() {
 
     obj.ns.removeChildren();
     let o = obj.params.input;
