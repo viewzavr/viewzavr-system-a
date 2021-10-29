@@ -195,7 +195,12 @@ function init_param_guis(vz) {
       else
       {
         te.linkParam( "value", g.getPath() + "->value");
-        g.linkParam( "value", te.getPath() + "->value");
+        //g.linkParam( "value", te.getPath() + "->value");
+        // там бывает текст прилетает и надо парсить
+        te.trackParam( "value", (v) => {
+           v = parseFloat( v ); 
+           g.setParam("value",v);
+        })
         //g.signalParam("value");
         te.setParam("value", g.params.value || "" );
       }
