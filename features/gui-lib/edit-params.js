@@ -15,6 +15,9 @@ export function create( vz, opts )
   obj.addObjRef("input",null,null,(o) => update())
   obj.addString("except","");
   obj.addString("only","");
+  obj.trackParam("visible",(v) => {
+     debugger;
+  })
 
   let remove_subscription;
   function update() {
@@ -360,8 +363,8 @@ function init_param_guis(vz) {
     });
 
     add( "text", function( editor, rec, o ) {
-      let t = vz.createObjByType("text",{parent:editor});
-      t.setParam("text",tr(vz,rec.name) );
+      //let t = vz.createObjByType("text",{parent:editor});
+      //t.setParam("text",tr(vz,rec.name) + " (text)" );
 
 /*
       var g = vz.createObjByType( "textarea", {parent:editor} );
@@ -382,7 +385,9 @@ function init_param_guis(vz) {
 */      
 
       var g2 = vz.createObjByType( "btn", {parent:editor} );
-      g2.setParam("text","Редактировать");
+      g2.setParam("text",`Edit ${rec.getTitle()}`);
+      // todo: vz.t( english_word ) + featured..
+
       var dlg = vz.createObjByType( "dlg", {parent:editor} );
       dlg.feature("xml-lang");
       dlg.childrenFromXml(`<column id='col' gap='0.5em'>
@@ -408,7 +413,7 @@ function init_param_guis(vz) {
       })
 */      
 
-      t.linkParam("visible", g2.getPath() + "->visible" );
+      //t.linkParam("visible", g2.getPath() + "->visible" );
 
       return g2;
     
@@ -437,7 +442,9 @@ export function tr( vz, key ) {
 // rec - запись гуя, g - объект интерфейса
   function trackVisible( rec, g ) {
     var f = function() {
-      g.setParam("visible", rec.obj.getParamOption( rec.name, "visible",true ) );
+      var v = rec.obj.getParamOption( rec.name, "visible",true );
+      //console.log("PARAM sett to visible=",v)
+      g.setParam("visible", v );
     }
     var unbind = rec.obj.trackParamOption( rec.name, "visible", f )
     g.on("remove",unbind);

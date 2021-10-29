@@ -114,7 +114,18 @@ function objects_guis( vz, opts ) {
           s += xmlfor( c );
     }
 
-    obj.childrenFromXml( s, true, false )
+    // спорный момент, но пока оставим его так.
+    // проблема - когда происходит пересчет, мы теряем настроенное состояние - 
+    // распахнуто или схлопнуто список параметров того или иного объекта.
+
+    var d = obj.dump(); // keep visibilities
+
+    obj.childrenFromXml( s, true, false );
+
+    if (d) {
+      //console.log("ururur d=",d)
+      obj.restoreFromDump( d, true ); // keep visibilities
+    }
     //obj.emit("dom-changed");
     if (obj.ns.parent)
         obj.ns.parent.emit("appendChild"); // надо тыркнуть чтобы перерендерилось

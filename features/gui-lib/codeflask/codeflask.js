@@ -45,7 +45,7 @@ export function create( vz, opts )
 
   function setup() {
     //let flask = new CodeFlask( obj.dom, { language: obj.params.language, lineNumbers: true });
-    let flask = new CodeFlask( obj.dom, { language: obj.params.language,lineNumbers: true });
+    let flask = new CodeFlask( obj.dom, { language: obj.params.language,lineNumbers: false });
     flask.updateCode( obj.params.text )
     flask.onUpdate(function(code) {
         obj.setParam("text",code);
