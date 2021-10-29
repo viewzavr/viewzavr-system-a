@@ -99,7 +99,7 @@ function objects_guis( vz, opts ) {
       return `<column> 
           <row>
             <btn class='vz-object-btn' text="${c.params.title || c.ns.name}" cmd="../../edit-params-col->trigger_visible"/>
-            <checkbox checked_link="${c.getPath()}->visible" checked_link_to="${c.getPath()}->visible @manual" features="disable_dump"/>
+            <checkbox id="cbb" checked_link="${c.getPath()}->visible" checked_link_to="${c.getPath()}->visible @manual" features="disable_dump"/>
           </row>
           <column id="edit-params-col" visible="false" class='extras-params-pane'>
             <edit-params input="${c.getPath()}" except="visible"/>
@@ -107,6 +107,7 @@ function objects_guis( vz, opts ) {
           </column>
       </column>`;
     }
+    // <link id="qqqq" from="../cbb->checked" to="${c.getPath()}->enabled"/>
 
     for (let c of list) {
       if (typeof(c) === "string") c = obj.findByPath( c );
@@ -118,14 +119,14 @@ function objects_guis( vz, opts ) {
     // проблема - когда происходит пересчет, мы теряем настроенное состояние - 
     // распахнуто или схлопнуто список параметров того или иного объекта.
 
-    var d = obj.dump(); // keep visibilities
+    //var d = obj.dump(); // keep visibilities
 
     obj.childrenFromXml( s, true, false );
 
-    if (d) {
+    //if (d) {
       //console.log("ururur d=",d)
-      obj.restoreFromDump( d, true ); // keep visibilities
-    }
+      //obj.restoreFromDump( d, true ); // keep visibilities
+    //}
     //obj.emit("dom-changed");
     if (obj.ns.parent)
         obj.ns.parent.emit("appendChild"); // надо тыркнуть чтобы перерендерилось

@@ -216,7 +216,7 @@ Column {
       var i = values.indexOf( rec.value );
       if (i < 0 && rec.notFound) {
           i = rec.notFound( rec.value, values );
-      } 
+      }
       g.value = i;
 
       // console.log("ASSIGNED COMBOSTRING value to indexOf: ",g.value," rec.value was",rec.value, "rec.name was",rec.name );

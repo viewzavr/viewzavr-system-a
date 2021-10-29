@@ -242,6 +242,38 @@ function init_param_guis(vz) {
     
     });
 
+    ////////////////////////////////////////////////////
+    add( "string", function( editor, rec, o ) {
+      let t = vz.createObjByType("text",{parent:editor});
+      t.setParam("text",tr(vz,rec.name) );
+
+      function val2s( f ) {
+        //if (isFinite(f)) return f.toFixed(4);
+        if (isFinite(f)) return f.toString();
+        return f;
+      }
+
+      var g = vz.createObjByType( "input", {parent:editor} );
+      g.setParam("value",val2s(rec.value) ); // todo сделать нормальный tostring для неподходящих значений
+      var b1 = g.trackParam("value",() => {
+         rec.setValue( g.params.value );
+      })
+
+      var b2 = rec.obj.trackParam( rec.name,() => {
+        var qq = rec.obj.getParam( rec.name );
+        g.setParam( "value", val2s(qq) );
+      })
+
+      g.on("remove",function() {
+        b1(); b2();
+      })
+
+      t.linkParam("visible", g.getPath() + "->visible" );
+
+      return g;
+    
+    });
+
     add( "checkbox", function( editor, rec, o ) {
       //let t = vz.createObjByType("text",{parent:editor});
       //t.setParam("text",tr(vz,rec.name) );
@@ -303,10 +335,19 @@ function init_param_guis(vz) {
       t.setParam("text",tr(vz,rec.name) );
 
       var g = vz.createObjByType( "list", {parent:editor} );
-
-      g.setParam("items", rec.getValues() )
+      //g.setParam("items", rec.getValues() )
       var vals = rec.getValues() || [];
-      g.setParam("current_index",vals.indexOf(rec.value) );
+      // idea - rec.obj.emit("gui-connect", rec.name) ?
+      //var vals = rec.obj.getParamOption( rec.name,"values" ) || [];
+
+      g.setParam("items", vals );
+
+      var i = vals.indexOf( rec.value );
+      if (i < 0 && rec.notFound) {
+          i = rec.notFound( rec.value, vals );
+          console.log("YYYYYYYYYYYYYYYY Rescan issued. rec.value=",rec.value, "lookup table=",vals, "new i=",i)
+      }
+      g.setParam("current_index",i );
 
       var b1 = g.trackParam("current_index",() => {
          rec.setValue( vals[ g.params.current_index ] );
@@ -320,6 +361,51 @@ function init_param_guis(vz) {
       g.on("remove",function() {
         b1(); b2();
       });
+
+      rec.obj.trackParamOption( rec.name,"values", (nv) => {
+        // g.setParam("items", nv ) ;
+        vals = rec.getValues() || [];
+        //vals = nv;
+        g.setParam("items",vals );
+      })
+
+      t.linkParam("visible", g.getPath() + "->visible" );
+
+      return g;
+    });    
+
+    add( "combovalue-dl", function( editor, rec, o ) {
+      let t = vz.createObjByType("text",{parent:editor});
+      t.setParam("text",tr(vz,rec.name) );
+
+      var g = vz.createObjByType( "datalist", {parent:editor} );
+      //g.setParam("items", rec.getValues() )
+      var vals = rec.getValues() || [];
+      // idea - rec.obj.emit("gui-connect", rec.name) ?
+      //var vals = rec.obj.getParamOption( rec.name,"values" ) || [];
+
+      g.setParam("items", vals );
+      g.setParam("value",rec.value);
+
+      var b1 = g.trackParam("value",(v) => {
+         rec.setValue( v );
+      });
+
+      var b2 = rec.obj.trackParam( rec.name,() => {
+        var qq = rec.obj.getParam( rec.name );
+        g.setParam( "value", qq );
+      })
+
+      g.on("remove",function() {
+        b1(); b2();
+      });
+
+      rec.obj.trackParamOption( rec.name,"values", (nv) => {
+        // g.setParam("items", nv ) ;
+        vals = rec.getValues() || [];
+        //vals = nv;
+        g.setParam("items",vals );
+      })
 
       t.linkParam("visible", g.getPath() + "->visible" );
 

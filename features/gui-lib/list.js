@@ -4,6 +4,7 @@ import * as G from "./guinode.js" ;
 
 export function setup( vz ) {
   vz.addType( "list",create,"Gui: list");
+  vz.addType( "datalist",create_datalist,"Gui: datalist");
   vz.addType( "slider",create_slider,"Gui: slider");
   vz.addType( "input",create_input,"Gui: input");
   vz.addType( "selectcolor",create_color,"Gui: color select");
@@ -54,6 +55,33 @@ export function create( vz, opts ) {
   return obj;
 }
 
+var datalist_counter=0;
+export function create_datalist( vz, opts ) {
+  var obj = create_input( vz, {...opts,params:{type:"text"}})
+  var my_datalist_id = `vz_datalist_${datalist_counter++}`;
+  obj.dom.setAttribute("list",my_datalist_id);
+
+  obj.items_parsed = [];
+  
+  obj.dom.style.maxWidth = "160px";
+  obj.dom.style.width = "160px";
+
+  obj.addText( "items", "", function(v) {
+    var v1 = v.split ? v.split("\n") : [v].flat(2);
+    obj.items_parsed = v1;
+    var res = "";
+    for (let str of v1) { 
+      res += `<option value="${str}">${str}</option>`
+    }
+    res = `<datalist id="${my_datalist_id}">${res}</datalist>`;
+    //obj.childrenFromXml( res, true, false );
+    obj.dom.innerHTML = res;
+    //obj.setParam( "current", obj.items_parsed[ obj.params.current ] );
+  });
+
+  return obj;
+}
+
 ///////////////////////////////////////////////////// slider
 
 
@@ -84,9 +112,14 @@ export function create_slider( vz, opts ) {
     obj.setParam("value", parseFloat( obj.dom.value ) );
   })
 
-  obj.dom.addEventListener( "input",function(event) {
+  obj.dom.addEventListener( "input",f)
+  function f(event) {
     if (obj.params.sliding)
         obj.setParam("value", parseFloat( obj.dom.value ) );
+  }
+
+  obj.on("remove",() => {
+    obj.dom.removeEventListener( "input",f)
   })
 
   return obj;
