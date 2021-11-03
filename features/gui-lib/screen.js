@@ -41,7 +41,7 @@ export function create( vz, opts )
   // хотя это уже вызывает вопрос.
 
   // правка баги от цсс корявой
-  obj.dom.style.pointerEvents = "all";
+  // obj.dom.style.pointerEvents = "all";
 
   //// поведение visible
   // вообще оно нужно только экрану, и поэтому мб переедет туды

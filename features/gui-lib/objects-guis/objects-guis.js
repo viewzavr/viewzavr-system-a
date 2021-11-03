@@ -49,6 +49,13 @@ export function setup( vz ) {
 
 // todo превратить addStyle в фичу плеера
 S.addStyle(`
+.vz-object-guis-pane {
+    border-left: 8px solid #00000042;
+    border-bottom: 1px solid #00000042;
+    border-radius: 0px;
+    margin-bottom: 5px;
+    padding: 0.1em 0em 0.4em 0.4em;
+}  
 .vz-object-btn {
     width:150px;
     white-space: normal;
@@ -103,7 +110,7 @@ function objects_guis( vz, opts ) {
             <link from="cbb->checked" to="${c.getPath()}->enabled"/>
             <link to="cbb->checked" from="${c.getPath()}->enabled"/>
           </row>
-          <column id="edit-params-col" visible="false" class='extras-params-pane'>
+          <column id="edit-params-col" visible="false" class='vz-object-guis-pane'>
             <edit-params input="${c.getPath()}" except="visible enabled"/>
             ${q}
           </column>

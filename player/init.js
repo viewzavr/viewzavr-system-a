@@ -246,4 +246,24 @@ function player_libs(vzPlayer) {
   })
   */
 
+  vzPlayer.vz.register_feature( "css_styles",css_styles );
+
+}
+
+function css_styles(env) {
+  env.addStyle = addStyle;
+  env.addStyleHref = addStyleHref;
+
+ function addStyle( styles ) {
+  var styleSheet = document.createElement("style");
+  styleSheet.type = "text/css"; styleSheet.textContent = styles;  
+  document.head.appendChild(styleSheet)
+}
+
+ function addStyleHref( src ) {
+  var styleSheet = document.createElement("style");
+  styleSheet.type = "text/css";
+  styleSheet.href = src;
+  document.head.appendChild(styleSheet)
+}
 }
