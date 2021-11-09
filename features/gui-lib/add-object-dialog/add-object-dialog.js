@@ -3,13 +3,14 @@ export function setup( vz ) {
   vz.addType( "find-by-criteria",create_find,"Gui: find types by criteria");
 }
 
+// find registered types by category names, splitted by spaces
 export function create_find( vz, opts ) {
   var obj = vz.createObj( opts );
   obj.addString( "criteria","",function(v) {
     var cats = (v || "").split(/\s+/);
     var res = {};
     for (let k of cats) {
-      var types = gettypes( vz, c )
+      var types = vz.getGuiTypesByCat( c )
       res[k] = types;
     }
     obj.setParam("output",res);
@@ -17,7 +18,8 @@ export function create_find( vz, opts ) {
   return obj;
 }
 
-// input: js obj in form { category_name -> [type1,type2,...] }
+// input: 
+//   input parameter, js obj in form { category_name -> [type1,type2,...] }
 export function create( vz, opts ) {
   var obj = vz.createObj( opts );
   vz.feature("simple-denis-lang");
@@ -158,14 +160,6 @@ dlg Добавить_объект name=dlg content-padding=1em
   return obj;
 }
 
-
-function gettypes( vz, cat ) {
-  if (!vz) return [];
-  var t = vz.getTypesByCat( cat );
-  t = t.filter( function(code) { return !vz.getTypeOptions( code ).hidegui } );
-  t = t.sort( function(a,b) { return gettitle(vz,a).localeCompare( gettitle(vz,b) ) }); // F-SORT-TYPES sort by name
-  return t;
-}
 
 function gettitle( vz, code ) {
   var s = vz.getTypeOptions(code).title;
