@@ -6,4 +6,7 @@ export default function setup( player ) {
   cam.setup( player.vz );
   var camobj = cam.create( player.vz, {parent: player.special_objects.state, name:"camera" } )
   camobj.considerParamsManual = true;
+
+  // here we setup .camera property of player. this is currently our api for managing camera
+  player.camera = camobj;
 }

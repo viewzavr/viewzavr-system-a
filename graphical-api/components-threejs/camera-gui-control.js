@@ -15,11 +15,11 @@ export function create( vz, opts )
 
   var argstable = {
     "orbit": ["OrbitControls"],
-    "map" : ["OrbitControls","MapControls"],
-    "orbit-old" : ["OrbitControlsTheta","OrbitControls"]
+    "map" : ["OrbitControls","MapControls"]
+    //,"orbit-old" : ["OrbitControlsTheta","OrbitControls"]
   }
 
-  obj.addComboValue( "type",0,["orbit","map","orbit-old"],function(v) {
+  obj.addComboValue( "type","orbit",["orbit","map"],function(v) {
     let args = argstable[ v ];
 
     if (args)

@@ -76,7 +76,8 @@ dlg Добавить_объект name=dlg content-padding=1em
     if (Object.keys(cats).length == 0) cats = obj.vz.getCatsDic();
     q.col1.visible = (Object.keys(cats).length >= 1);
 
-    var cats_str = ["all",...Object.keys(cats)].join("\n");
+    //var cats_str = ["all",...Object.keys(cats)].join("\n");
+    var cats_str = [...Object.keys(cats)].join("\n");
 
     q.a.setParam("items", cats_str );
 
@@ -84,14 +85,14 @@ dlg Добавить_объект name=dlg content-padding=1em
     var arr = [];
     for (let q of Object.keys(cats)) 
       if (q != "all") arr = arr.concat( cats[q] );
-    cats["all"] = arr;
+    //cats["all"] = arr;
     //
 
 
     var current_types;
     q.a.trackParam("current",() => {
       var c = q.a.getParam("current");
-      current_types = cats[c];
+      current_types = cats[c] || [];
       var titles = gettitles( vz, current_types );
       q.b.setParam("items", titles );
     });
