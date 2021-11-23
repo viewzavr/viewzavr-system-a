@@ -82,7 +82,11 @@ export function create( vz, opts )
 export function setup( vz ) {
   vz.addItemType( "btn","GUI: button", function( opts ) {
     return create( vz, opts );
-  }, {guiAddItems: true, guiAddItemsCrit: "gui"} );
+  }, {hidegui: true} );
+
+  vz.addItemType( "button","GUI: button", function( opts ) {
+    return create( vz, opts );
+  } );
 
 }
 
