@@ -11,6 +11,8 @@
 // docker run -d -p 8090:8080 plantuml/plantuml-server:jetty
 // https://hub.docker.com/r/plantuml/plantuml-server 
 
+import * as S from "./save-scene.js";
+
 export default function setup( obj ) {
   obj.addCmd("Export PlantUML",function(value) {
     var root = obj.findRoot();
@@ -21,7 +23,20 @@ export default function setup( obj ) {
     
     // https://plantuml.com/ru/text-encoding
     var h = tohex(text);
-    console.log(h);
+    //console.log(h);
+
+    var newWin = open('');
+    // todo тут другая кодировка текста
+    newWin.document.write(`
+      
+      <a target='_blank' href='https://www.plantuml.com/plantuml/uml/~h${h}'>www.plantuml.com/plantuml/</a>
+      |
+      <a target='_blank' href='https://www.planttext.com/'>www.planttext.com</a>
+      <br/>
+
+      <pre>${text}</pre>`);
+    return;
+
     
     var url = `http://localhost:8090/uml/~h${h}`;
     window.open( url );
@@ -100,6 +115,16 @@ function genlink( obj ) {
       if (arr2.length != 2) return;
       var objname2 = arr2[0]; // КУДА
       var paramname2 = arr2[1];
+
+      // convert to absolute pathes
+      if (obj.currentRefFrom && obj.currentRefFrom())
+        objname = obj.currentRefFrom().getPath();
+      else
+        objname=objname + " [UNRESOLVED]";
+      if (obj.currentRefTo && obj.currentRefTo())
+        objname2 = obj.currentRefTo().getPath();      
+      else
+        objname2=objname2 + " [UNRESOLVED]";
       
       return `(${objname}) ..> (${objname2}) : "link ${paramname} -> ${paramname2} TPU"\n`;
 }
