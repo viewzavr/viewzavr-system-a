@@ -3,6 +3,36 @@
 
 import * as G from "./guinode.js" ;
 
+export function call_cmd_by_path(env) {
+
+  env.callCmdByPath = ( target_path ) => {
+      var arr = target_path.split("->");
+      if (arr.length != 2) {
+        //console.error("btn: cmd arr length not 2!",arr );
+        return;
+      }
+      var objname = arr[0];
+      var paramname = arr[1];
+      //var sobj = obj.findByPath( objname );
+      //R-LINKS-FROM-OBJ
+      var sobj = obj.findByPath( objname );
+      if (!sobj) {
+        console.error("callCmdByPath: cmd target obj not found",objname );
+        return; 
+      }
+      if (!sobj.hasCmd( paramname)) {
+        if (typeof( sobj[paramname] ) === "function") {
+          sobj[paramname].apply( sobj );
+          return;
+        }
+        console.error("btn: cmd target obj has nor such cmd, nor function",objname,paramname );
+        return; 
+      }
+      sobj.callCmd( paramname );
+  }
+
+}
+
 export function create( vz, opts )
 {
   var obj = G.create( vz, {name:"button",...opts, tag:'button'} );
@@ -34,42 +64,14 @@ export function create( vz, opts )
   };
   gen();
 
-  obj.addCmd("click",() => {
-    callcmd();
-  });
+  obj.feature("call_cmd_by_path");
+  function callcmd() {
+    obj.call_cmd_by_path( obj.params.cmd );
+  }
+
+  obj.addCmd("click",callcmd);
 
   obj.dom.addEventListener("click",callcmd);
-
-  function callcmd() {
-    obj.emit("click"); // доп ТПУ
-
-    var v = obj.params.cmd;
-      var arr = v.split("->");
-      if (arr.length != 2) {
-        //console.error("btn: cmd arr length not 2!",arr );
-        return;
-      }
-      var objname = arr[0];
-      var paramname = arr[1];
-      //var sobj = obj.findByPath( objname );
-      //R-LINKS-FROM-OBJ
-      var sobj = obj.findByPath( objname );
-      if (!sobj) {
-        console.error("btn: cmd target obj not found",objname );
-        return; 
-      }
-      if (!sobj.hasCmd( paramname)) {
-        if (typeof( sobj[paramname] ) === "function") {
-          sobj[paramname].apply( sobj );
-          return;
-        }
-        console.error("btn: cmd target obj has nor such cmd, nor function",objname,paramname );
-        return; 
-      }
-      sobj.callCmd( paramname );
-
-
-  }
 
   // тыркнем родителя
   if (obj.ns.parent?.rescan_children) obj.ns.parent.rescan_children();
@@ -87,6 +89,8 @@ export function setup( vz ) {
   vz.addItemType( "button","GUI: button", function( opts ) {
     return create( vz, opts );
   } );
+
+  vz.register_feature("call_cmd_by_path",call_cmd_by_path)
 
 }
 

@@ -22,7 +22,7 @@ export function addStyleHref( src ) {
 
 export function create( vz, opts )
 {
-  var obj = L.create( vz, {name:"screen",...opts} );
+  var obj = G.create( vz, {name:"screen",...opts} );
   obj.setParam("visible",false);
   
   obj.addCmd("activate",() => {
@@ -54,6 +54,14 @@ export function create( vz, opts )
 
   // регаемся в qml-движке но вообще это отсюда уедет - в плеере надо регаться ибо
   // qmlEngine.rootObject.addScreen( obj );
+
+  var init_called;
+  obj.trackParam("oninit",(cmd) => {
+    if (init_called) return;
+    init_called = true;
+    obj.feature("call_cmd_by_path");
+    obj.callCmdByPath(cmd);
+  })
 
   return obj;
 }
