@@ -4,9 +4,11 @@ import * as G from "./guinode.js" ;
 
 export function setup( vz ) {
   vz.addType( "list",create,"Gui: list");
+  vz.addType( "combobox",create,"Gui: combobox");
   vz.addType( "editable_combo",create_editable_combo,"Gui: editable combo");
   vz.addType( "slider",create_slider,"Gui: slider");
   vz.addType( "input",create_input,"Gui: input");
+  vz.addType( "input_file",create_input_file,"Gui: input file");
   vz.addType( "selectcolor",create_color,"Gui: color select");
   vz.addType( "textarea",create_textarea,"Gui: text area");
 }
@@ -16,6 +18,10 @@ export function create( vz, opts ) {
   obj.items_parsed = [];
   
   obj.dom.style.maxWidth = "160px";
+
+  obj.feature("param_alias");
+  obj.addParamAlias("items","values");
+  obj.addParamAlias("value","current");
 
   obj.addText( "items", "", function(v) {
     var v1 = v.split ? v.split("\n") : [v].flat(2);
@@ -27,6 +33,11 @@ export function create( vz, opts ) {
     }
     //obj.childrenFromXml( res, true, false );
     obj.dom.innerHTML = res;
+
+    if (!obj.params.current || obj.params.current == "") {
+      obj.setParam("current_index",0);
+      obj.setParam("current", obj.items_parsed[ 0 ] );
+    }
     
     //obj.setParam( "current", obj.items_parsed[ obj.params.current ] );
   });
@@ -151,6 +162,19 @@ export function create_input( vz, opts ) {
         obj.setParam("value", hex2tri( obj.dom.value ) );
   })
 */  
+
+  return obj;
+}
+
+export function create_input_file( vz, opts ) {
+  var obj = G.create( vz, {...opts, tag:'input'} );
+  obj.dom.setAttribute("type","file");
+  //obj.dom.style.width = "60px";
+
+  obj.dom.addEventListener( "change",function(event) {
+    obj.setParam("value", obj.dom.files[0], true);
+    // пока только один получается
+  })
 
   return obj;
 }

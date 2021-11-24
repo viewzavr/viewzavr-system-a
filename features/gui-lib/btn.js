@@ -60,13 +60,14 @@ export function create( vz, opts )
 
   function gen() {
     btn.innerText = obj.params.text;
-    obj.emit("dom_was_changed", )
+    obj.emit("dom_was_changed" )
   };
   gen();
 
   obj.feature("call_cmd_by_path");
   function callcmd() {
-    obj.call_cmd_by_path( obj.params.cmd );
+    obj.callCmdByPath( obj.params.cmd );
+    obj.emit("click");
   }
 
   obj.addCmd("click",callcmd);

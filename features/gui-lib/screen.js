@@ -5,7 +5,12 @@ import * as L from "./layout.js" ;
 
 addStyle(`[hidden] {
     display: none !important;
-}`)
+}
+
+.vz-screen {
+  pointer-events: all !important;
+}
+`)
 
 export function addStyle( styles ) {
   var styleSheet = document.createElement("style");
@@ -24,6 +29,7 @@ export function create( vz, opts )
 {
   var obj = G.create( vz, {name:"screen",...opts} );
   obj.setParam("visible",false);
+  obj.dom.classList.add("vz-screen");
   
   obj.addCmd("activate",() => {
     //qmlEngine.rootObject.setActiveScreen( obj );
