@@ -3,9 +3,9 @@
 
 import * as G from "./guinode.js" ;
 
-export function call_cmd_by_path(env) {
+export function call_cmd_by_path(obj) {
 
-  env.callCmdByPath = ( target_path ) => {
+  obj.callCmdByPath = ( target_path ) => {
       var arr = target_path.split("->");
       if (arr.length != 2) {
         //console.error("btn: cmd arr length not 2!",arr );

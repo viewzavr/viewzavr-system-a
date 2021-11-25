@@ -36,7 +36,9 @@ export function create( vz, opts )
        return;
     }
     
-    remove_subscription = subscribe_to_many( o,["gui-added","gui-removed", "gui-visible-changed"], delayed(update) );
+    remove_subscription = subscribe_to_many( o,["gui-added","gui-removed", "gui-visible-changed"], () => {
+        delayed(update) 
+      });
 
     let except = (obj.params.except || "").trim().split(/\s+/);
     let only = (obj.params.only || "").trim(); //.split(/\s+/);
@@ -306,7 +308,7 @@ function init_param_guis(vz) {
 
       return g;
       
-    });    
+    });
 
     add( "combo", function( editor, rec, o ) {
       let t = vz.createObjByType("text",{parent:editor});

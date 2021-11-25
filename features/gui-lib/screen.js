@@ -72,11 +72,16 @@ export function create( vz, opts )
   return obj;
 }
 
+export function auto_activate(env) {
+  env.activate();
+}
 
 export function setup( vz ) {
 
   vz.addItemType( "screen","GUI: screen", function( opts ) {
     return create( vz, opts );
   }, {guiAddItems: true, guiAddItemsCrit: "gui"} );
+
+  vz.register_feature("auto_activate",auto_activate);
 
 }
