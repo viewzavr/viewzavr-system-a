@@ -69,11 +69,16 @@ export function create( vz, opts )
     obj.callCmdByPath(cmd);
   })
 
+  obj.emit("screen-screated");
+
   return obj;
 }
 
 export function auto_activate(env) {
-  env.activate();
+  if (env.activate)
+    env.activate();
+  else
+    env.on('screen-screated', () => env.activate() )
 }
 
 export function setup( vz ) {

@@ -37,7 +37,7 @@ export function create( vz, opts )
     }
     
     remove_subscription = subscribe_to_many( o,["gui-added","gui-removed", "gui-visible-changed"], () => {
-        delayed(update) 
+        update();
       });
 
     let except = (obj.params.except || "").trim().split(/\s+/);
@@ -48,8 +48,8 @@ export function create( vz, opts )
 
     if (names.length == 0) {
       let t2 = vz.createObjByType("text",{parent:obj});
-       t2.setParam("text","no parameters");
-       return; 
+      t2.setParam("text","no parameters");
+      return; 
     }
 
     for (let name of names) {
