@@ -113,6 +113,15 @@ Item {
         enabled: (shower.currentObj && shower.currentObj != vzroot && shower.currentObj.ismanual())
       }
 
+      Button {
+        text: "Отладка"
+        onClicked: {
+          var obj = shower.currentObj;
+          console.log( obj );
+          debugger;                                                                           
+        } 
+      }      
+
 /*
       Button {
         text: "Выше"

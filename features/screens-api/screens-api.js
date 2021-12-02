@@ -11,7 +11,10 @@ export function screens_api( env ) {
   // вообще идея конечно, а можно ли как-то стандартно в параметры записывать функции для чтения значения?
   // ну или, надо писать параметр active_screen:tree .... и линковать с нашим vzPlayer.params["scene"]
 
-  env.trackParam( "active_screen",(v) => {
+  env.onvalue( "active_screen",(v) => {
+    console.log("screens-api: onvalue",v)
+
+    if (current == v) return;
     
     if (current) {
       if (current.hasOwnProperty("visible"))
@@ -28,9 +31,9 @@ export function screens_api( env ) {
       if (current.setParam)
         current.setParam("visible",true);
     }
-  } )
+  } );
 
-  env.setParam("active_screen");
+  //env.setParam("active_screen");
 
   // странный хак
   /*

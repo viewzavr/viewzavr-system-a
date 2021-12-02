@@ -4,4 +4,4 @@ enabled.js
 load-file.js
 screens-api/screens-api.js
 screens-api/switch_to_editor_link.js
-gui-lib/list.txt
+# gui-lib/list.txt
