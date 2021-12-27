@@ -129,6 +129,7 @@ vz.chain("create_obj", function( obj, opts ) {
 
   // пишет в хеш объект
   function write_to_hash(obj) {
+    //console.log("write_to_hash",obj);
      var strpos = JSON.stringify( obj );
      //strpos = encodeURIComponent( strpos );
      strpos = strpos.replace(/ /g, "%20");
