@@ -23,6 +23,8 @@ export function screens_api( env ) {
         current.setParam("visible",false);
     }
 
+    env.setParam("prev_screen",current);
+
     current = v || qmlEngine.rootObject.editor;
 
     if (current) {

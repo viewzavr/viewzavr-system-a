@@ -10,10 +10,19 @@ export function switch_to_editor_link( env ) {
       a.appendChild(linkText);
       a.title = "goto editor";
       a.href = "#";
+      var prev_screen;
       a.addEventListener("click",() => {
          //qmlEngine.rootObject.setActiveScreen( qmlEngine.rootObject.editor );
          //var cur = env.getParam( "active_screen");
-         env.setParam("active_screen",null,true);
+         // env.setParam("active_screen",null,true);
+
+         var cur = env.getParam( "active_screen");
+         if (!cur && prev_screen) // текущий экран пуст, но есть значение предыдущего экрана
+            env.setParam("active_screen",prev_screen,true); // вернуться в экран
+         else
+            env.setParam("active_screen",null,true);
+         prev_screen = cur;
+
       });
       a.style.cssText = "position:absolute; right: 5px; bottom: 5px; z-index: 100000;"
       document.body.appendChild(a);
@@ -32,7 +41,7 @@ export function switch_to_editor_kbd( env ) {
  env.feature("screens-api");
  var prev_screen;
  document.addEventListener('keydown', function(e) {
-    if ( e.ctrlKey && ( String.fromCharCode(e.which) === 'b' || String.fromCharCode(e.which) === 'B' ) ) {
+    if ( e.ctrlKey && ( String.fromCharCode(e.which) === 'm' || String.fromCharCode(e.which) === 'M' ) ) {
        var cur = env.getParam( "active_screen");
        if (!cur && prev_screen) // текущий экран пуст, но есть значение предыдущего экрана
          env.setParam("active_screen",prev_screen,true); // вернуться в экран
