@@ -110,8 +110,10 @@ export function create( vz, qmlEngine ) {
           else
             resolv( mod );
         }
-        else
+        else {
+          // todo = тут надо выставить что setup-а не случилось. Чтобы загрузчики могли это понимать.
           resolv( mod );
+        }
       });
     });
   }
