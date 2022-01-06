@@ -12,10 +12,12 @@ export function screens_api( env ) {
   // ну или, надо писать параметр active_screen:tree .... и линковать с нашим vzPlayer.params["scene"]
 
   env.onvalue( "active_screen",(v) => {
-    console.log("screens-api: onvalue",v)
-
+    //console.log("screens-api: onvalue",v)
     if (current == v) return;
-    
+    env.activateScreen( v );
+  } );
+
+  env.activateScreen = function(screen_obj) {
     if (current) {
       if (current.hasOwnProperty("visible"))
         current.visible = false;
@@ -25,7 +27,7 @@ export function screens_api( env ) {
 
     env.setParam("prev_screen",current);
 
-    current = v || qmlEngine.rootObject.editor;
+    current = screen_obj || qmlEngine.rootObject.editor;
 
     if (current) {
       if (current.hasOwnProperty("visible"))
@@ -33,7 +35,9 @@ export function screens_api( env ) {
       if (current.setParam)
         current.setParam("visible",true);
     }
-  } );
+
+    env.setParam("active_screen",screen_obj,true); // запомним
+  }
 
   //env.setParam("active_screen");
 
