@@ -20,8 +20,8 @@ import formatSrc from "./format-src.js";
 // qmlEngine - движок qmlweb с инициализироввным вьюлангом на нем (пока так)
 export function create( vz, qmlEngine ) {
   var dir = import.meta.url.substr( 0, import.meta.url.lastIndexOf("/") );
-  qmlEngine.loadFile( dir + "/qmlweb-ui3/scene2.vl" );
-  //qmlEngine.loadFile( dir + "/qmlweb-ui3/scene3.vl" );
+  //qmlEngine.loadFile( dir + "/qmlweb-ui3/scene2.vl" );
+  qmlEngine.loadFile( dir + "/qmlweb-ui3/scene3.vl" );
 
   var p = vz.createObj();
   p.qmlEngine = qmlEngine;
