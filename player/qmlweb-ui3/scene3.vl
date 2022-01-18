@@ -1,0 +1,17 @@
+// в целом пустой qml - на пути отказа от qml в проекте vrungel
+
+Item {
+  id: my
+  anchors.fill: parent
+
+  property var vzroot
+  property var adder_target: vzroot
+  property var special_objects
+
+  property alias scene3d: scene3da
+  Item {
+    id: scene3da
+    property var cameraCenter
+    property var cameraPosReal
+  }  
+}

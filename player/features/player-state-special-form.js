@@ -47,6 +47,7 @@ export default function setup( player ) {
     //////////////////////////////////////////////////////////
 
   // перед тем как загружать children-ов мы загрузим свои пакеты
+  // @optimize remove
   player.vz.chain( "createChildrenByDump", function( dump, obj, ...rest )
   {
     var p = dump.packages || {};
