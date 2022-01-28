@@ -15,10 +15,13 @@ function setup_obj(x) {
   var _getParam = x.getParam;
   var _removeParam = x.removeParam;
 
-  x.setParam = function(name,value, ...rest) {
+  x.setParam = function(name,value,ismanual) {
     //console.log("hasher see setParam call",name,value);
-    if (!x.getParamOption(name,"internal")) player.scheduleSaveToHash( x );
-    return _setParam( name, value, ...rest );
+    if (!x.getParamOption(name,"internal")) 
+      if (ismanual)
+          player.scheduleSaveToHash( x );
+
+    return _setParam( name, value, ismanual );
   }
 
   x.removeParam = function(name) {
