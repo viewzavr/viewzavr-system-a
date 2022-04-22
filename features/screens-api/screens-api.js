@@ -12,7 +12,7 @@ export function screens_api( env ) {
   // ну или, надо писать параметр active_screen:tree .... и линковать с нашим vzPlayer.params["scene"]
 
   env.onvalue( "active_screen",(v) => {
-    console.log("screens-api: onvalue",v)
+    //console.log("screens-api: onvalue",v)
     if (current == v) return;
     env.activateScreen( v );
   } );

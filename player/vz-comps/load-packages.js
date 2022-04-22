@@ -7,7 +7,7 @@ export function create( vz, opts ) {
 
   obj.addFile("packages-urls","",function(v) {
     if (v) {
-      console.log("packages-url triggered --->",v);
+      //console.log("packages-url triggered --->",v);
       p = vzPlayer.loadPackage(v);
     }
   });
