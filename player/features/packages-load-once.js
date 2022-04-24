@@ -6,6 +6,7 @@ export function setup( x ) {
 
   var orig1 = x.loadPackage;
   x.loadPackage = function( path ) {
+
     // если это не строка - разбираемся отдельно, потом сюда же вернутся
     if (typeof(path) !== 'string')
       return orig1( path );
