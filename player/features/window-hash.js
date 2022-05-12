@@ -11,11 +11,11 @@ export default function setup( vz, player ) {
 
 function setup_obj(x) {
 
-  var _setParam = x.setParam;
+  var _setParam = x.setParamWithoutEvents;
   var _getParam = x.getParam;
   var _removeParam = x.removeParam;
 
-  x.setParam = function(name,value,ismanual) {
+  x.setParamWithoutEvents = function(name,value,ismanual) {
     //console.log("hasher see setParam call",name,value);
     if (!x.getParamOption(name,"internal")) 
       if (ismanual)
