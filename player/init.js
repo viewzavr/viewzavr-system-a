@@ -77,7 +77,7 @@ export function create( vz, qmlEngine ) {
         return response.text();
         })
       .then((data) => {
-        console.warn("loaded txt:",data);
+        //console.warn("loaded txt:",data);
         var dir = url.substr( 0, url.lastIndexOf("/") ) + "/";
         var things_to_load = data.split("\n")
              .map( l => l.split("#")[0].trim() ) // # комментарии
